@@ -1,9 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+/* eslint-disable import/default */
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+import React from 'react';
+import { render } from 'react-dom';
+import { Router, browserHistory } from 'react-router';
+import routes from './routes';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import './styles.scss';
+import 'font-awesome/css/font-awesome.css';
+import 'flexboxgrid/css/flexboxgrid.css';
+
+injectTapEventPlugin();
+
+render(
+    <Router routes={routes} history={browserHistory} />, document.getElementById('root')
 );
+
+
