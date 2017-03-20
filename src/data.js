@@ -1,8 +1,9 @@
 import React from 'react';
-import Assessment from 'material-ui/svg-icons/action/assessment';
-import GridOn from 'material-ui/svg-icons/image/grid-on';
-import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
-import Web from 'material-ui/svg-icons/av/web';
+import HomeIcon from 'material-ui/svg-icons/action/home';
+import PersonIcon from 'material-ui/svg-icons/social/person';
+import SearchIcon from 'material-ui/svg-icons/action/search';
+import EventIcon from 'material-ui/svg-icons/action/event';
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import {cyan600, pink600, purple600} from 'material-ui/styles/colors';
 import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
@@ -10,10 +11,11 @@ import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 
 const data = {
   menus: [
-    { text: 'DashBoard', icon: <Assessment/>, link: '/dashboard' },
-    { text: 'Form Page', icon: <Web/>, link: '/form' },
-    { text: 'Table Page', icon: <GridOn/>, link: '/table' },
-    { text: 'Login Page', icon: <PermIdentity/>, link: '/login' }
+    { text: 'My Events', icon: <HomeIcon/>, link: '/dashboard' },
+    { text: 'My Profile', icon: <PersonIcon/>, link: '/form' },
+    { text: 'Book Ice Time', icon: <EventIcon/>, link: '/table' },
+    { text: 'Join a Game', icon: <SearchIcon/>, link: '/table' },
+    { text: 'Admin', icon: <SettingsIcon/>, link: '/login' }
   ],
   tablePage: {
     items: [

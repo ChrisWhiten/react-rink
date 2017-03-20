@@ -1,0 +1,19 @@
+.date-picker-icon {
+	display: inline-block;
+	vertical-align: middle;
+	padding-right: 0.3em;
+}
+
+.date-picker-svg {
+	fill: #444 !important;
+	fill-opacity: 0.7;
+	transform: scale(0.9);
+}
+
+.date-picker-svg:hover {
+	fill-opacity: 1;
+}
+
+.date-picker-icon:hover {
+	cursor: pointer;
+}

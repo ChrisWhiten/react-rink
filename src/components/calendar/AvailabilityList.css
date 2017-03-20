@@ -1,0 +1,29 @@
+.availability-list {
+}
+
+.availability-list .internal-container {
+}
+
+.availability-list .internal-container .list {
+}
+
+.availability-list .internal-container .list .booking {
+  border-top: 1px solid #ddd;
+  opacity: 0.7;
+}
+
+.availability-list .internal-container .list .booking:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.availability-list .internal-container .list .booking .time {
+  width: 5em;
+  display: inline-block;
+  background: #D3D3D3;
+  padding: .3em;
+}
+
+.availability-list .internal-container .list .booking  .booking-detail {
+  padding-left: .5em;
+}

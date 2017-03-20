@@ -4,7 +4,7 @@ import App from './containers/App';
 import NotFoundPage from './containers/NotFoundPage.js';
 import LoginPage from './containers/LoginPage';
 import FormPage from './containers/FormPage';
-import TablePage from './containers/TablePage';
+import BookingPage from './containers/BookingPage';
 import Dashboard from './containers/DashboardPage';
 
 export default (
@@ -14,7 +14,7 @@ export default (
       <IndexRoute component={Dashboard}/>
       <Route path="dashboard" component={Dashboard}/>
       <Route path="form" component={FormPage}/>
-      <Route path="table" component={TablePage}/>
+      <Route path="booking" component={BookingPage}/>
       <Route path="*" component={NotFoundPage}/>
     </Route>
   </Route>
