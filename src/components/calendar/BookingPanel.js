@@ -100,7 +100,7 @@ class BookingPanel extends React.Component {
 
 BookingPanel.propTypes = {
   booking: PropTypes.object,
-  onRequestClose: PropTypes.function,
+  onRequestClose: PropTypes.func,
 };
 
 export default BookingPanel;
