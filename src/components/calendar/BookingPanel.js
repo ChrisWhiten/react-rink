@@ -3,6 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Close from 'material-ui/svg-icons/navigation/close';
+import Divider from 'material-ui/Divider';
 import moment from 'moment';
 
 import './BookingPanel.css';
@@ -65,6 +66,7 @@ class BookingPanel extends React.Component {
           <div className='time'>
             {`${moment(booking.time).format('h:mm a')} on ${moment(booking.time).format('dddd, MMM Do YYYY')}`}
           </div>
+          <Divider style={{width: '100%'}}/>
           <div className='duration'>
             <DropDownMenu value={this.state.durationValue} onChange={this._handleDurationChange.bind(this)} style={styles.duration}>
               <MenuItem value={60} primaryText='1 hour' />

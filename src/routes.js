@@ -6,6 +6,7 @@ import LoginPage from './containers/LoginPage';
 import FormPage from './containers/FormPage';
 import BookingPage from './containers/BookingPage';
 import Dashboard from './containers/DashboardPage';
+import SearchPage from './containers/SearchPage';
 
 export default (
   <Route>
@@ -15,6 +16,7 @@ export default (
       <Route path="dashboard" component={Dashboard}/>
       <Route path="form" component={FormPage}/>
       <Route path="booking" component={BookingPage}/>
+      <Route path="join" component={SearchPage}/>
       <Route path="*" component={NotFoundPage}/>
     </Route>
   </Route>

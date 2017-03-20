@@ -13,8 +13,8 @@ const data = {
   menus: [
     { text: 'My Events', icon: <HomeIcon/>, link: '/dashboard' },
     { text: 'My Profile', icon: <PersonIcon/>, link: '/form' },
-    { text: 'Book Ice Time', icon: <EventIcon/>, link: '/table' },
-    { text: 'Join a Game', icon: <SearchIcon/>, link: '/table' },
+    { text: 'Book Ice Time', icon: <EventIcon/>, link: '/booking' },
+    { text: 'Join a Game', icon: <SearchIcon/>, link: '/join' },
     { text: 'Admin', icon: <SettingsIcon/>, link: '/login' }
   ],
   tablePage: {
