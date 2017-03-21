@@ -1,4 +1,4 @@
-import EventIcon from 'material-ui/svg-icons/action/event';
+import Schedule from 'material-ui/svg-icons/action/schedule';
 import React from 'react';
 
 import './Timeline.css';
@@ -14,15 +14,18 @@ class Timeline extends React.Component {
   }
 
   render() {
-    const events = [{
-      datetime: new Date(),
-      host: 'Chris',
-      id: 'asbadfs',
-    }, {
-      datetime: new Date(),
-      host: 'Wayne',
-      id: 'weofij',
-    },
+    // TODO:
+    // - date splitter
+    const events = [
+      {
+        datetime: new Date(),
+        host: 'Chris',
+        id: 'asbadfs',
+      }, {
+        datetime: new Date(),
+        host: 'Wayne',
+        id: 'weofij',
+      },
     ];
 
     return (
@@ -30,16 +33,64 @@ class Timeline extends React.Component {
         {
           events.map(e => {
             return (
-              <div key={e.id} className='timeline-item'>
-                <p>{e.datetime.toString()}</p>
-                <p>{e.host}</p>
+              <div key={`row-${e.id}`} className='timeline-row'>
+                <div key={`icon-${e.id}`} className='event-icon'>
+                    <Schedule className='event-icon-svg' />
+                </div>
+                <div key={e.id} className='timeline-item'>
+                  <p>{e.datetime.toString()}</p>
+                  <p>{e.host}</p>
+                </div>
               </div>
             )
           })
         }
+        {
+          events.length > 0 &&
+          <div key='row-close' className='timeline-row'>
+            <div key='icon-close' className='event-icon close'>
+              <Schedule className='event-icon-svg' />
+            </div>
+          </div>
+        }
       </div>
     );
   }
+
+  // render() {
+  //   // TODO:
+  //   // - date splitter
+  //   // - end clock (grayed out)
+  //   const events = [
+  //     {
+  //       datetime: new Date(),
+  //       host: 'Chris',
+  //       id: 'asbadfs',
+  //     }, {
+  //       datetime: new Date(),
+  //       host: 'Wayne',
+  //       id: 'weofij',
+  //     },
+  //   ];
+
+  //   return (
+  //     <div className='timeline'>
+  //       {
+  //         events.map(e => {
+  //           return (
+  //             <div key={e.id} className='timeline-item'>
+  //               <div key={`icon-${e.id}`} className='event-icon'>
+  //                 <Schedule className='event-icon-svg' />
+  //               </div>
+  //               <p>{e.datetime.toString()}</p>
+  //               <p>{e.host}</p>
+  //             </div>
+  //           )
+  //         })
+  //       }
+  //     </div>
+  //   );
+  // }
 }
 
 export default Timeline;
