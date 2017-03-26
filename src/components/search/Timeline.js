@@ -1,5 +1,7 @@
 import Schedule from 'material-ui/svg-icons/action/schedule';
 import React from 'react';
+import TimelineCard from './TimelineCard';
+import api from '../../data/api';
 
 import './Timeline.css';
 
@@ -18,7 +20,7 @@ class Timeline extends React.Component {
       return (
         <div key={`row-${timelineItem.id}`} className='timeline-row'>
           <div key={timelineItem.id} className='timeline-header'>
-            <p>{timelineItem.value}</p>
+            <p className='date-label'>{timelineItem.value}</p>
           </div>
         </div>
       );
@@ -30,8 +32,7 @@ class Timeline extends React.Component {
             <Schedule className='event-icon-svg' />
           </div>
           <div key={timelineItem.id} className='timeline-item'>
-            <p>{timelineItem.value.datetime.toString()}</p>
-            <p>{timelineItem.value.host}</p>
+            <TimelineCard event={timelineItem.value} />
           </div>
         </div>
       );
@@ -39,27 +40,9 @@ class Timeline extends React.Component {
   }
 
   render() {
-    const today = new Date();
-    let yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    let lastHour = today;
-    lastHour.setHours(lastHour.getHours() - 1);
-
-    const events = [
-      {
-        datetime: today,
-        host: 'Chris',
-        id: 'asbadfs',
-      }, {
-        datetime: lastHour,
-        host: 'Jim',
-        id: 'ojiefw',
-      }, {
-        datetime: yesterday,
-        host: 'Wayne',
-        id: 'weofij',
-      },
-    ];
+    const start = new Date();
+    const end = new Date();
+    const events = api.getAvailableEvents(start, end);
 
     events.sort((a, b) => {
       return a.datetime - b.datetime;

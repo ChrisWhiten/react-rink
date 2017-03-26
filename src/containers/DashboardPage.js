@@ -4,13 +4,11 @@ import Work from 'material-ui/svg-icons/action/work';
 import TurnedIn from 'material-ui/svg-icons/action/turned-in';
 import UpcomingBox from '../components/dashboard/UpcomingBox';
 import globalStyles from '../styles';
+import api from '../data/api';
 
 const DashboardPage = () => {
-  const upcomingParticipations = [];
-  const upcomingOrganized = [{
-    title: 'foo',
-    details: 'bar',
-  }];
+  const upcomingParticipations = api.getUpcomingParticipations();
+  const upcomingOrganized = api.getUpcomingOrganized();
 
   return (
     <div>

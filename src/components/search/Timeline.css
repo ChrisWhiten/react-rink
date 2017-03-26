@@ -1,12 +1,14 @@
 .timeline {
 	position: relative;
+	border: 1px solid #aaa;
+	padding-bottom: 2em;
 }
 
 .timeline::before {
 	/* this should create the gray sidebar for the timeline*/
 	content: '';
 	top: 0px;
-	bottom: 0px;
+	bottom: 5px;
 	width: 5px;
 	background: #ddd;
 	left: 30px;
@@ -22,11 +24,36 @@
 }
 
 .timeline-header {
-	padding: 5px;
+	padding: 2px;
+	line-height: 1px;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 	border-radius: 4px;
 	background-color: #f56954;
 	color: #f9f9f9;
+	width: 10em;
+	margin-bottom: 1em;
+	margin-top: 1em;
+	position: relative;
+	left: -20px;
+}
+
+.date-label {
+	padding-left: 1em;
+}
+
+.timeline-header:after {
+	position: absolute;
+	content: '';
+	top: 100%;
+	left: 0;
+	background-color: transparent !important;
+	border-style: solid;
+	border-width: 0 1.2em 1.2em 0;
+	border-color: transparent;
+	border-right-color: inherit;
+	width: 0;
+	height: 0;
+	color: #6b1306;
 }
 
 .timeline-item {
