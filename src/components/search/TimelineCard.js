@@ -75,7 +75,9 @@ class TimelineCard extends React.Component {
       //<RaisedButton label="Disabled" disabled={true} style={style} />
       return (
           <div className='join-event-button'>
-            <RaisedButton label="Owned" disabled={true} />
+            <span className='action-button'>
+              <RaisedButton label="Owned" disabled={true} />
+            </span>
           </div>
         );
     } else {
@@ -83,15 +85,21 @@ class TimelineCard extends React.Component {
         // skater and goalie
         return (
           <div className='join-event-button'>
-            <RaisedButton label={`Join as Skater($${event.pricePerSkater})`} primary={true} />
-            <RaisedButton label={`Join as Goalie($${event.pricePerGoalie})`} primary={true} />
+            <span className='action-button'>
+              <RaisedButton label={`Join as Skater($${event.pricePerSkater})`} primary={true} />
+            </span>
+            <span className='action-button'>
+              <RaisedButton label={`Join as Goalie($${event.pricePerGoalie})`} primary={true} />
+            </span>
           </div>
         );
       } else {
         // just skater
         return (
           <div className='join-event-button'>
-            <RaisedButton label={`Join ($${event.pricePerSkater})`} primary={true} />
+            <span className='action-button'>
+              <RaisedButton label={`Join ($${event.pricePerSkater})`} primary={true} />
+            </span>
           </div>
         );
       }

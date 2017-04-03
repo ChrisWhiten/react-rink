@@ -59,7 +59,7 @@
 .timeline-item {
 	margin-left: 60px;
 	margin-right: 15px;
-	border: 1px solid #aaa;
+	/*border: 1px solid #aaa;*/
 }
 
 .timeline-row .event-icon {
@@ -89,4 +89,41 @@
 
 .timeline-row .event-icon.close .event-icon-svg {
 	fill: #666 !important;
+}
+
+.timeline-card .timeline-card-header {
+	color: #555;
+	font-size: 14px;
+}
+
+.timeline-card .timeline-card-content {
+	margin: 1em;
+	color: #555;
+	font-size: 14px;
+}
+
+.timeline-card .timeline-card-content .per-skater {
+	padding: .1em;
+}
+
+.timeline-card .timeline-card-content .skill-level {
+	padding: .1em;
+}
+
+.timeline-card .timeline-card-content .genders {
+	padding: .1em;
+}
+
+.timeline-card .timeline-card-content .join-event-button {
+	padding-top: 2em;
+	padding-bottom: 1em;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	flex-flow: row wrap;
+}
+
+.timeline-card .timeline-card-content .join-event-button .action-button {
+	margin-right: 1em;
+	margin-top: 1em;
 }
