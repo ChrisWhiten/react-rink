@@ -1,7 +1,7 @@
 import React,  { PropTypes } from 'react';
 import Drawer from 'material-ui/Drawer';
 import {spacing, typography} from 'material-ui/styles';
-import {white, blue600} from 'material-ui/styles/colors';
+import {blue600} from 'material-ui/styles/colors';
 import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router';
 import Avatar from 'material-ui/Avatar';
@@ -10,6 +10,9 @@ const LeftDrawer = (props) => {
   let { navDrawerOpen } = props;
 
   const styles = {
+    drawer: {
+      backgroundColor: '#f9f9f9',
+    },
     logo: {
       cursor: 'pointer',
       fontSize: 22,
@@ -21,7 +24,7 @@ const LeftDrawer = (props) => {
       height: 56,
     },
     menuItem: {
-      color: white,
+      color: '#555',
       fontSize: 14
     },
     avatar: {
@@ -49,7 +52,8 @@ const LeftDrawer = (props) => {
   return (
     <Drawer
       docked={true}
-      open={navDrawerOpen}>
+      open={navDrawerOpen}
+      containerStyle={styles.drawer}>
         <div style={styles.logo}>
           Material Admin
         </div>
