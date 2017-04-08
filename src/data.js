@@ -12,7 +12,7 @@ import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 const data = {
   menus: [
     { text: 'My Events', icon: <HomeIcon/>, link: '/dashboard' },
-    { text: 'My Profile', icon: <PersonIcon/>, link: '/form' },
+    { text: 'My Profile', icon: <PersonIcon/>, link: '/profile' },
     { text: 'Book Ice Time', icon: <EventIcon/>, link: '/booking' },
     { text: 'Join a Game', icon: <SearchIcon/>, link: '/join' },
     { text: 'Admin', icon: <SettingsIcon/>, link: '/login' }

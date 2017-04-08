@@ -85,41 +85,6 @@ class Timeline extends React.Component {
       </div>
     );
   }
-
-  // render() {
-  //   // TODO:
-  //   // - date splitter
-  //   // - end clock (grayed out)
-  //   const events = [
-  //     {
-  //       datetime: new Date(),
-  //       host: 'Chris',
-  //       id: 'asbadfs',
-  //     }, {
-  //       datetime: new Date(),
-  //       host: 'Wayne',
-  //       id: 'weofij',
-  //     },
-  //   ];
-
-  //   return (
-  //     <div className='timeline'>
-  //       {
-  //         events.map(e => {
-  //           return (
-  //             <div key={e.id} className='timeline-item'>
-  //               <div key={`icon-${e.id}`} className='event-icon'>
-  //                 <Schedule className='event-icon-svg' />
-  //               </div>
-  //               <p>{e.datetime.toString()}</p>
-  //               <p>{e.host}</p>
-  //             </div>
-  //           )
-  //         })
-  //       }
-  //     </div>
-  //   );
-  // }
 }
 
 export default Timeline;

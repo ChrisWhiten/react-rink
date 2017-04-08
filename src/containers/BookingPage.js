@@ -30,7 +30,7 @@ const BookingPage = () => {
               navigation="OneRink / Book Ice Time">
 
       <div>
-        <Link to="/form" >
+        <Link to="/profile" >
           <FloatingActionButton style={styles.floatingActionButton}  iconStyle={{backgroundColor: pink500}}>
             <ContentAdd />
           </FloatingActionButton>
