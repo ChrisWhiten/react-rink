@@ -126,9 +126,9 @@ const ProfilePage = () => {
           floatingLabelText="Gender"
           value={1}
           fullWidth={false}>
+          <MenuItem key={2} primaryText=''/>
           <MenuItem key={0} primaryText='Male'/>
           <MenuItem key={1} primaryText='Female'/>
-          <MenuItem key={2} primaryText=''/>
         </SelectField>
       </Paper>
 
@@ -141,7 +141,7 @@ const ProfilePage = () => {
         <TextField floatingLabelText='TODO: add positions to list' />
         <TextField floatingLabelText='TODO: should we assign arenas?' />
         <TextField floatingLabelText='TODO: add positions to list' />
-        <TextField floatingLabelText='TODO: invite me to events' />
+        <Toggle label='Invite me to events' />
       </Paper>
 
       <Paper style={globalStyles.paper}>

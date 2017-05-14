@@ -31,18 +31,46 @@
 	fill-opacity: 1;
 }
 
+.booking-panel .booking-button .booking-raised-button {
+	margin: 5px;
+	max-width: 440px; /* container is 450px */
+	min-width: 440px !important;
+}
+
+.booking-panel .booking-button .booking-raised-button .booking-subtotal {
+	color: white;
+	border-right: 1px solid #fff;
+	padding-right: .7em;
+	margin-right: .7em;
+}
+
+.booking-panel .booking-button .booking-raised-button .booking-text {
+	color: white;
+}
+
 .booking-panel .content .time {
 	display: flex;
-	align-self: center;
+	align-self: flex-start;
 	font-weight: 300;
-	/*border-bottom: 1px solid #eee;*/
+	margin-bottom: .5em;
 }
 
 .booking-panel .content .duration {
 	display: flex;
-	/*width: 100%;*/
+}
+
+.booking-panel .content .duration .duration-dropdown > div > div {
+	padding-left: 0 !important;
 }
 
 .booking-panel .content .event-type {
 	display: flex;
+}
+
+.booking-panel .content .event-type .type-dropdown > div > div {
+	padding-left: 0 !important;
+}
+
+.booking-panel .content .terms {
+	margin-top: .5em;
 }

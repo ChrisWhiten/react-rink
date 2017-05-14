@@ -27,3 +27,8 @@
 .availability-list .internal-container .list .booking  .booking-detail {
   padding-left: .5em;
 }
+
+.booking-dialog > div > div > div:first-of-type {
+	border-top-left-radius: 6px !important;
+	border-top-right-radius: 6px !important;
+}

@@ -68,14 +68,14 @@ class BookingPanel extends React.Component {
           </div>
           <Divider style={{width: '100%'}}/>
           <div className='duration'>
-            <DropDownMenu value={this.state.durationValue} onChange={this._handleDurationChange.bind(this)} style={styles.duration}>
+            <DropDownMenu className='duration-dropdown' value={this.state.durationValue} onChange={this._handleDurationChange.bind(this)} style={styles.duration}>
               <MenuItem value={60} primaryText='1 hour' />
               <MenuItem value={90} primaryText='1.5 hours' />
               <MenuItem value={120} primaryText='2 hours' />
             </DropDownMenu>
           </div>
           <div className='event-type'>
-            <DropDownMenu value={this.state.eventTypeValue} onChange={this._handleEventTypeChange.bind(this)}>
+            <DropDownMenu className='type-dropdown' value={this.state.eventTypeValue} onChange={this._handleEventTypeChange.bind(this)}>
               <MenuItem value='adult_pickup' primaryText='Adult pickup hockey' />
               <MenuItem value='adult_organized' primaryText='Adult organized hockey' />
               <MenuItem value='minor_hockey' primaryText='Minor Hockey' />
@@ -89,11 +89,17 @@ class BookingPanel extends React.Component {
         </div>
         <div className='booking-button'>
           <RaisedButton
+            className='booking-raised-button'
             primary={true}
             fullWidth={true}
-            label={`Rent Ice ($162.50)`}
-            backgroundColor='#3c8dbc'
-          />
+            backgroundColor='#3c8dbc'>
+            <span className='booking-subtotal'>
+              $162
+            </span>
+            <span className='booking-text'>
+              Book
+            </span>
+          </RaisedButton>
         </div>
       </div>
     );

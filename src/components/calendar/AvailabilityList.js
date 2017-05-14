@@ -35,21 +35,10 @@ class AvailabilityList extends React.Component {
     let foo = {
       padding: 0,
       margin: 0,
-      borderRadiusTopLeft: '4px',
-      borderRadiusTopRight: '4px',
-      borderRadius: '4px',
       maxWidth: '450px',
-    };
-    let bar = {
-      borderRadiusTopLeft: '4px',
-      borderRadiusTopRight: '4px',
-      borderRadius: '4px',
     };
 
     let baz = {
-      borderRadiusTopLeft: '4px',
-      borderRadiusTopRight: '4px',
-      borderRadius: '4px',
       maxWidth: '450px',
     };
 
@@ -75,11 +64,9 @@ class AvailabilityList extends React.Component {
           </div>
         </div>
         <Dialog
+          className='booking-dialog'
           bodyStyle={foo}
           contentStyle={baz}
-          style={bar}
-          overlayStyle={bar}
-          actionsContainerStyle={bar}
           modal={true}
           open={this.state.open}
           onRequestClose={this._handleClose.bind(this)}

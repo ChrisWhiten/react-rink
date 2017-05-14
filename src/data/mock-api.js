@@ -15,6 +15,21 @@ let bookings = [{
 let organized = [{
     title: 'foo',
     details: 'bar',
+    type: 'Adult Pickup Hockey',
+    organizer: 'John Smith',
+    duration: '60 minutes',
+    venue: 'RA Centre',
+    venueCity: 'Ottawa',
+    time: new Date() + (1000 * 60 * 60 * 24 * 1),
+  }, {
+    title: 'baz',
+    details: 'bad',
+    type: 'Figure Skating',
+    organizer: 'Mark Hamill',
+    duration: '120 minutes',
+    venue: 'Community Center',
+    venueCity: 'Smiths Falls',
+    time: new Date() + (1000 * 60 * 60 * 24 * 5),
   }];
 
 let upcoming = [];
