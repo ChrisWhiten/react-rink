@@ -13,6 +13,7 @@ let bookings = [{
   }];
 
 let organized = [{
+    id: 'this-is-an-id',
     title: 'foo',
     details: 'bar',
     type: 'Adult Pickup Hockey',
@@ -22,6 +23,7 @@ let organized = [{
     venueCity: 'Ottawa',
     time: new Date() + (1000 * 60 * 60 * 24 * 1),
   }, {
+    id: 'another-id',
     title: 'baz',
     details: 'bad',
     type: 'Figure Skating',
@@ -104,6 +106,20 @@ const endpoints = {
   getAvailableEvents: (start, end) => {
     return availableEvents;
   },
+
+  getBooking: (id) => {
+    const eventFromOrganized = organized.filter(e => e.id === id);
+    if (eventFromOrganized.length === 1) {
+      return eventFromOrganized[0];
+    }
+
+    const eventFromAvailable = availableEvents.filter(e => e.id === id);
+    if (eventFromAvailable.length === 1) {
+      return eventFromAvailable[0];
+    }
+
+    return null;
+  }
 };
 
 export default endpoints;

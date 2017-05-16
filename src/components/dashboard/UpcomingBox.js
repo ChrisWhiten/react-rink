@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import {Link} from 'react-router';
 import moment from 'moment';
 
 import './UpcomingBox.css';
@@ -12,8 +13,8 @@ class UpcomingBox extends React.Component {
       return (
         events.map(e => {
           return (
-            <div className='rendered-container'>
-              <p>
+            <Link key={`link-${e.id}`} to={`/events/${e.id}`} style={{textDecoration: 'none'}}>
+              <div className='rendered-container'>
                 <div className='upcoming-box-event-container'>
                   <h4 className='upcoming-box-location'>
                     { `${e.venue} - ${e.venueCity}` }
@@ -33,33 +34,12 @@ class UpcomingBox extends React.Component {
                     { e.duration }
                   </div>
                 </div>
-              </p>
-            </div>
+              </div>
+            </Link>
           );
         })
       );
     }
-    // if (cameraList.length > 0) {
-    //   return (
-    //     cameraList.filter(cam => {
-    //       return cam.location === location.id;
-    //     }).map(mapObj => {
-    //       mapObj.camObj.location = location;
-    //       const camId = ObjectProcessor.GetCameraDeviceIdCombo(mapObj.camObj);
-
-    //       return (
-    //         <CameraItem
-    //           key={mapObj.camObj.id}
-    //           s3={this.props.s3}
-    //           s3BucketPrefix={this.props.s3BucketPrefix}
-    //           camera={mapObj.camObj}
-    //           active={this.state.playList.hasOwnProperty(camId)}
-    //           mini={this.props.mini}
-    //           playLive={this.state.isLive} />
-    //       );
-    //     })
-    //   );
-    // }
   }
 
   render() {

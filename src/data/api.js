@@ -8,6 +8,10 @@ const endpoints = {
     return api.getBookings(start, end);
   },
 
+  getBookingById: (id) => {
+    return api.getBooking(id);
+  },
+
   getUpcomingOrganized: () => {
     return api.getUpcomingOrganized();
   },
