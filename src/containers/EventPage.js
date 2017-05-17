@@ -2,6 +2,7 @@ import React from 'react';
 
 import PageBase from '../components/PageBase';
 import EventDetail from '../components/event/EventDetail';
+import ParticipantList from '../components/event/ParticipantList';
 import api from '../data/api';
 
 import './EventPage.css';
@@ -13,9 +14,9 @@ const EventPage = (props) => {
     <PageBase title="Event"
               navigation="OneRink / Event">
 
-      <div>
-        {props.params.eventId}
+      <div className='event-page-container'>
         <EventDetail event={booking} />
+        <ParticipantList event={booking} />
       </div>
     </PageBase>
   );

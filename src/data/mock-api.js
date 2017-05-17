@@ -22,6 +22,13 @@ let organized = [{
     venue: 'RA Centre',
     venueCity: 'Ottawa',
     time: new Date() + (1000 * 60 * 60 * 24 * 1),
+    participants: [{
+      id: 'odjfi',
+      name: 'Sherlock Holmes',
+    }, {
+      id: 'oijojioji',
+      name: 'Iron Man',
+    }]
   }, {
     id: 'another-id',
     title: 'baz',
