@@ -12,7 +12,7 @@ class ParticipantItem extends React.Component {
     return (
       <Link key={`link-${participant.id}`} to={`/users/${participant.id}`} style={{textDecoration: 'none'}}>
         <div className='participant-item-container'>
-          {JSON.stringify(participant)}
+          {participant.name}
         </div>
       </Link>
     );

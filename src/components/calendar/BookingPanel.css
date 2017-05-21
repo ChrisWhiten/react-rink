@@ -16,6 +16,7 @@
 	/*align-items: center;*/
 	align-items: flex-start;
 	padding: 1em;
+	background-color: rgb(245, 245, 245) !important;
 }
 
 .booking-panel .cancel {
@@ -35,6 +36,10 @@
 	margin: 5px;
 	max-width: 440px; /* container is 450px */
 	min-width: 440px !important;
+}
+
+.booking-panel .booking-button {
+	background-color: rgb(245, 245, 245) !important;
 }
 
 .booking-panel .booking-button .booking-raised-button .booking-subtotal {
@@ -57,6 +62,11 @@
 
 .booking-panel .content .duration {
 	display: flex;
+	width: 100%;
+}
+
+.booking-panel .content .duration .duration-dropdown {
+	width: 100% !important;
 }
 
 .booking-panel .content .duration .duration-dropdown > div > div {
@@ -65,6 +75,11 @@
 
 .booking-panel .content .event-type {
 	display: flex;
+	width: 100%;
+}
+
+.booking-panel .content .event-type .type-dropdown {
+	width: 100% !important;
 }
 
 .booking-panel .content .event-type .type-dropdown > div > div {

@@ -2,16 +2,15 @@ import React from 'react';
 
 import PageBase from '../components/PageBase';
 import Timeline from '../components/search/Timeline';
+import TimelineFilter from '../components/search/TimelineFilter';
 
 const SearchPage = () => {
   return (
-    <PageBase title="Join Ice time"
-              navigation="OneRink / Join Ice Time">
 
       <div>
+      	<TimelineFilter />
         <Timeline />
       </div>
-    </PageBase>
   );
 };
 

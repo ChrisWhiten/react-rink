@@ -1,0 +1,40 @@
+.event-type-filter {
+	display: inline-flex;
+	user-select: none;
+}
+
+.filter-selector {
+	display: flex;
+	padding-right: 0.5em;
+	line-height: 1em;
+	align-items: center;
+	color: #767676;
+	border-radius: 4px;
+}
+
+.filter-selector:hover {
+	background-color: #F2F2F2;
+	cursor: pointer;
+}
+
+.filter-selector.active {
+	background-color: #F2F2F2;
+}
+
+.filter-title {
+	padding-right: 0.5em;
+	display: flex;
+	margin: 0.5em;
+}
+
+.chevron {
+	display: inline-flex;
+	transform: rotate(270deg);
+	vertical-align: middle;
+
+	transition: transform 250ms ease-in-out;
+}
+
+.chevron.active {
+	transform: rotate(90deg);
+}
