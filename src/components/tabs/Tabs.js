@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {Link} from 'react-router';
 import {Tabs as MaterialTabs, Tab} from 'material-ui/Tabs';
 import HomeIcon from 'material-ui/svg-icons/action/home';
@@ -10,8 +10,6 @@ import './Tabs.css';
 class Tabs extends React.Component {
 
   render() {
-    const {participant} = this.props;
-
     return (
       <div className='tab-container'>
         <MaterialTabs>
@@ -32,17 +30,8 @@ class Tabs extends React.Component {
           />
         </MaterialTabs>
       </div>
-      // <Link key={`link-${participant.id}`} to={`/users/${participant.id}`} style={{textDecoration: 'none'}}>
-      //   <div className='participant-item-container'>
-      //     {participant.name}
-      //   </div>
-      // </Link>
     );
   }
 }
-
-Tabs.propTypes = {
-  participant: PropTypes.object,
-};
 
 export default Tabs;

@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import classNames from 'classnames';
 
@@ -15,9 +15,10 @@ class EventFilter extends React.Component {
   }
 
   _filterClicked() {
-    this.setState({
-      selected: !this.state.selected,
-    });
+    this.props.handleClick(this.props.filter);
+    // this.setState({
+    //   selected: !this.state.selected,
+    // });
   }
 
   render() {
@@ -30,14 +31,14 @@ class EventFilter extends React.Component {
     const selectorClass = classNames(
       'filter-selector',
       {
-        active: this.state.selected,
+        active: this.props.active,
       },
     );
 
     const chevronClass = classNames(
       'chevron',
       {
-        active: this.state.selected,
+        active: this.props.active,
       }
     );
 
@@ -57,8 +58,5 @@ class EventFilter extends React.Component {
     );
   }
 }
-
-EventFilter.propTypes = {
-};
 
 export default EventFilter;

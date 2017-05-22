@@ -11,9 +11,7 @@ const EventPage = (props) => {
   const booking = api.getBookingById(props.params.eventId);
   console.log(booking);
   return (
-    <PageBase title="Event"
-              navigation="OneRink / Event">
-
+    <PageBase>
       <div className='event-page-container'>
         <EventDetail event={booking} />
         <ParticipantList event={booking} />

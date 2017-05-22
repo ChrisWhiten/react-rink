@@ -2,10 +2,8 @@ import React, { PropTypes } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../components/Header';
 import Tabs from '../components/tabs/Tabs';
-import LeftDrawer from '../components/LeftDrawer';
-import withWidth, {LARGE, SMALL} from 'material-ui/utils/withWidth';
+import withWidth, {LARGE} from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
-import Data from '../data';
 
 class App extends React.Component {
 
@@ -29,15 +27,11 @@ class App extends React.Component {
   }
 
   render() {
-    let { navDrawerOpen } = this.state;
-    const paddingLeftDrawerOpen = 236;
-
     const styles = {
       header: {
         paddingLeft:  0
       },
       container: {
-        // margin: '80px 20px 20px 15px',
         paddingLeft:  0
       }
     };

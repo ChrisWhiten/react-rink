@@ -2,7 +2,6 @@ import React from 'react';
 import Work from 'material-ui/svg-icons/action/work';
 import TurnedIn from 'material-ui/svg-icons/action/turned-in';
 import UpcomingBox from '../components/dashboard/UpcomingBox';
-import globalStyles from '../styles';
 import api from '../data/api';
 
 import './DashboardPage.css';
