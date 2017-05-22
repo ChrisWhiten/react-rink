@@ -117,7 +117,7 @@ class TimelineCard extends React.Component {
             </div>
             <div className='timeline-card-time'>
               <Schedule className='timeline-card-time-svg' />
-              {`${moment(event.datetime).format('h:mm a')} - ${moment(new Date(event.datetime )).add(event.duration, 'm').format('h:mm a')}`}
+              {`${moment(event.datetime).format('h:mm a')} - ${moment(new Date(event.datetime)).add(event.duration, 'm').format('h:mm a')}`}
             </div>
           </div>
           <Divider />

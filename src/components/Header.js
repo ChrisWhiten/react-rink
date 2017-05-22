@@ -1,12 +1,15 @@
 import React, {PropTypes} from 'react';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import {white} from 'material-ui/styles/colors';
 import SearchBox from './SearchBox';
+import AccountCircle from 'material-ui/svg-icons/action/account-circle';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import {Link} from 'react-router';
+
+import './Header.css';
 
 class Header extends React.Component {
 
@@ -32,26 +35,19 @@ class Header extends React.Component {
         <div>
             <AppBar
               style={{...styles, ...style.appBar}}
-              title={
-                <SearchBox />
-              }
-              iconElementLeft={
-                  <IconButton style={style.menuButton} onClick={handleChangeRequestNavDrawer}>
-                    <Menu color={white} />
-                  </IconButton>
-              }
+              showMenuIconButton={false}
               iconElementRight={
-                <div style={style.iconsRightContainer}>
-                  <IconMenu color={white}
-                            iconButtonElement={
-                              <IconButton><MoreVertIcon color={white}/></IconButton>
-                            }
-                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                  >
-                    <MenuItem primaryText="Sign out"/>
-                  </IconMenu>
-                </div>
+                <IconMenu
+                  iconButtonElement={<div className='account-circle'><AccountCircle color='white' /></div>}
+                  anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                  targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                >
+                  <MenuItem 
+                    primaryText="Edit Profile" 
+                    containerElement={<Link to='/profile' />}
+                  />
+                  <MenuItem primaryText="Log Out" />
+                </IconMenu>
               }
             />
           </div>

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../components/Header';
+import Tabs from '../components/tabs/Tabs';
 import LeftDrawer from '../components/LeftDrawer';
 import withWidth, {LARGE, SMALL} from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
@@ -33,11 +34,11 @@ class App extends React.Component {
 
     const styles = {
       header: {
-        paddingLeft: navDrawerOpen ? paddingLeftDrawerOpen : 0
+        paddingLeft:  0
       },
       container: {
-        margin: '80px 20px 20px 15px',
-        paddingLeft: navDrawerOpen && this.props.width !== SMALL ? paddingLeftDrawerOpen : 0
+        // margin: '80px 20px 20px 15px',
+        paddingLeft:  0
       }
     };
 
@@ -47,10 +48,7 @@ class App extends React.Component {
           <Header styles={styles.header}
                   handleChangeRequestNavDrawer={this.handleChangeRequestNavDrawer.bind(this)}/>
 
-            <LeftDrawer navDrawerOpen={navDrawerOpen}
-                        menus={Data.menus}
-                        username="User Admin"/>
-
+            <Tabs />
             <div style={styles.container}>
               {this.props.children}
             </div>

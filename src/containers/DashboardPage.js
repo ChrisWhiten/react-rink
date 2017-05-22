@@ -13,8 +13,6 @@ const DashboardPage = () => {
 
   return (
     <div>
-      <h3 style={globalStyles.navigation}>OneRink</h3>
-
       <div className="row">
 
         <div className="responsive-box">
