@@ -1,0 +1,38 @@
+.date-picker-icon {
+	display: inline-block;
+	vertical-align: middle;
+	padding-right: 0.3em;
+}
+
+.join-date-picker-svg {
+	fill: #444 !important;
+	fill-opacity: 0.7;
+	transform: scale(0.9);
+}
+
+.join-date-picker-svg:hover {
+	fill-opacity: 1;
+}
+
+.join-date-picker-icon:hover {
+	cursor: pointer;
+}
+
+.join-date-picker {
+	border: 1px solid #aaa;
+	display: inline-flex;
+	align-items: center;
+	padding-left: .5em;
+}
+
+.join-date-picker > div > div {
+	width: auto !important;
+}
+
+.join-date-picker > div > div > div > hr {
+	display: none;
+}
+
+.join-date-picker > div > div > div {
+	color: rgb(72, 72, 72) !important; /* "Anytime" text */
+}

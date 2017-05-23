@@ -32,6 +32,9 @@ class Header extends React.Component {
             <AppBar
               style={{...styles, ...style.appBar}}
               showMenuIconButton={false}
+              title={
+                <div style={{marginLeft: '.5em'}}>ONERINK</div>
+              }
               iconElementRight={
                 <IconMenu
                   iconButtonElement={<div className='account-circle'><AccountCircle color='white' /></div>}

@@ -1,6 +1,7 @@
+import React from 'react';
+import moment from 'moment';
 import {default as MaterialDatePicker} from 'material-ui/DatePicker';
 import EventIcon from 'material-ui/svg-icons/action/event';
-import React from 'react';
 
 import './DatePicker.css';
 
@@ -9,12 +10,20 @@ class DatePicker extends React.Component {
     super();
 
     this.state = {
-      open: false,
+      date: null,
     };
   }
 
-  _handleDatePickerOpen() {
+   _handleDatePickerOpen() {
     this.refs.datePicker.openDialog();
+  }
+
+  _formatDate(date) {
+    if (!date) {
+      return 'Anytime';
+    } else {
+      return `${moment(date).format('MMM Do, YYYY')} (and onwards)`;
+    }
   }
 
   render() {
@@ -25,19 +34,18 @@ class DatePicker extends React.Component {
     };
 
     return (
-      <div className='date-picker'>
-        <div className='date-picker-icon'>
+      <div className='join-date-picker'>
+        <div className='join-date-picker-icon'>
           <EventIcon className='date-picker-svg' onTouchTap={this._handleDatePickerOpen.bind(this)}/>
         </div>
         <MaterialDatePicker
           ref='datePicker'
-          floatingLabelText='Select a Date'
+          hintText='Anytime'
           autoOk={true}
           minDate={new Date()}
-          maxDate={new Date(2020, 0, 0, 0, 0, 0, 0)}
-          defaultDate={new Date()}
+          maxDate={new Date(2050, 0, 0, 0, 0, 0, 0)}
           disableYearSelection={false}
-          formatDate={date => date.toDateString()}
+          formatDate={this._formatDate.bind(this, new Date(this.state.date))}
           style={styles.datePicker}
         />
     </div>
