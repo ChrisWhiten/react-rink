@@ -21,20 +21,20 @@ class DatePicker extends React.Component {
     const styles = {
       datePicker: {
         display: 'inline-block',
+        height: '42px',
       },
     };
 
     return (
-      <div className='date-picker'>
+      <div className='date-picker' onTouchTap={this._handleDatePickerOpen.bind(this)}>
         <div className='date-picker-icon'>
           <EventIcon className='date-picker-svg' onTouchTap={this._handleDatePickerOpen.bind(this)}/>
         </div>
         <MaterialDatePicker
           ref='datePicker'
-          floatingLabelText='Select a Date'
           autoOk={true}
           minDate={new Date()}
-          maxDate={new Date(2020, 0, 0, 0, 0, 0, 0)}
+          maxDate={new Date(2050, 0, 0, 0, 0, 0, 0)}
           defaultDate={new Date()}
           disableYearSelection={false}
           formatDate={date => date.toDateString()}
