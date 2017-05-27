@@ -1,13 +1,17 @@
 .location-picker {
 	display: inline-flex;
 	color: rgb(72, 72, 72);
-	height: 50px;
+	height: 44px;
 	align-items: center;
+}
+
+.location-picker:hover {
+	cursor: pointer;
 }
 
 .location-target {
 	border: 1px solid #aaa;
-	height: 50px;
+	height: 44px;
 	width: 200px;
 	padding-left: .5em;
 	display: flex;

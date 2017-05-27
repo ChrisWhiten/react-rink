@@ -1,4 +1,4 @@
-.date-picker-icon {
+.join-date-picker-icon {
 	display: inline-block;
 	vertical-align: middle;
 	padding-right: 0.3em;
@@ -16,6 +16,8 @@
 
 .join-date-picker-icon:hover {
 	cursor: pointer;
+	padding-right: 0.3em;
+	vertical-align: middle;
 }
 
 .join-date-picker {
@@ -23,10 +25,19 @@
 	display: inline-flex;
 	align-items: center;
 	padding-left: .5em;
+	width: 200px;
+}
+
+.join-date-picker:hover {
+	cursor: pointer;
 }
 
 .join-date-picker > div > div {
 	width: auto !important;
+	height: 42px !important;
+	font-family: inherit !important;
+	line-height: inherit !important;
+	cursor: inherit !important;
 }
 
 .join-date-picker > div > div > div > hr {

@@ -4,10 +4,15 @@ import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router';
+import locale from '../localization/locale';
 
 import './Header.css';
 
 class Header extends React.Component {
+  constructor() {
+    super();
+    this.locale = locale.getLocale();
+  }
 
   render() {
     const {styles} = this.props;
@@ -19,12 +24,6 @@ class Header extends React.Component {
         overflow: 'hidden',
         maxHeight: 57
       },
-      menuButton: {
-        marginLeft: 10
-      },
-      iconsRightContainer: {
-        marginLeft: 20
-      }
     };
 
     return (
@@ -33,7 +32,7 @@ class Header extends React.Component {
               style={{...styles, ...style.appBar}}
               showMenuIconButton={false}
               title={
-                <div style={{marginLeft: '.5em'}}>ONERINK</div>
+                <div style={{marginLeft: '.5em'}}>{this.locale.general.title}</div>
               }
               iconElementRight={
                 <IconMenu
@@ -42,10 +41,10 @@ class Header extends React.Component {
                   targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
                 >
                   <MenuItem 
-                    primaryText="Edit Profile" 
+                    primaryText={`${this.locale.general.editProfile}`}
                     containerElement={<Link to='/profile' />}
                   />
-                  <MenuItem primaryText="Log Out" />
+                  <MenuItem primaryText={`${this.locale.general.logout}`} />
                 </IconMenu>
               }
             />
@@ -56,7 +55,6 @@ class Header extends React.Component {
 
 Header.propTypes = {
   styles: PropTypes.object,
-  handleChangeRequestNavDrawer: PropTypes.func
 };
 
 export default Header;

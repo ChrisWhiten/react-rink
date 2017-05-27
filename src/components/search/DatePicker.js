@@ -30,11 +30,12 @@ class DatePicker extends React.Component {
     const styles = {
       datePicker: {
         display: 'inline-block',
+        height: '42px',
       },
     };
 
     return (
-      <div className='join-date-picker'>
+      <div className='join-date-picker' onTouchTap={this._handleDatePickerOpen.bind(this)}>
         <div className='join-date-picker-icon'>
           <EventIcon className='date-picker-svg' onTouchTap={this._handleDatePickerOpen.bind(this)}/>
         </div>
