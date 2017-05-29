@@ -1,7 +1,7 @@
 .timeline-card {
   width: 45%;
   min-width: 350px;
-  margin: .25em 1em 0 1em;
+  margin: .25em 1em 1em 0;
   display: inline-block;
 }
 

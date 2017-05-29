@@ -60,6 +60,11 @@
 	margin-right: 15px;
 }
 
+.timeline-row-content {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 .timeline-row .event-icon {
 	width: 30px;
 	height: 30px;

@@ -2,7 +2,7 @@ module.exports = {
   locale: 'du',
   name: 'Dummy',
   general: {
-    title: 'TEST SITE',
+    title: 'TestSite',
     editProfile: 'Edit Profile',
     logout: 'Log Out',
     myEvents: 'MY EVENTS',

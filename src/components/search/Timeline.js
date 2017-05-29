@@ -15,20 +15,22 @@ class Timeline extends React.Component {
   }
 
   _generateTimelineRow(timelineItem) {
-    if (timelineItem.type === 'date') {
-      return (
-        <div key={`row-${timelineItem.id}`} className='timeline-row'>
-          <div key={timelineItem.id} className='timeline-header'>
-            <h3 className='date-label'>{timelineItem.value}</h3>
-          </div>
+    return (
+      <div key={`row-${timelineItem.id}`} className='timeline-row'>
+        <div key={timelineItem.id} className='timeline-header'>
+          <h3 className='date-label'>
+            {timelineItem.date}
+          </h3>
         </div>
-      );
-    } else {
-      // type === 'event'
-      return (
-        <TimelineCard event={timelineItem.value} key={timelineItem.id} /> 
-      );
-    }
+        <div className='timeline-row-content'>
+          {
+            timelineItem.events.map(t => {
+              return <TimelineCard event={t.value} key={t.id} />;
+            })
+          }
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -41,23 +43,30 @@ class Timeline extends React.Component {
     });
 
     let timelineItems = [];
-    let currentDate = new Date(-8640000000000000) // earliest possible date :)
+    let currentDate = new Date(-8640000000000000); // earliest possible date :)
+    let currentGroup = null;
     events.forEach(e => {
       if (e.datetime.toDateString() !== currentDate.toDateString()) {
         currentDate = e.datetime;
-        timelineItems.push({
-          type: 'date',
-          value: currentDate.toDateString(),
+        if (currentGroup) {
+          timelineItems.push(currentGroup);
+        }
+        currentGroup = {
+          date: currentDate.toDateString(),
           id: `date-${currentDate.toDateString()}`,
-        });
+          events: [],
+        };
       }
 
-      timelineItems.push({
-        type: 'event',
+      currentGroup.events.push({
         value: e,
         id: `timeline-event-${e.id}`,
       });
     });
+
+    if (currentGroup) {
+      timelineItems.push(currentGroup);
+    }
 
     return (
       <div className='timeline'>
