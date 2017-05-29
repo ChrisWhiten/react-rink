@@ -11,11 +11,19 @@ class DatePicker extends React.Component {
 
     this.state = {
       date: null,
+      dateText: 'Anytime',
     };
   }
 
    _handleDatePickerOpen() {
     this.refs.datePicker.openDialog();
+  }
+
+  _handleDatePickerChange(nil, d) {
+    this.setState({
+      date: d,
+      dateText: moment(d).format('MMM Do, YYYY'),
+    });
   }
 
   _formatDate(date) {
@@ -27,29 +35,28 @@ class DatePicker extends React.Component {
   }
 
   render() {
-    const styles = {
-      datePicker: {
-        display: 'inline-block',
-        height: '42px',
-      },
-    };
-
     return (
-      <div className='join-date-picker' onTouchTap={this._handleDatePickerOpen.bind(this)}>
-        <div className='join-date-picker-icon'>
-          <EventIcon className='date-picker-svg' onTouchTap={this._handleDatePickerOpen.bind(this)}/>
+      <span>
+      <div className='search-date-picker' onTouchTap={this._handleDatePickerOpen.bind(this)}>
+        <div className='date-picker-target'>
+          <div className='search-date-picker-icon'>
+            <EventIcon className='search-date-picker-svg' />
+          </div>
+          <p>
+            {this.state.dateText}
+          </p>
         </div>
-        <MaterialDatePicker
-          ref='datePicker'
-          hintText='Anytime'
-          autoOk={true}
-          minDate={new Date()}
-          maxDate={new Date(2050, 0, 0, 0, 0, 0, 0)}
-          disableYearSelection={false}
-          formatDate={this._formatDate.bind(this, new Date(this.state.date))}
-          style={styles.datePicker}
-        />
-    </div>
+      </div>
+      <MaterialDatePicker
+        style={{display: 'none'}}
+        ref='datePicker'
+        autoOk={true}
+        minDate={new Date()}
+        maxDate={new Date(2050, 0, 0, 0, 0, 0, 0)}
+        disableYearSelection={false}
+        onChange={this._handleDatePickerChange.bind(this)}
+      />
+    </span>
     );
   }
 }

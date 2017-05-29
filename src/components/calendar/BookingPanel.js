@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Close from 'material-ui/svg-icons/navigation/close';
 import Divider from 'material-ui/Divider';
 import moment from 'moment';
+import SelectField from 'material-ui/SelectField';
 
 import './BookingPanel.css';
 
@@ -50,12 +50,6 @@ class BookingPanel extends React.Component {
   render() {
     const { booking } = this.props;
 
-    const styles = {
-      duration: {
-        width: '300px',
-      },
-    };
-
     return (
       <div className='booking-panel'>
         <div className='header'>
@@ -67,22 +61,19 @@ class BookingPanel extends React.Component {
             {`${moment(booking.time).format('h:mm a')} on ${moment(booking.time).format('dddd, MMM Do YYYY')}`}
           </div>
           <Divider style={{width: '100%'}}/>
-          <div className='duration'>
-            <DropDownMenu className='duration-dropdown' autoWidth={false} value={this.state.durationValue} onChange={this._handleDurationChange.bind(this)} style={styles.duration}>
-              <MenuItem value={60} primaryText='1 hour' />
-              <MenuItem value={90} primaryText='1.5 hours' />
-              <MenuItem value={120} primaryText='2 hours' />
-            </DropDownMenu>
-          </div>
-          <div className='event-type'>
-            <DropDownMenu className='type-dropdown' autoWidth={false} value={this.state.eventTypeValue} onChange={this._handleEventTypeChange.bind(this)}>
-              <MenuItem value='adult_pickup' primaryText='Adult pickup hockey' />
-              <MenuItem value='adult_organized' primaryText='Adult organized hockey' />
-              <MenuItem value='minor_hockey' primaryText='Minor Hockey' />
-              <MenuItem value='skating' primaryText='Skating' />
-              <MenuItem value='other' primaryText='Other' />
-            </DropDownMenu>
-          </div>
+          <SelectField floatingLabelText='Duration' value={this.state.durationValue} onChange={this._handleDurationChange.bind(this)}>
+            <MenuItem value={60} primaryText='1 hour' />
+            <MenuItem value={90} primaryText='1.5 hours' />
+            <MenuItem value={120} primaryText='2 hours' />
+          </SelectField>
+
+          <SelectField floatingLabelText='Event Type' value={this.state.eventTypeValue} onChange={this._handleEventTypeChange.bind(this)}>
+            <MenuItem value='adult_pickup' primaryText='Adult pickup hockey' />
+            <MenuItem value='adult_organized' primaryText='Adult organized hockey' />
+            <MenuItem value='minor_hockey' primaryText='Minor Hockey' />
+            <MenuItem value='skating' primaryText='Skating' />
+            <MenuItem value='other' primaryText='Other' />
+          </SelectField>
           <div className='terms'>
             By clicking "Rent Ice", you agree to the venue's terms.
           </div>

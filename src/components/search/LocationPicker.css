@@ -19,7 +19,7 @@
 }
 
 .location-icon {
-	display: inline-block;
+	display: inline-flex;
 	vertical-align: middle;
 	padding-right: 0.3em;
 }

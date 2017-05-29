@@ -1,49 +1,35 @@
-.join-date-picker-icon {
-	display: inline-block;
-	vertical-align: middle;
-	padding-right: 0.3em;
-}
-
-.join-date-picker-svg {
-	fill: #444 !important;
-	fill-opacity: 0.7;
-	transform: scale(0.9);
-}
-
-.join-date-picker-svg:hover {
-	fill-opacity: 1;
-}
-
-.join-date-picker-icon:hover {
-	cursor: pointer;
-	padding-right: 0.3em;
-	vertical-align: middle;
-}
-
-.join-date-picker {
-	border: 1px solid #aaa;
+.search-date-picker {
 	display: inline-flex;
+	color: rgb(72, 72, 72);
+	height: 44px;
 	align-items: center;
-	padding-left: .5em;
-	width: 200px;
 }
 
-.join-date-picker:hover {
+.search-date-picker:hover {
 	cursor: pointer;
 }
 
-.join-date-picker > div > div {
-	width: auto !important;
-	height: 42px !important;
-	font-family: inherit !important;
-	line-height: inherit !important;
-	cursor: inherit !important;
+.date-picker-target {
+	border: 1px solid #aaa;
+	height: 44px;
+	width: 200px;
+	padding-left: .5em;
+	display: flex;
+	align-items: center;
 }
 
-.join-date-picker > div > div > div > hr {
-	display: none;
+.search-date-picker-icon {
+	display: inline-flex;
+	vertical-align: middle;
+	padding-right: 0.3em;
 }
 
-.join-date-picker > div > div > div {
-	color: rgb(72, 72, 72) !important; /* "Anytime" text */
+.search-date-picker-svg {
+	fill: #444 !important;
+	transform: scale(0.9);
+	fill-opacity: 0.7;
+}
+
+.search-date-picker-svg:hover {
+	fill-opacity: 1;
 }

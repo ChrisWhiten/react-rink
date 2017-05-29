@@ -1,3 +1,9 @@
+.booking-panel {
+	box-sizing: border-box;
+	background-color: rgb(245, 245, 245);
+	border-radius: 4px;
+}
+
 .booking-panel .header {
 	background: #3c8dbc;
 	box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.2);
@@ -11,12 +17,14 @@
 }
 
 .booking-panel .content {
-	display: flex;
-	flex-direction: column;
-	/*align-items: center;*/
-	align-items: flex-start;
-	padding: 1em;
-	background-color: rgb(245, 245, 245) !important;
+	background-color: rgb(245, 245, 245);
+	border-color: #dcdcdc;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,.05), 0 1px 0 rgba(255,255,255,.1);
+	min-height: 20px;
+	padding: 19px;
+	border: 1px solid #e3e3e3;
+	border-radius: 4px;
+	box-sizing: border-box;
 }
 
 .booking-panel .cancel {
@@ -58,32 +66,6 @@
 	align-self: flex-start;
 	font-weight: 300;
 	margin-bottom: .5em;
-}
-
-.booking-panel .content .duration {
-	display: flex;
-	width: 100%;
-}
-
-.booking-panel .content .duration .duration-dropdown {
-	width: 100% !important;
-}
-
-.booking-panel .content .duration .duration-dropdown > div > div {
-	padding-left: 0 !important;
-}
-
-.booking-panel .content .event-type {
-	display: flex;
-	width: 100%;
-}
-
-.booking-panel .content .event-type .type-dropdown {
-	width: 100% !important;
-}
-
-.booking-panel .content .event-type .type-dropdown > div > div {
-	padding-left: 0 !important;
 }
 
 .booking-panel .content .terms {

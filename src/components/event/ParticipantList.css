@@ -20,7 +20,6 @@
 	padding-top: 20px;
 	padding-left: 10px;
 	padding-right: 10px;
-	font-family: 'Source Sans Pro', sans-serif;
 }
 
 .participant-list-content {
@@ -31,5 +30,4 @@
 	margin-bottom: .5em;
 	border-radius: 4px;
 	box-sizing: border-box;
-	font-family: 'Source Sans Pro', sans-serif;
 }
