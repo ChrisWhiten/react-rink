@@ -82,7 +82,7 @@ class TimelineCard extends React.Component {
       return (
           <div className='join-event-button'>
             <span className='action-button'>
-              <RaisedButton label={`${this.locale.events.owned}`} disabled={true} fullWidth={true} />
+              <RaisedButton label={`${this.locale.events.owned}`} disabled={true} />
             </span>
           </div>
         );
@@ -91,11 +91,11 @@ class TimelineCard extends React.Component {
         // skater and goalie
         return (
           <div className='join-event-button'>
-            <span className='action-button-half'>
-              <RaisedButton label={`${this.locale.events.joinAsSkater} ($${event.pricePerSkater})`} primary={true} fullWidth={true} />
+            <span className='action-button'>
+              <RaisedButton label={`${this.locale.events.joinAsSkater} ($${event.pricePerSkater})`} primary={true} />
             </span>
-            <span className='action-button-half'>
-              <RaisedButton label={`${this.locale.events.joinAsGoalie} ($${event.pricePerGoalie})`} primary={true} fullWidth={true} />
+            <span className='action-button'>
+              <RaisedButton label={`${this.locale.events.joinAsGoalie} ($${event.pricePerGoalie})`} primary={true} />
             </span>
           </div>
         );
@@ -104,7 +104,7 @@ class TimelineCard extends React.Component {
         return (
           <div className='join-event-button'>
             <span className='action-button'>
-              <RaisedButton label={`${this.locale.events.join} ($${event.pricePerSkater})`} primary={true} fullWidth={true} />
+              <RaisedButton label={`${this.locale.events.join} ($${event.pricePerSkater})`} primary={true} />
             </span>
           </div>
         );
@@ -119,9 +119,7 @@ class TimelineCard extends React.Component {
         <Paper zDepth={2} rounded={true}>
           <div className='timeline-card-header'>
             <div className='timeline-card-title'>
-              <h3>
-                {`${event.type} ${this.locale.events.hostedBy} ${event.host}`}
-              </h3>
+              {`${event.type} ${this.locale.events.hostedBy} ${event.host}`}
             </div>
             <div className='timeline-card-time'>
               <Schedule className='timeline-card-time-svg' />

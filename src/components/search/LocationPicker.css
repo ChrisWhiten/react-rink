@@ -37,3 +37,7 @@
 .location-icon:hover {
 	cursor: pointer;
 }
+
+.location-text {
+	font-weight: inherit;
+}

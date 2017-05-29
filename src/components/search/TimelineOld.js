@@ -1,3 +1,4 @@
+import Schedule from 'material-ui/svg-icons/action/schedule';
 import React from 'react';
 import TimelineCard from './TimelineCard';
 import api from '../../data/api';
@@ -19,14 +20,21 @@ class Timeline extends React.Component {
       return (
         <div key={`row-${timelineItem.id}`} className='timeline-row'>
           <div key={timelineItem.id} className='timeline-header'>
-            <h3 className='date-label'>{timelineItem.value}</h3>
+            <p className='date-label'>{timelineItem.value}</p>
           </div>
         </div>
       );
     } else {
       // type === 'event'
       return (
-        <TimelineCard event={timelineItem.value} key={timelineItem.id} /> 
+        <div key={`row-${timelineItem.id}`} className='timeline-row'>
+          <div key={`icon-${timelineItem.id}`} className='event-icon'>
+            <Schedule className='event-icon-svg' />
+          </div>
+          <div key={timelineItem.id} className='timeline-item'>
+            <TimelineCard event={timelineItem.value} />
+          </div>
+        </div>
       );
     }
   }
@@ -55,9 +63,9 @@ class Timeline extends React.Component {
       timelineItems.push({
         type: 'event',
         value: e,
-        id: `timeline-event-${e.id}`,
+        id: `event-${e.id}`,
       });
-    });
+    })
 
     return (
       <div className='timeline'>
@@ -65,6 +73,14 @@ class Timeline extends React.Component {
           timelineItems.map(e => {
             return this._generateTimelineRow(e)
           })
+        }
+        {
+          timelineItems.length > 0 &&
+          <div key='row-close' className='timeline-row'>
+            <div key='icon-close' className='event-icon close'>
+              <Schedule className='event-icon-svg' />
+            </div>
+          </div>
         }
       </div>
     );

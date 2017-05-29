@@ -32,7 +32,7 @@ class Header extends React.Component {
               style={{...styles, ...style.appBar}}
               showMenuIconButton={false}
               title={
-                <div style={{marginLeft: '.5em'}}>{this.locale.general.title}</div>
+                <h2 style={{marginLeft: '1em', marginTop: '0em'}}>{this.locale.general.title}</h2>
               }
               iconElementRight={
                 <IconMenu

@@ -5,7 +5,6 @@
 }
 
 .timeline::before {
-	display: none; /* i don't think i want this ui anymore */
 	/* this should create the gray sidebar for the timeline*/
 	content: '';
 	top: 0px;
@@ -22,22 +21,23 @@
 
 .timeline-row {
 	position: relative;
-	margin-left: 1em;
 }
 
 .timeline-header {
-	font-family: 'Source Sans Pro', sans-serif;
-	font-weight: 900;
+	padding: 2px;
 	line-height: 1px;
-	/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);*/
-	box-shadow: rgba(190, 38, 38, 0.5) 1px 3px 1px;
-	border-radius: 0px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+	border-radius: 4px;
 	background-color: #f56954;
 	color: #f9f9f9;
-	padding: .25em 1em .25em 1em;
-	display: inline-block;
-	margin-bottom: .5em;
+	width: 10em;
+	margin-bottom: 1em;
+	margin-top: 1em;
 	position: relative;
+}
+
+.date-label {
+	padding-left: 1em;
 }
 
 /*.timeline-header:after {
@@ -92,7 +92,7 @@
 .timeline-card .timeline-card-header {
 	color: #555;
 	font-size: 1em;
-	padding: 0 1em;
+	padding: 1em;
 }
 
 .timeline-card .timeline-card-content {
@@ -114,7 +114,7 @@
 }
 
 .timeline-card .timeline-card-content .join-event-button {
-	padding-top: 1em;
+	padding-top: 2em;
 	padding-bottom: 1em;
 	display: flex;
 	flex-direction: row;

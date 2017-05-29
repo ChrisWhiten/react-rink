@@ -47,7 +47,9 @@ class LocationPicker extends React.Component {
         	<div className='location-icon'>
         		<RoomIcon className='location-icon-svg' />
     		</div>
+        <h4 className='location-text'>
         	Anywhere
+        </h4>
         </div>
         <Dialog
           title='Pick locations'

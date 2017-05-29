@@ -22,9 +22,10 @@
 }
 
 .filter-title {
-	padding-right: 0.5em;
+	/*padding-right: 0.5em;*/
 	display: flex;
 	margin: 0.5em;
+	font-weight: inherit;
 }
 
 .chevron {

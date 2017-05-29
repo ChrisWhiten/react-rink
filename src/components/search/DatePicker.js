@@ -42,9 +42,9 @@ class DatePicker extends React.Component {
           <div className='search-date-picker-icon'>
             <EventIcon className='search-date-picker-svg' />
           </div>
-          <p>
+          <h4 className='date-text'>
             {this.state.dateText}
-          </p>
+          </h4>
         </div>
       </div>
       <MaterialDatePicker

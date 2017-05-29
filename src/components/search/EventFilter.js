@@ -45,9 +45,9 @@ class EventFilter extends React.Component {
     return (
       <div className='event-type-filter'>
         <div className={selectorClass} onClick={this._filterClicked.bind(this)}>
-          <p className='filter-title'>
+          <h4 className='filter-title'>
             {this.props.text}
-          </p>
+          </h4>
           <div className={chevronClass}>
             <ChevronLeft style={iconStyle} />
           </div>

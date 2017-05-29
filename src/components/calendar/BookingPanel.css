@@ -42,12 +42,14 @@
 
 .booking-panel .booking-button .booking-raised-button {
 	margin: 5px;
-	max-width: 440px; /* container is 450px */
-	min-width: 440px !important;
+	width: 95%;
 }
 
 .booking-panel .booking-button {
 	background-color: rgb(245, 245, 245) !important;
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 .booking-panel .booking-button .booking-raised-button .booking-subtotal {

@@ -33,3 +33,7 @@
 .search-date-picker-svg:hover {
 	fill-opacity: 1;
 }
+
+.date-text {
+	font-weight: inherit;
+}

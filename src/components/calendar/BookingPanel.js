@@ -82,7 +82,6 @@ class BookingPanel extends React.Component {
           <RaisedButton
             className='booking-raised-button'
             primary={true}
-            fullWidth={true}
             backgroundColor='#3c8dbc'>
             <span className='booking-subtotal'>
               $162

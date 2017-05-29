@@ -1,5 +1,5 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {blue600, grey900} from 'material-ui/styles/colors';
+import {blue600} from 'material-ui/styles/colors';
 
 const colour = blue600;
 // const colour = 'rgb(0, 132, 137)';
@@ -7,7 +7,8 @@ const themeDefault = getMuiTheme({
   fontFamily: 'Source Sans Pro, sans-serif',
   palette: {
     primary1Color: colour,
-    primary2Color: 'rgb(0, 132, 137)',
+    // primary2Color: 'rgb(0, 132, 137)',
+    primary2Color: colour,
     primary3Color: '#ffa000',
     // accent1Color: pinkA200,
     // accent2Color: grey100,
