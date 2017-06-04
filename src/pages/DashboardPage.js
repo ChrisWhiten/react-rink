@@ -8,10 +8,10 @@ import api from '../data/api';
 
 import './DashboardPage.css';
 
-const DashboardPage = () => {
+const DashboardPage = ({ declineInvitation, invitations }) => {
   const upcomingParticipations = api.getUpcomingParticipations();
   const upcomingOrganized = api.getUpcomingOrganized();
-  const invitations = api.getParticipationInvitations();
+  // const invitations = api.getParticipationInvitations();
 
   const notificationsClass = classNames(
     'notifications-bar',
@@ -23,7 +23,7 @@ const DashboardPage = () => {
   return (
     <div>
       <div className={notificationsClass}>
-        <InvitationsContainer invitations={invitations} />
+        <InvitationsContainer invitations={invitations} onDeclineInvitation={declineInvitation} />
       </div>
       <div className="row">
         <div className="responsive-box">

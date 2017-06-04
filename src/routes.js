@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './containers/App';
-import NotFoundPage from './containers/NotFoundPage.js';
-import LoginPage from './containers/LoginPage';
-import ProfilePage from './containers/ProfilePage';
-import BookingPage from './containers/BookingPage';
-import Dashboard from './containers/DashboardPage';
-import SearchPage from './containers/SearchPage';
-import EventPage from './containers/EventPage';
+import App from './pages/App';
+import NotFoundPage from './pages/NotFoundPage.js';
+import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
+import BookingPage from './pages/BookingPage';
+import Dashboard from './containers/DashboardContainer';
+import SearchPage from './pages/SearchPage';
+import EventPage from './pages/EventPage';
 
 export default (
   <Route>

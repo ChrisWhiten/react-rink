@@ -8,6 +8,7 @@ class Invitation extends React.Component {
 
   _declineInvitation() {
     console.log('decline', this.props.invite);
+    this.props.onDecline();
   }
 
   _acceptInvitation() {
@@ -36,6 +37,7 @@ class Invitation extends React.Component {
 
 Invitation.propTypes = {
   invite: PropTypes.object,
+  onDecline: PropTypes.func.isRequired,
 };
 
 export default Invitation;

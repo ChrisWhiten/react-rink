@@ -11,7 +11,7 @@ class InvitationsContainer extends React.Component {
     return (
       invitations.map(i => {
         return (
-          <Invitation key={`invite-${i.id}`} invite={i} />
+          <Invitation key={`invite-${i.id}`} invite={i} onDecline={() => this.props.onDeclineInvitation(i.id)} />
         );
       })
     );
@@ -41,6 +41,7 @@ class InvitationsContainer extends React.Component {
 
 InvitationsContainer.propTypes = {
   invitations: PropTypes.array,
+  onDeclineInvitation: PropTypes.func.isRequired,
 };
 
 export default InvitationsContainer;
