@@ -6,7 +6,6 @@ import withWidth from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
 
 class App extends React.Component {
-
   render() {
     const styles = {
       header: {
@@ -22,7 +21,7 @@ class App extends React.Component {
         <div>
           <Header styles={styles.header} />
 
-            <Tabs />
+            <Tabs location={this.props.location} />
             <div style={styles.container}>
               {this.props.children}
             </div>

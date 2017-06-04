@@ -1,0 +1,28 @@
+.invitation {
+	border-bottom: 1px solid #eee;
+	display: flex;
+	align-items: center;
+}
+
+.invitation:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+
+.invitation-time {
+	display: inline-flex;
+	color: teal;
+	margin: .5em;
+}
+
+.invitation-description {
+	display: inline-flex;
+}
+
+.accept-invitation-button {
+	margin: .25em .25em .25em auto;
+}
+
+.decline-invitation-button {
+	margin: .25em;
+}

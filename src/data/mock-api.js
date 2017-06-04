@@ -100,6 +100,28 @@ let availableEvents = [
   },
 ];
 
+let participationInvitations = [{
+  id: 'oifejw',
+  eventId: 'oijgreoijer',
+  datetime: new Date() + (1000 * 60 * 60 * 24 * 5),
+  venueId: 'jpofe',
+  venueName: 'SF Arena',
+  eventTypeName: 'Pickup hockey',
+  position: 'Skater',
+  inviter: 'Joe Smith',
+  price: 17.3
+}, {
+  id: 'iojriejoje',
+  eventId: 'fwwfwefwef',
+  datetime: new Date() + (1000 * 60 * 60 * 24),
+  venueId: 'fweef',
+  venueName: 'Test Center',
+  eventTypeName: 'Pickup hockey',
+  position: 'Skater',
+  inviter: 'Wayne Simmonds',
+  price: 11.75
+}];
+
 const endpoints = {
   getBookings: (start, end) => {
     return bookings;
@@ -115,6 +137,10 @@ const endpoints = {
 
   getAvailableEvents: (start, end) => {
     return availableEvents;
+  },
+
+  getParticipationInvitations: () => {
+    return participationInvitations;
   },
 
   getBooking: (id) => {

@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
 import {Link} from 'react-router';
 import locale from '../localization/locale';
 
@@ -36,7 +37,7 @@ class Header extends React.Component {
               }
               iconElementRight={
                 <IconMenu
-                  iconButtonElement={<div className='account-circle'><AccountCircle color='white' /></div>}
+                  iconButtonElement={<IconButton><div className='account-circle'><AccountCircle color='white' /></div></IconButton>}
                   anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                   targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
                 >

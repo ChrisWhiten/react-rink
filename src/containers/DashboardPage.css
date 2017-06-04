@@ -2,3 +2,12 @@
 	width: 50%;
 	min-width: 400px;
 }
+
+.notifications-bar {
+	display: none;
+}
+
+.notifications-bar.active {
+	display: flex;
+	margin-top: 1em;
+}

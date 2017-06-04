@@ -9,15 +9,28 @@ import locale from '../../localization/locale';
 import './Tabs.css';
 
 class Tabs extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.locale = locale.getLocale();
   }
   
   render() {
+    let selectedIndex = 0;
+    switch (this.props.location.pathname) {
+      case '/booking':
+        selectedIndex = 1;
+        break;
+      case '/join':
+        selectedIndex = 2;
+        break;
+      default:
+        selectedIndex = 0;
+        break;
+    }
+
     return (
       <div className='tab-container'>
-        <MaterialTabs>
+        <MaterialTabs initialSelectedIndex={selectedIndex}>
           <Tab
             icon={<HomeIcon/>}
             label={this.locale.general.myEvents}
