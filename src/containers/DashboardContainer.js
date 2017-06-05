@@ -22,6 +22,6 @@ const mapStateToProps = (state) => {
 const DashboardContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(DashboardPage)
+)(DashboardPage);
 
 export default DashboardContainer;

@@ -16,7 +16,7 @@ const DashboardPage = ({ declineInvitation, invitations }) => {
   const notificationsClass = classNames(
     'notifications-bar',
     {
-      active: invitations.length > 0,
+      active: invitations.items.length > 0 || invitations.isFetching,
     },
   );
 

@@ -140,7 +140,12 @@ const endpoints = {
   },
 
   getParticipationInvitations: () => {
-    return participationInvitations;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return resolve(participationInvitations);
+      }, 2000);
+      // return resolve(participationInvitations);
+    });
   },
 
   getBooking: (id) => {

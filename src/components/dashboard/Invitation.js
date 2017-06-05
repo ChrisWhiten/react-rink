@@ -7,7 +7,6 @@ import './Invitation.css';
 class Invitation extends React.Component {
 
   _declineInvitation() {
-    console.log('decline', this.props.invite);
     this.props.onDecline();
   }
 
@@ -16,6 +15,7 @@ class Invitation extends React.Component {
   }
 
   render() {
+    console.log('rendering..', this.props.invite);
     return (
       <div className='invitation'>
         <h3 className='invitation-time'>
