@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 import {Link} from 'react-router';
 import moment from 'moment';
 
@@ -61,8 +62,15 @@ class UpcomingBox extends React.Component {
         </div>
         {
           isFetching &&
-          <div>
-            Fetching...
+          <div style={{position: 'relative'}}>
+            <RefreshIndicator 
+              loadingColor={topColour} 
+              size={40}
+              left={-20} 
+              top={0} 
+              status='loading' 
+              style={{marginLeft: '50%', position: 'relative'}}
+            />
           </div>
         }
         {

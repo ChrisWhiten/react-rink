@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import Paper from 'material-ui/Paper';
 import NewReleases from 'material-ui/svg-icons/av/new-releases';
+import CircularProgress from 'material-ui/CircularProgress';
 import Invitation from './Invitation';
 
 import './InvitationsContainer.css';
@@ -24,8 +25,11 @@ class InvitationsContainer extends React.Component {
     }
 
     if (this.props.invitations.isFetching) {
+      
       return (
-        <div>fetching invitations...</div>
+        <div style={{position: 'relative', width: '100%'}}>
+          <CircularProgress style={{marginLeft: '50%', position: 'relative'}} />
+        </div>
       );
     } else {
       return (
