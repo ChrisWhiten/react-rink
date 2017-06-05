@@ -15,7 +15,6 @@ class Invitation extends React.Component {
   }
 
   render() {
-    console.log('rendering..', this.props.invite);
     return (
       <div className='invitation'>
         <h3 className='invitation-time'>

@@ -12,10 +12,10 @@ import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import {
 	fetchInvitations,
+	fetchUpcomingOrganized,
+	fetchUpcomingParticipations,
 } from './actions';
-import './styles.scss';
-import 'font-awesome/css/font-awesome.css';
-import 'flexboxgrid/css/flexboxgrid.css';
+// import './styles.scss';
 
 injectTapEventPlugin();
 
@@ -27,6 +27,8 @@ if (process.env.NODE_ENV !== 'production') {
 const store = createStore(reducer, applyMiddleware(...middleware));
 
 store.dispatch(fetchInvitations());
+store.dispatch(fetchUpcomingOrganized());
+store.dispatch(fetchUpcomingParticipations());
 
 render(
   <Provider store={store}>

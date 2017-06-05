@@ -43,7 +43,7 @@ class UpcomingBox extends React.Component {
   }
 
   render() {
-    const {title, Icon, topColour, upcomingEvents, emptyMessage} = this.props;
+    const {title, Icon, topColour, upcomingEvents, emptyMessage, isFetching} = this.props;
 
     const styles = {
       titleBar: {
@@ -59,9 +59,14 @@ class UpcomingBox extends React.Component {
             {title}
           </h3>
         </div>
-
         {
-          upcomingEvents.length === 0 &&
+          isFetching &&
+          <div>
+            Fetching...
+          </div>
+        }
+        {
+          !isFetching && upcomingEvents.length === 0 &&
           <div className='upcoming-box-empty-container'>
             <p className='upcoming-box-empty-message'>
               {emptyMessage}
@@ -71,7 +76,7 @@ class UpcomingBox extends React.Component {
         }
 
         {
-          upcomingEvents.length > 0 &&
+          !isFetching && upcomingEvents.length > 0 &&
           <div>
             { this._renderEvents(upcomingEvents) }
           </div>
@@ -87,6 +92,7 @@ UpcomingBox.propTypes = {
   topColour: PropTypes.string,
   upcomingEvents: PropTypes.array,
   emptyMessage: PropTypes.string,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 export default UpcomingBox;

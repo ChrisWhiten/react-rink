@@ -6,7 +6,6 @@ import {
   FETCHING_INVITATIONS_SUCCESS,
 } from '../constants/actionTypes';
 
-// const initialState = [];
 const initialState = {
   isFetching: false,
   items: [],

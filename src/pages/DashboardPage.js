@@ -4,15 +4,11 @@ import Work from 'material-ui/svg-icons/action/work';
 import TurnedIn from 'material-ui/svg-icons/action/turned-in';
 import UpcomingBox from '../components/dashboard/UpcomingBox';
 import InvitationsContainer from '../components/dashboard/InvitationsContainer';
-import api from '../data/api';
+// import api from '../data/api';
 
 import './DashboardPage.css';
 
-const DashboardPage = ({ declineInvitation, invitations }) => {
-  const upcomingParticipations = api.getUpcomingParticipations();
-  const upcomingOrganized = api.getUpcomingOrganized();
-  // const invitations = api.getParticipationInvitations();
-
+const DashboardPage = ({ declineInvitation, invitations, upcomingOrganized, upcomingParticipations }) => {
   const notificationsClass = classNames(
     'notifications-bar',
     {
@@ -30,8 +26,9 @@ const DashboardPage = ({ declineInvitation, invitations }) => {
           <UpcomingBox Icon={TurnedIn}
            title="Upcoming Games I'm Playing"
            topColour='red'
-           upcomingEvents={upcomingParticipations}
+           upcomingEvents={upcomingParticipations.items}
            emptyMessage='You have no upcoming events'
+           isFetching={upcomingParticipations.isFetching}
           />
         </div>
 
@@ -40,8 +37,9 @@ const DashboardPage = ({ declineInvitation, invitations }) => {
           <UpcomingBox Icon={Work}
              title="Upcoming Games I'm Organizing"
              topColour='#00c0ef'
-             upcomingEvents={upcomingOrganized}
+             upcomingEvents={upcomingOrganized.items}
              emptyMessage="You aren't organizing any events"
+             isFetching={upcomingOrganized.isFetching}
           />
         </div>
       </div>

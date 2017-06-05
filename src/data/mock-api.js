@@ -128,11 +128,19 @@ const endpoints = {
   },
 
   getUpcomingOrganized: () => {
-    return organized;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return resolve(organized);
+      }, 1500);
+    });
   },
 
   getUpcomingParticipations: () => {
-    return upcoming;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return resolve(upcoming);
+      }, 1750);
+    });
   },
 
   getAvailableEvents: (start, end) => {
@@ -144,7 +152,6 @@ const endpoints = {
       setTimeout(() => {
         return resolve(participationInvitations);
       }, 2000);
-      // return resolve(participationInvitations);
     });
   },
 

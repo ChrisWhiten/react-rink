@@ -8,7 +8,6 @@ import './InvitationsContainer.css';
 class InvitationsContainer extends React.Component {
 
   _renderInvitations(invitations) {
-    console.log('uh..', invitations);
     return (
       invitations.map(i => {
         return (
@@ -21,17 +20,14 @@ class InvitationsContainer extends React.Component {
   render() {
     // only render this if there are invitations to render
     if (!this.props.invitations) {
-      console.log('bad.');
       return null;
     }
 
     if (this.props.invitations.isFetching) {
-      console.log('ok!');
       return (
         <div>fetching invitations...</div>
       );
     } else {
-      console.log('woo?', this.props.invitations);
       return (
         <Paper className='invitations-container'>
           <div className='invitations-title'>
