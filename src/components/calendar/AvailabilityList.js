@@ -3,6 +3,8 @@ import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
 import moment from 'moment';
 import BookingPanel from './BookingPanel';
+import classNames from 'classnames';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import './AvailabilityList.css';
 
@@ -17,6 +19,10 @@ class AvailabilityList extends React.Component {
   }
 
   _handleOpen(b) {
+    if (!b.availableToBook) {
+      return;
+    }
+
     this.setState({
       open: true,
       selectedBooking: b,
@@ -42,21 +48,47 @@ class AvailabilityList extends React.Component {
       maxWidth: '450px',
     };
 
+    if (bookings.isFetching) {
+      return (
+        <div style={{position: 'relative', width: '100%'}}>
+          <CircularProgress style={{marginLeft: '50%', position: 'relative'}} />
+        </div>
+      );
+    }
+
     return (
       <Paper className='availability-list'>
         <div className='internal-container'>
           <div className='list'>
             {
-              bookings.map(b => {
+              bookings.items.map(b => {
                 const time = b.time;
+                const isAvailable = b.availableToBook;
+
+                const bookingClass = classNames(
+                  'booking',
+                  {
+                    booked: !isAvailable,
+                  },
+                );
+
                 return (
-                  <div className='booking' key={`booking-${time}`} onTouchTap={this._handleOpen.bind(this, b)}>
+                  <div className={bookingClass} key={`booking-${time}`} onTouchTap={this._handleOpen.bind(this, b)}>
                     <span className='time' key={`time-${time}`}>
                       {moment(new Date(time)).format('h:mm a')}
                     </span>
-                    <span className='booking-detail'>
-                      Available (click to book)
-                    </span>
+                    {
+                      isAvailable &&
+                      <span className='booking-detail'>
+                        Available (click to book)
+                      </span>
+                    }
+                    {
+                      !isAvailable &&
+                      <span className='booking-detail booked'>
+                        Booked
+                      </span>
+                    }
                   </div>
                 )
               })
@@ -79,7 +111,7 @@ class AvailabilityList extends React.Component {
 }
 
 AvailabilityList.propTypes = {
-  bookings: PropTypes.array,
+  bookings: PropTypes.object,
 };
 
 export default AvailabilityList;

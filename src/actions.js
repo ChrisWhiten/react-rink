@@ -10,6 +10,9 @@ import {
   FETCHING_PARTICIPATIONS,
   FETCHING_PARTICIPATIONS_SUCCESS,
   FETCHING_PARTICIPATIONS_ERROR,
+  FETCHING_BOOKINGS,
+  FETCHING_BOOKINGS_ERROR,
+  FETCHING_BOOKINGS_SUCCESS,
 } from './constants/actionTypes';
 
 import api from './data/api';
@@ -106,4 +109,32 @@ function receiveUpcomingOrganized(events) {
 
 function getUpcomingOrganizedError() {
   return { type: FETCHING_ORGANIZED_ERROR };
+}
+
+// bookings
+export function fetchBookings(start, end) {
+  return function(dispatch) {
+    dispatch(requestBookings());
+
+    return api.getBookings(start, end)
+      .then(json => {
+        dispatch(receiveBookings(json));
+      })
+      .catch(err => {
+        console.log('error getting bookings', err);
+        dispatch(getBookingsError());
+      });
+  }
+}
+
+function requestBookings(start, end) {
+  return { type: FETCHING_BOOKINGS, start: start, end: end };
+}
+
+function receiveBookings(bookings) {
+  return { type: FETCHING_BOOKINGS_SUCCESS, bookings: bookings };
+}
+
+function getBookingsError() {
+  return { type: FETCHING_BOOKINGS_ERROR };
 }

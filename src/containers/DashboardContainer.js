@@ -17,7 +17,8 @@ const mapStateToProps = (state) => {
   return {
     invitations: state.invitations,
     upcomingOrganized: state.events.upcomingOrganized,
-    upcomingParticipations: state.events.upcomingParticipations
+    upcomingParticipations: state.events.upcomingParticipations,
+    isLoaded: state.events.isLoaded,
   };
 };
 

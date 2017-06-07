@@ -17,6 +17,10 @@ class DatePicker extends React.Component {
     this.refs.datePicker.openDialog();
   }
 
+  _handleDateChange(nil, date) {
+    this.props.onDateChange(date);
+  }
+
   render() {
     const styles = {
       datePicker: {
@@ -31,6 +35,7 @@ class DatePicker extends React.Component {
           <EventIcon className='date-picker-svg' onTouchTap={this._handleDatePickerOpen.bind(this)}/>
         </div>
         <MaterialDatePicker
+          id='calendar-date-picker'
           ref='datePicker'
           autoOk={true}
           minDate={new Date()}
@@ -38,6 +43,7 @@ class DatePicker extends React.Component {
           defaultDate={new Date()}
           disableYearSelection={false}
           formatDate={date => date.toDateString()}
+          onChange={this._handleDateChange.bind(this)}
           style={styles.datePicker}
         />
     </div>

@@ -48,6 +48,7 @@ class DatePicker extends React.Component {
         </div>
       </div>
       <MaterialDatePicker
+        id='search-date-picker'
         style={{display: 'none'}}
         ref='datePicker'
         autoOk={true}

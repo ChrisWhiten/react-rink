@@ -15,7 +15,6 @@ import {
 	fetchUpcomingOrganized,
 	fetchUpcomingParticipations,
 } from './actions';
-// import './styles.scss';
 
 injectTapEventPlugin();
 
@@ -36,5 +35,3 @@ render(
   </Provider>, 
   document.getElementById('root')
 );
-
-

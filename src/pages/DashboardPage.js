@@ -4,7 +4,6 @@ import Work from 'material-ui/svg-icons/action/work';
 import TurnedIn from 'material-ui/svg-icons/action/turned-in';
 import UpcomingBox from '../components/dashboard/UpcomingBox';
 import InvitationsContainer from '../components/dashboard/InvitationsContainer';
-// import api from '../data/api';
 
 import './DashboardPage.css';
 

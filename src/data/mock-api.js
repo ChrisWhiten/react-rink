@@ -1,16 +1,4 @@
-let bookings = [{
-    time: new Date(),
-    availableToBook: true,
-  },{
-    time: new Date() - 1000,
-    availableToBook: true,
-  },{
-    time: new Date() - 10000,
-    availableToBook: true,
-  },{
-    time: new Date() - 5000,
-    availableToBook: true,
-  }];
+import moment from 'moment';
 
 let organized = [{
     id: 'this-is-an-id',
@@ -122,9 +110,30 @@ let participationInvitations = [{
   price: 11.75
 }];
 
+function generateBookingList(start, end) {
+  let list = [];
+  const timeslot = 30; // 30 minutes
+  let currentDate = start;
+
+  while (currentDate < end) {
+    list.push({
+      time: currentDate,
+      availableToBook: Math.random() > 0.2, // in practice, actually generate this status based on fetched availability...server-side
+    });
+    // at the end...
+    currentDate = moment(currentDate).add(timeslot, 'm');
+  }
+
+  return list;
+}
+
 const endpoints = {
   getBookings: (start, end) => {
-    return bookings;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return resolve(generateBookingList(start, end));
+      }, 1200);
+    });
   },
 
   getUpcomingOrganized: () => {

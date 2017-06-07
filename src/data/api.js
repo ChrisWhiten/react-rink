@@ -1,10 +1,7 @@
 import api from './mock-api';
-//const api = mock-api();
 
 const endpoints = {
-  getBookings: () => {
-    const start = new Date();
-    const end = new Date(); // do we need these?
+  getBookings: (start, end) => {
     return api.getBookings(start, end);
   },
 

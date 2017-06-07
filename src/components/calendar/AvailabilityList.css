@@ -17,6 +17,11 @@
   opacity: 1;
 }
 
+.availability-list .internal-container .list .booking.booked {
+  cursor: not-allowed;
+  background-color: #eee;
+}
+
 .availability-list .internal-container .list .booking .time {
   width: 5em;
   display: inline-block;
