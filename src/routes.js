@@ -6,7 +6,7 @@ import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import Booking from './containers/BookingContainer';
 import Dashboard from './containers/DashboardContainer';
-import SearchPage from './pages/SearchPage';
+import Search from './containers/SearchContainer';
 import EventPage from './pages/EventPage';
 
 export default (
@@ -17,7 +17,7 @@ export default (
       <Route path='dashboard' component={Dashboard} />
       <Route path='profile' component={ProfilePage} />
       <Route path='booking' component={Booking} />
-      <Route path='join' component={SearchPage} />
+      <Route path='join' component={Search} />
       <Route path='events/:eventId' component={EventPage} />
       <Route path="*" component={NotFoundPage} />
     </Route>

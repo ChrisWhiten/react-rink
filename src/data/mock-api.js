@@ -132,7 +132,7 @@ const endpoints = {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         return resolve(generateBookingList(start, end));
-      }, 1200);
+      }, 800);
     });
   },
 
@@ -153,7 +153,11 @@ const endpoints = {
   },
 
   getAvailableEvents: (start, end) => {
-    return availableEvents;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return resolve(availableEvents);
+      }, 2000);
+    });
   },
 
   getParticipationInvitations: () => {

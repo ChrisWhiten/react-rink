@@ -1,6 +1,6 @@
 import React from 'react';
 import TimelineCard from './TimelineCard';
-import api from '../../data/api';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import './Timeline.css';
 
@@ -34,9 +34,15 @@ class Timeline extends React.Component {
   }
 
   render() {
-    const start = new Date();
-    const end = new Date();
-    const events = api.getAvailableEvents(start, end);
+    if (this.props.events.isFetching) {
+      return (
+        <div style={{position: 'relative', width: '100%'}}>
+          <CircularProgress style={{marginLeft: '50%', position: 'relative'}} />
+        </div>
+      );
+    }
+
+    const events = this.props.events.items;
 
     events.sort((a, b) => {
       return a.datetime - b.datetime;

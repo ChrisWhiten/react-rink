@@ -13,6 +13,9 @@ import {
   FETCHING_BOOKINGS,
   FETCHING_BOOKINGS_ERROR,
   FETCHING_BOOKINGS_SUCCESS,
+  FETCHING_EVENTS,
+  FETCHING_EVENTS_SUCCESS,
+  FETCHING_EVENTS_ERROR,
 } from './constants/actionTypes';
 
 import api from './data/api';
@@ -137,4 +140,32 @@ function receiveBookings(bookings) {
 
 function getBookingsError() {
   return { type: FETCHING_BOOKINGS_ERROR };
+}
+
+// event search
+export function searchEvents(start, end) {
+  return function(dispatch) {
+    dispatch(requestEvents(start, end));
+
+    return api.getAvailableEvents(start, end)
+      .then(json => {
+        dispatch(receiveEvents(json));
+      })
+      .catch(err => {
+        console.log('error getting events', err);
+        dispatch(getEventsError());
+      });
+  }
+}
+
+function requestEvents(start, end) {
+  return { type: FETCHING_EVENTS, start: start, end: end };
+}
+
+function receiveEvents(events) {
+  return { type: FETCHING_EVENTS_SUCCESS, events: events };
+}
+
+function getEventsError() {
+  return { type: FETCHING_EVENTS_ERROR };
 }

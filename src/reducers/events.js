@@ -5,6 +5,9 @@ import {
   FETCHING_PARTICIPATIONS,
   FETCHING_PARTICIPATIONS_SUCCESS,
   FETCHING_PARTICIPATIONS_ERROR,
+  FETCHING_EVENTS,
+  FETCHING_EVENTS_SUCCESS,
+  FETCHING_EVENTS_ERROR,
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -16,10 +19,35 @@ const initialState = {
     isFetching: false,
     items: [],
   },
+  searchableEvents: {
+    isFetching: false,
+    items: [],
+  },
 };
 
 export default function events(state = initialState, action) {
   switch (action.type) {
+    case FETCHING_EVENTS: 
+      return Object.assign({}, state, {
+        searchableEvents: {
+          isFetching: true,
+          items: state.searchableEvents.items,
+        },
+      });
+    case FETCHING_EVENTS_SUCCESS:
+      return Object.assign({}, state, {
+        searchableEvents: {
+          isFetching: false,
+          items: action.events,
+        },
+      });
+    case FETCHING_EVENTS_ERROR: 
+      return Object.assign({}, state, {
+        searchableEvents: {
+          isFetching: false,
+          items: state.searchableEvents.items,
+        },
+      });
     case FETCHING_ORGANIZED:
       return Object.assign({}, state, {
         upcomingOrganized: {

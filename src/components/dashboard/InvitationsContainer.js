@@ -25,7 +25,6 @@ class InvitationsContainer extends React.Component {
     }
 
     if (this.props.invitations.isFetching) {
-      
       return (
         <div style={{position: 'relative', width: '100%'}}>
           <CircularProgress style={{marginLeft: '50%', position: 'relative'}} />
