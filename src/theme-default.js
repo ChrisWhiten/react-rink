@@ -9,7 +9,7 @@ const themeDefault = getMuiTheme({
     primary1Color: colour,
     // primary2Color: 'rgb(0, 132, 137)',
     primary2Color: colour,
-    // primary3Color: '#ffa000',
+    // primary3Color: '#cyan500',
     primary3Color: grey400,
     // accent1Color: pinkA200,
     // accent2Color: grey100,

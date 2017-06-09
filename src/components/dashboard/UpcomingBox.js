@@ -79,7 +79,7 @@ class UpcomingBox extends React.Component {
             <p className='upcoming-box-empty-message'>
               {emptyMessage}
             </p>
-            <RaisedButton label='Join an event at SF arena' primary={true} fullWidth={true}/>
+            <RaisedButton label='Join an event at SF Youth Arena' primary={true} fullWidth={true}/>
           </div>
         }
 
