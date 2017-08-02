@@ -5,17 +5,17 @@ let organized = [{
     title: 'foo',
     details: 'bar',
     type: 'Adult Pickup Hockey',
-    organizer: 'John Smith',
+    organizer: 'Joe McDonald',
     duration: '60 minutes',
     venue: 'RA Centre',
     venueCity: 'Ottawa',
     time: new Date() + (1000 * 60 * 60 * 24 * 1),
     participants: [{
       id: 'odjfi',
-      name: 'Sherlock Holmes',
+      name: 'John Smith',
     }, {
       id: 'oijojioji',
-      name: 'Iron Man',
+      name: 'Carl Jenkins',
     }]
   }, {
     id: 'another-id',

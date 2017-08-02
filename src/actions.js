@@ -41,7 +41,7 @@ export function fetchInvitations() {
         dispatch(receiveInvitations(json));
       })
       .catch(err => {
-        console.log('error getting invitations', err);
+        console.error('error getting invitations', err);
         dispatch(getInvitationsError());
       });
   }
@@ -64,12 +64,13 @@ export function fetchUpcomingOrganized() {
   return function(dispatch) {
     dispatch(requestUpcomingOrganized());
 
+
     return api.getUpcomingOrganized()
       .then(json => {
         dispatch(receiveUpcomingOrganized(json));
       })
       .catch(err => {
-        console.log('error getting upcoming organized events', err);
+        console.error('error getting upcoming organized events', err);
         dispatch(getUpcomingOrganizedError());
       });
   }
@@ -84,7 +85,7 @@ export function fetchUpcomingParticipations() {
         dispatch(receiveUpcomingParticipations(json));
       })
       .catch(err => {
-        console.log('error getting upcoming participating events', err);
+        console.error('error getting upcoming participating events', err);
         dispatch(getUpcomingParticipationsError());
       });
   }
@@ -124,7 +125,7 @@ export function fetchBookings(start, end) {
         dispatch(receiveBookings(json));
       })
       .catch(err => {
-        console.log('error getting bookings', err);
+        console.error('error getting bookings', err);
         dispatch(getBookingsError());
       });
   }
@@ -152,7 +153,7 @@ export function searchEvents(start, end) {
         dispatch(receiveEvents(json));
       })
       .catch(err => {
-        console.log('error getting events', err);
+        console.error('error getting events', err);
         dispatch(getEventsError());
       });
   }

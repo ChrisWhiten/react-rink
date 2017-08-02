@@ -59,7 +59,7 @@ class LocationPicker extends React.Component {
           onRequestClose={this._handleClose.bind(this)}
           autoScrollBodyContent={true}
         >
-          <div>sup</div>
+          <div>Pick a location</div>
         </Dialog>
       </div>
     );

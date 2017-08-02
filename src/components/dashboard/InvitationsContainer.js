@@ -9,6 +9,7 @@ import './InvitationsContainer.css';
 class InvitationsContainer extends React.Component {
 
   _renderInvitations(invitations) {
+    console.log('rendering invitations', invitations);
     return (
       invitations.map(i => {
         return (
