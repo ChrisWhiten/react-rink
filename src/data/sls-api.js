@@ -1,44 +1,70 @@
+const apiSource = 'http://localhost:3000';
 const endpoints = {
   getBookings: (start, end) => {
     console.log('cool', start, end)
     let startTimestamp = start.getTime();
     let endTimestamp = end.getTime();
-    return fetch(`http://localhost:3000/bookings?start=${startTimestamp}&end=${endTimestamp}&type=calendar`)
+    return fetch(`${apiSource}/bookings?start=${startTimestamp}&end=${endTimestamp}&type=calendar`)
       .then(res => {
         console.log('returning?', res);
         return res.json();
+      })
+      .catch(err => {
+        console.error('Error getting bookings');
+        console.error(err);
+        return [];
       });
   },
 
   getUpcomingOrganized: () => {
-    return fetch('http://localhost:3000/bookings?type=upcoming')
+    return fetch(`${apiSource}/bookings?type=upcoming`)
       .then(res => {
         console.log('returning?', res);
         return res.json();
+      })
+      .catch(err => {
+        console.error('Error getting upcoming organized');
+        console.error(err);
+        return [];
       });
   },
 
   getUpcomingParticipations: () => {
-    return fetch('http://localhost:3000/bookings?type=upcoming')
+    return fetch(`${apiSource}/bookings?type=upcoming`)
       .then(res => {
         console.log('returning?', res);
         return res.json();
+      })
+      .catch(err => {
+        console.error('Error getting upcoming participations');
+        console.error(err);
+        return [];
       });
   },
 
   getAvailableEvents: (start, end) => {
-    return fetch(`http://localhost:3000/bookings?type=calendar&start=${start}&end=${end}`)
+    return fetch(`${apiSource}/bookings?type=calendar&start=${start}&end=${end}`)
       .then(res => {
         console.log('returning?', res);
         return res.json();
+      })
+      .catch(err => {
+        console.error('Error getting available events');
+        console.error(err);
+        return [];
       });
   },
 
   getParticipationInvitations: () => {
-    return fetch('http://localhost:3000/bookings?type=participating')
+    return fetch(`${apiSource}/bookings?type=participating`)
       .then(res => {
         console.log('returning?', res);
         return res.json();
+      })
+      .catch(err => {
+        console.error('Error getting participation invitations');
+        console.error(err);
+        return [];
       });
   },
 

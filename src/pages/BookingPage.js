@@ -33,36 +33,36 @@ class BookingPage extends Component {
       allDay: '',
     };
 
-    return (
-      <PageBase>
-        <div>
-          <DatePicker onDateChange={this._onDateChange.bind(this)} />
-          <BigCalendar
-            selectable
-            events={[]}
-            toolbar={true}
-            views={['month', 'week', 'day']}
-            messages={msgs}
-            defaultView='week'
-            scrollToTime={new Date()}
-            defaultDate={new Date()}
-            onSelectEvent={event => alert(event.title)}
-            onSelectSlot={(slotInfo) => alert(
-              `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
-              `\nend: ${slotInfo.end.toLocaleString()}`
-            )}
-          />
-        </div>
-      </PageBase>
-    );
     // return (
     //   <PageBase>
     //     <div>
     //       <DatePicker onDateChange={this._onDateChange.bind(this)} />
-    //       <AvailabilityList bookings={this.props.bookings} />
+    //       <BigCalendar
+    //         selectable
+    //         events={[]}
+    //         toolbar={true}
+    //         views={['month', 'week', 'day']}
+    //         messages={msgs}
+    //         defaultView='week'
+    //         scrollToTime={new Date()}
+    //         defaultDate={new Date()}
+    //         onSelectEvent={event => alert(event.title)}
+    //         onSelectSlot={(slotInfo) => alert(
+    //           `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
+    //           `\nend: ${slotInfo.end.toLocaleString()}`
+    //         )}
+    //       />
     //     </div>
     //   </PageBase>
     // );
+    return (
+      <PageBase>
+        <div>
+          <DatePicker onDateChange={this._onDateChange.bind(this)} />
+          <AvailabilityList bookings={this.props.bookings} />
+        </div>
+      </PageBase>
+    );
   }
 };
 

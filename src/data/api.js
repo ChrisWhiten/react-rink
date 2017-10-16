@@ -1,5 +1,5 @@
-// import api from './mock-api';
-import api from './sls-api';
+import api from './mock-api';
+// import api from './sls-api';
 import moment from 'moment';
 
 function createBookingsList(start, end, events, timestep) {
