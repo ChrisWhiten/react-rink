@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PageBase from '../components/PageBase';
 import AvailabilityList from '../components/calendar/AvailabilityList';
+import TrialCalendar from '../components/calendar/TrialCalendar';
 import DatePicker from '../components/calendar/DatePicker';
 import BigCalendar from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -55,13 +56,18 @@ class BookingPage extends Component {
     //     </div>
     //   </PageBase>
     // );
+
+
+    // return (
+    //   <PageBase>
+    //     <div>
+    //       <DatePicker onDateChange={this._onDateChange.bind(this)} />
+    //       <AvailabilityList bookings={this.props.bookings} />
+    //     </div>
+    //   </PageBase>
+    // );
     return (
-      <PageBase>
-        <div>
-          <DatePicker onDateChange={this._onDateChange.bind(this)} />
-          <AvailabilityList bookings={this.props.bookings} />
-        </div>
-      </PageBase>
+          <TrialCalendar bookings={this.props.bookings} />
     );
   }
 };
