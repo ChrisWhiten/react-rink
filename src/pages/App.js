@@ -4,25 +4,18 @@ import Header from '../components/Header';
 import Tabs from '../components/tabs/Tabs';
 import withWidth from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
+import './App.css';
 
 class App extends React.Component {
   render() {
-    const styles = {
-      header: {
-        paddingLeft:  0
-      },
-      container: {
-        paddingLeft:  0
-      }
-    };
 
     return (
       <MuiThemeProvider muiTheme={ThemeDefault}>
         <div>
-          <Header styles={styles.header} />
+          <Header />
 
             <Tabs location={this.props.location} />
-            <div style={styles.container}>
+            <div className='main-content'>
               {this.props.children}
             </div>
         </div>

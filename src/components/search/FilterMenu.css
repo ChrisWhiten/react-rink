@@ -1,0 +1,91 @@
+.filter-menu {
+  width: 100%;
+  /* height: 70px; */
+  z-index: 1000;
+  background-color: rgb(30, 136, 229);
+  position: fixed;
+  top: 129px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-list-icon-svg {
+  color: rgb(255, 255, 255) !important;
+  transform: scale(1.25);
+  margin: 1em;
+}
+
+.filter-list-icon {
+  display: inline-flex;
+  vertical-align: middle;
+  opacity: 0.7;
+  align-self: center;
+}
+
+.filter-list-icon:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.filter-date-picker {
+  display: inline-flex;
+  color: #fff;
+  opacity: 0.7;
+  align-self: center;
+  align-items: center;
+}
+
+.filter-date-picker:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.filter-date-picker-icon {
+	display: inline-flex;
+	vertical-align: middle;
+	margin-left: 0.5em;
+}
+
+.filter-date-picker-svg {
+	fill: #fff !important;
+	transform: scale(1);
+}
+
+.filter-date-picker-svg:hover {
+	fill-opacity: 1;
+}
+
+.filter-chevron {
+  opacity: 0.7;
+  color: #fff;
+  display: inline-flex;
+  transform: scale(2);
+}
+
+.filter-chevron:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.filter-chevron-svg {
+  fill: #fff !important;
+}
+
+.jump-to-today {
+  color: #fff;
+  opacity: 0.7;
+  display: inline-flex;
+  margin: 0 1em;
+  align-items: center;
+}
+
+.jump-to-today:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.filter-date-navigator {
+  display: inline-flex;
+  align-self: center;
+  margin: 1em;
+}

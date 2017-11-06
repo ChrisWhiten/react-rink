@@ -6,6 +6,7 @@
   overflow: hidden;
   position: relative;
   /*user-select: none;*/
+  margin-top: 185px;
 }
 
 .times-slider {
@@ -102,9 +103,9 @@
   z-index: 4;
   width: 100%;
   /* left is 72px + offset from material paper*/
-  left: 134px;
+  left: 72px;
   position: fixed;
-  top: 155px;
+  top: 185px;
   right: 0;
   overflow: hidden;
   overflow-y: scroll !important;
@@ -112,7 +113,7 @@
 
 .locations-table {
   /* similar to above for width*/
-  width: 85%;
+  width: 90%;
   color: #424956;
   font-size: 13px;
   background-color: #f9f9fb;
@@ -132,6 +133,7 @@
   border-right: 1px solid #eaecf1;
   border-bottom: 1px solid #eaecf1;
   text-align: center !important;
+  box-sizing: border-box;
 }
 
 .location-title {

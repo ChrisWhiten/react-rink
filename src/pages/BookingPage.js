@@ -4,6 +4,7 @@ import AvailabilityList from '../components/calendar/AvailabilityList';
 import TrialCalendar from '../components/calendar/TrialCalendar';
 import DatePicker from '../components/calendar/DatePicker';
 import BigCalendar from 'react-big-calendar';
+import FilterMenu from '../components/search/FilterMenu';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 
@@ -67,7 +68,10 @@ class BookingPage extends Component {
     //   </PageBase>
     // );
     return (
-          <TrialCalendar bookings={this.props.bookings} />
+      <div>
+        <FilterMenu />
+        <TrialCalendar bookings={this.props.bookings} />
+      </div>
     );
   }
 };
