@@ -30,6 +30,30 @@ class FilterMenu extends React.Component {
     });
   }
 
+  _backOne() {
+    // TODO: alternative behaviour for week/month
+    let newDate = new Date(this.state.date);
+    newDate.setDate(newDate.getDate() - 1);
+    this.setState({
+      date: newDate,
+    });
+  }
+
+  _forwardsOne() {
+    // TODO: alternative behaviour for week/month
+    let newDate = new Date(this.state.date);
+    newDate.setDate(newDate.getDate() + 1);
+    this.setState({
+      date: newDate,
+    });
+  }
+
+  _jumpToToday() {
+    this.setState({
+      date: new Date(),
+    });
+  }
+
   render() {
     return (
       <div className='filter-menu'>
@@ -46,15 +70,15 @@ class FilterMenu extends React.Component {
         </div>
 
         <div className='filter-date-navigator'>
-          <div className='filter-chevron'>
+          <div className='filter-chevron' onTouchTap={this._backOne.bind(this)}>
             <ChevronLeft className='filter-chevron-svg' />
           </div>
           
-          <p className='jump-to-today'>
+          <p className='jump-to-today' onTouchTap={this._jumpToToday.bind(this)}>
             TODAY
           </p>
 
-          <div className='filter-chevron'>
+          <div className='filter-chevron' onTouchTap={this._forwardsOne.bind(this)}>
             <ChevronRight className='filter-chevron-svg' />
           </div>
         </div>
