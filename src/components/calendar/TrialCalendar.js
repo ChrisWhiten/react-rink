@@ -56,6 +56,11 @@ class AvailabilityList extends React.Component {
       );
     }
 
+    const b = {
+      time: new Date(),
+      availableToBook: true,
+    };
+
     return (
       <div className='trial-calendar'>
         <div className='calendar-container'>
@@ -544,7 +549,7 @@ class AvailabilityList extends React.Component {
                       <span>12:00am-12:15am</span>
                     </div>
 
-                    <div className='booking-slot sixty-mins unbooked'>
+                    <div className='booking-slot sixty-mins unbooked' onTouchTap={this._handleOpen.bind(this, b)}>
                       <div className='slot-details'>
                         <span className='slot-time'>
                           10:30am - 11:30am
@@ -1156,6 +1161,17 @@ class AvailabilityList extends React.Component {
             </table>
           </div>
         </div>
+
+        <Dialog
+          className='booking-dialog'
+          bodyStyle={foo}
+          contentStyle={baz}
+          modal={true}
+          open={this.state.open}
+          onRequestClose={this._handleClose.bind(this)}
+        >
+          <BookingPanel booking={this.state.selectedBooking} onRequestClose={this._handleClose.bind(this)} />
+        </Dialog>
       </div>
     );
   }
