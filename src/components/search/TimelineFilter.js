@@ -1,7 +1,7 @@
 import React from 'react';
 import EventFilter from './EventFilter';
 import locale from '../../localization/locale';
-import './TimelineFilter.css';
+import './styles/TimelineFilter.css';
 
 class TimelineFilter extends React.Component {
 

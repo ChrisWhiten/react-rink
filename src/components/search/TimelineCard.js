@@ -6,7 +6,7 @@ import React from 'react';
 import moment from 'moment';
 import locale from '../../localization/locale';
 
-import './TimelineCard.css';
+import './styles/TimelineCard.css';
 
 class TimelineCard extends React.Component {
   constructor() {

@@ -1,0 +1,5 @@
+.tab-container {
+  position: fixed;
+  width: 100%;
+  top: 57px;
+  z-index: 10; }

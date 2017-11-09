@@ -5,7 +5,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import moment from 'moment';
 
-import './EventDetail.css';
+import './styles/EventDetail.css';
 
 class EventDetail extends React.Component {
 

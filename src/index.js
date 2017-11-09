@@ -15,6 +15,7 @@ import {
 	fetchUpcomingOrganized,
 	fetchUpcomingParticipations,
 } from './actions';
+import './styles/style.css';
 
 injectTapEventPlugin();
 

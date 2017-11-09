@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import Paper from 'material-ui/Paper';
 import ParticipantItem from './ParticipantItem';
 
-import './ParticipantList.css';
+import './styles/ParticipantList.css';
 
 class ParticipantList extends React.Component {
 

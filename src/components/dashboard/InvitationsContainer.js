@@ -4,7 +4,7 @@ import NewReleases from 'material-ui/svg-icons/av/new-releases';
 import CircularProgress from 'material-ui/CircularProgress';
 import Invitation from './Invitation';
 
-import './InvitationsContainer.css';
+import './styles/InvitationsContainer.css';
 
 class InvitationsContainer extends React.Component {
 

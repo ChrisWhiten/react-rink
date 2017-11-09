@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Tabs from '../components/tabs/Tabs';
 import withWidth from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
-import './App.css';
+import './styles/App.css';
 
 class App extends React.Component {
   render() {

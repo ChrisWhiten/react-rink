@@ -6,7 +6,7 @@ import SearchIcon from 'material-ui/svg-icons/action/search';
 import EventIcon from 'material-ui/svg-icons/action/event';
 import locale from '../../localization/locale';
 
-import './Tabs.css';
+import './styles/Tabs.css';
 
 class Tabs extends React.Component {
   constructor(props) {

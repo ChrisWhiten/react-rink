@@ -2,7 +2,7 @@ import React from 'react';
 import TimelineCard from './TimelineCard';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import './Timeline.css';
+import './styles/Timeline.css';
 
 class Timeline extends React.Component {
   constructor() {

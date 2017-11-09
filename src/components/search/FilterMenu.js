@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 import {default as MaterialDatePicker} from 'material-ui/DatePicker';
 
-import './FilterMenu.css';
+import './styles/FilterMenu.css';
 
 class FilterMenu extends React.Component {
 

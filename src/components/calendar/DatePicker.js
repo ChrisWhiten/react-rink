@@ -2,7 +2,7 @@ import {default as MaterialDatePicker} from 'material-ui/DatePicker';
 import EventIcon from 'material-ui/svg-icons/action/event';
 import React from 'react';
 
-import './DatePicker.css';
+import './styles/DatePicker.css';
 
 class DatePicker extends React.Component {
   constructor() {

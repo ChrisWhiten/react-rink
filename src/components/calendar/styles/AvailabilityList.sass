@@ -1,0 +1,32 @@
+.availability-list
+  .internal-container
+    .list
+      .booking
+        border-top: 1px solid #ddd
+        opacity: 0.7
+        cursor: pointer
+        &:hover
+          opacity: 1
+
+        &.booked
+          cursor: not-allowed
+          background-color: #eee
+
+
+        .time
+          width: 5em
+          display: inline-block
+          background: #D3D3D3
+          padding: .3em
+
+
+        .booking-detail
+          padding-left: .5em
+
+
+.booking-dialog
+  > div
+    > div
+      > div:first-of-type
+      	border-top-left-radius: 6px !important
+      	border-top-right-radius: 6px !important

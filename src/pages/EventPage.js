@@ -5,7 +5,7 @@ import EventDetail from '../components/event/EventDetail';
 import ParticipantList from '../components/event/ParticipantList';
 import api from '../data/api';
 
-import './EventPage.css';
+import './styles/EventPage.css';
 
 const EventPage = (props) => {
   const booking = api.getBookingById(props.params.eventId);
