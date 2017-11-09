@@ -1,0 +1,31 @@
+.location-picker {
+  display: inline-flex;
+  color: #484848;
+  height: 44px;
+  align-items: center;
+  cursor: pointer; }
+
+.location-target {
+  border: 1px solid #aaa;
+  height: 44px;
+  width: 200px;
+  padding-left: .5em;
+  display: flex;
+  align-items: center; }
+
+.location-icon {
+  display: inline-flex;
+  vertical-align: middle;
+  padding-right: 0.3em;
+  cursor: pointer; }
+
+.location-icon-svg {
+  fill: #444 !important;
+  fill-opacity: 0.7;
+  transform: scale(0.9); }
+  .location-icon-svg:hover {
+    fill-opacity: 1; }
+
+.location-text {
+  color: #767676;
+  font-weight: inherit; }

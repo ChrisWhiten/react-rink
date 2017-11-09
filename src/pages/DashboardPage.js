@@ -5,7 +5,7 @@ import TurnedIn from 'material-ui/svg-icons/action/turned-in';
 import UpcomingBox from '../components/dashboard/UpcomingBox';
 import InvitationsContainer from '../components/dashboard/InvitationsContainer';
 
-import './DashboardPage.css';
+import './styles/DashboardPage.css';
 
 const DashboardPage = ({ declineInvitation, invitations, upcomingOrganized, upcomingParticipations }) => {
   const notificationsClass = classNames(

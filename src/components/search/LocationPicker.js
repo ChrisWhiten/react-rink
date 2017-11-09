@@ -3,7 +3,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RoomIcon from 'material-ui/svg-icons/action/room';
 
-import './LocationPicker.css';
+import './styles/LocationPicker.css';
 
 class LocationPicker extends React.Component {
   constructor() {

@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import {Link} from 'react-router';
 import locale from '../localization/locale';
 
-import './Header.css';
+import './styles/Header.css';
 
 class Header extends React.Component {
   constructor() {

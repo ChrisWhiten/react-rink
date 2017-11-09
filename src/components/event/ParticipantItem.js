@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
-import './ParticipantItem.css';
+import './styles/ParticipantItem.css';
 
 class ParticipantItem extends React.Component {
 

@@ -3,7 +3,7 @@ import moment from 'moment';
 import {default as MaterialDatePicker} from 'material-ui/DatePicker';
 import EventIcon from 'material-ui/svg-icons/action/event';
 
-import './DatePicker.css';
+import './styles/DatePicker.css';
 
 class DatePicker extends React.Component {
   constructor() {

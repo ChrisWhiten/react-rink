@@ -1,7 +1,7 @@
 import React from 'react';
 import DatePicker from './DatePicker';
 import LocationPicker from './LocationPicker';
-import './TimePlaceFilter.css';
+import './styles/TimePlaceFilter.css';
 
 class TimePlaceFilter extends React.Component {
 

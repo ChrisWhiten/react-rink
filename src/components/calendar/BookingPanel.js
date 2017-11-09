@@ -6,7 +6,7 @@ import Divider from 'material-ui/Divider';
 import moment from 'moment';
 import SelectField from 'material-ui/SelectField';
 
-import './BookingPanel.css';
+import './styles/BookingPanel.css';
 
 class BookingPanel extends React.Component {
   constructor() {

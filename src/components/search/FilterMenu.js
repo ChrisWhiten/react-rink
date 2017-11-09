@@ -7,7 +7,7 @@ import Checkbox from 'material-ui/Checkbox';
 import classNames from 'classnames';
 import moment from 'moment';
 
-import './FilterMenu.css';
+import './styles/FilterMenu.css';
 
 class FilterMenu extends React.Component {
 

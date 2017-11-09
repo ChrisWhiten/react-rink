@@ -5,7 +5,7 @@ import RefreshIndicator from 'material-ui/RefreshIndicator';
 import {Link} from 'react-router';
 import moment from 'moment';
 
-import './UpcomingBox.css';
+import './styles/UpcomingBox.css';
 
 class UpcomingBox extends React.Component {
 

@@ -10,7 +10,7 @@ import PageBase from '../components/PageBase';
 import Paper from 'material-ui/Paper';
 import globalStyles from '../styles';
 
-import './ProfilePage.css';
+import './styles/ProfilePage.css';
 
 const ProfilePage = () => {
 

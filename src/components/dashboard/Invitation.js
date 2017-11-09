@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import moment from 'moment';
 
-import './Invitation.css';
+import './styles/Invitation.css';
 
 class Invitation extends React.Component {
 

@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import Checkbox from 'material-ui/Checkbox';
 import classNames from 'classnames';
 
-import './EventFilter.css';
+import './styles/EventFilter.css';
 
 class EventFilter extends React.Component {
 

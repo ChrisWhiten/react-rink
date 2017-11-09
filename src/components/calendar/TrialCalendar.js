@@ -6,7 +6,7 @@ import BookingPanel from './BookingPanel';
 import classNames from 'classnames';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import './TrialCalendar.css';
+import './styles/TrialCalendar.css';
 
 class AvailabilityList extends React.Component {
   constructor() {
