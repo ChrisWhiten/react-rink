@@ -1,9 +1,7 @@
 import React, {PropTypes} from 'react';
-import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
 import moment from 'moment';
 import BookingPanel from './BookingPanel';
-import classNames from 'classnames';
 import CircularProgress from 'material-ui/CircularProgress';
 
 import './styles/TrialCalendar.css';
@@ -35,6 +33,119 @@ class AvailabilityList extends React.Component {
     });
   }
 
+  _renderCalendarItems(bookings) {
+    return (
+      <tbody>
+        <tr>
+          <th className='filler-slot'>
+          </th>
+          <th className='filler-slot'>
+          </th>
+        </tr>
+        {
+          bookings.map(b => {
+            return (
+              <tr key={`${b.id}_booking`}>
+                <td className='open-spot christopher'>
+                  <div className='open-spot-time-label'>
+                    <span>{moment(b.time).format('LT')}</span>
+                  </div>
+                  {
+                    b.booking &&
+                    <div className='booking-slot sixty-mins unbooked' onTouchTap={this._handleOpen.bind(this, b)}>
+                      <div className='slot-details'>
+                        <span className='slot-time'>
+                          {moment(b.booking.startTime).format('LT')} - {moment(b.booking.endTime).format('LT')}
+                        </span>
+                        <h3>20 Available</h3>
+                      </div>
+                    </div>
+                  }
+                </td>
+      
+                <td className='open-spot'>
+                  <div className='open-spot-time-label'>
+                    <span>{moment(b.time).format('LT')}</span>
+                  </div>
+      
+                  {
+                    b.booking &&
+                    <div className='booking-slot sixty-mins unbooked' onTouchTap={this._handleOpen.bind(this, b)}>
+                      <div className='slot-details'>
+                        <span className='slot-time'>
+                          {moment(b.booking.startTime).format('LT')} - {moment(b.booking.endTime).format('LT')}
+                        </span>
+                        <h3>20 Available</h3>
+                      </div>
+                    </div>
+                  }
+                </td>
+              </tr>
+            )
+          })
+        }
+      </tbody>
+    );
+  }
+
+  _renderTimeRow(hour, meridian, minutes) {
+    return (
+      <tr>
+        <td className='time-container'>
+          {
+            minutes === '00' &&
+            <div className='time-hour'>
+              <span className='hour-text'>{hour}</span>
+              <span className='ampm-text'>{meridian}</span>
+            </div>
+          }
+
+          <div className='time-minutes'>{minutes}</div>
+        </td>
+      </tr>
+    );
+  }
+
+  _renderTimesTable() {
+    const hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    const pieces = ['00', '15', '30', '45'];
+    const slots = [];
+    
+    // am
+    hours.forEach(h => {
+      pieces.forEach(p => {
+        slots.push({
+          hour: h,
+          minutes: p,
+          meridian: 'am',
+        });
+      });
+    });
+
+    // pm
+    hours.forEach(h => {
+      pieces.forEach(p => {
+        slots.push({
+          hour: h,
+          minutes: p,
+          meridian: 'pm',
+        });
+      });
+    });
+
+    return (
+      <table className='times-table'>
+        <tbody>
+          {
+            slots.map(s => {
+              return this._renderTimeRow(s.hour, s.meridian, s.minutes);
+            })
+          }
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
     const { bookings } = this.props;
 
@@ -56,454 +167,11 @@ class AvailabilityList extends React.Component {
       );
     }
 
-    const b = {
-      time: new Date(),
-      availableToBook: true,
-    };
-
     return (
       <div className='trial-calendar'>
         <div className='calendar-container'>
           <div className='times-slider'>
-            <table className='times-table'>
-              <tbody>
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>12</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>1</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>2</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>3</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>4</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>5</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>6</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>7</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>8</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>9</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>10</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>11</span>
-                      <span className='ampm-text'>am</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>12</span>
-                      <span className='ampm-text'>pm</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>1</span>
-                      <span className='ampm-text'>pm</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-hour'>
-                      <span className='hour-text'>2</span>
-                      <span className='ampm-text'>pm</span>
-                    </div>
-
-                    <div className='time-minutes'>00</div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>15</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>30</div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='time-container'>
-                    <div className='time-minutes'>45</div>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
+            { this._renderTimesTable() }
           </div>
           <div className='locations-wrapper'>
             <table className='locations-table'>
@@ -521,643 +189,7 @@ class AvailabilityList extends React.Component {
           </div>
           <div className='calendar-section'>
             <table className='scrolling-table'>
-              <tbody>
-                <tr>
-                  <th className='filler-slot'>
-                  </th>
-                  <th className='filler-slot'>
-                  </th>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-
-                    <div className='booking-slot sixty-mins unbooked' onTouchTap={this._handleOpen.bind(this, b)}>
-                      <div className='slot-details'>
-                        <span className='slot-time'>
-                          10:30am - 11:30am
-                        </span>
-                        <h3>20 Available</h3>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-
-                    <div className='booking-slot sixty-mins booked'>
-                      <div className='slot-details'>
-                        <span className='slot-time'>
-                          1:30pm - 2:30pm
-                        </span>
-                        <h3>9 available (11/20 booked)</h3>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-
-                    <div className='booking-slot sixty-mins booked'>
-                      <div className='slot-details'>
-                        <span className='slot-time'>
-                          1:30pm - 2:30pm
-                        </span>
-                        <h3>11 available (9/20 booked)</h3>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                 <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-
-                  <td className='open-spot'>
-                    <div className='open-spot-time-label'>
-                      <span>12:00am-12:15am</span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
+              { this._renderCalendarItems(this.props.bookings.items) }
             </table>
           </div>
         </div>

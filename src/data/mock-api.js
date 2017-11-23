@@ -1,5 +1,15 @@
 import moment from 'moment';
 
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+
 let organized = [{
     id: 'this-is-an-id',
     title: 'foo',
@@ -110,6 +120,53 @@ let participationInvitations = [{
   price: 11.75
 }];
 
+function generateCalendar(start, end) {
+  // generate full list of 15-minute availability (open/closed)
+  let list = [];
+  const timeslot = 15; // 15 minutes
+  let currentDate = start;
+
+  while (currentDate < end) {
+    list.push({
+      id: guid(),
+      time: new Date(currentDate),
+      availableToBook: Math.random() > 0.2, // in practice, actually generate this status based on fetched availability...server-side
+    });
+    // at the end...
+    currentDate = moment(currentDate).add(timeslot, 'm');
+  }
+
+  return list;
+}
+
+function generateBookingsList2(slots) {
+  slots.map(s => {
+    if (s.availableToBook && Math.random() < 0.1) {
+      s.booking = {
+        startTime: s.time,
+        endTime: moment(s.time).add(60, 'm'),
+        isPublic: Math.random() > 0.8,
+        host: {
+          email: 'chris.whiten@gmail.com',
+        },
+        totalSlots: 20,
+        slotsBooked: (() => {
+          const rand = Math.random();
+          if (rand < 0.6) {
+            return 0;
+          } else if (rand < 0.8) {
+            return 8;
+          } else {
+            return 20;
+          }
+        })(),
+      };
+    }
+  });
+
+  return slots;
+}
+
 function generateBookingList(start, end) {
   let list = [];
   const timeslot = 30; // 30 minutes
@@ -132,6 +189,14 @@ const endpoints = {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         return resolve(generateBookingList(start, end));
+      }, 800);
+    });
+  },
+
+  getBookings2: (start, end) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return resolve(generateBookingsList2(generateCalendar(start, end)));
       }, 800);
     });
   },

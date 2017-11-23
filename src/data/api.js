@@ -27,6 +27,10 @@ const endpoints = {
       });
   },
 
+  getBookings2: (start, end) => {
+    return api.getBookings2(start, end);
+  },
+
   getBookingById: (id) => {
     return api.getBooking(id);
   },

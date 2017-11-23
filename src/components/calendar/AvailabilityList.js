@@ -56,6 +56,8 @@ class AvailabilityList extends React.Component {
       );
     }
 
+    console.error(bookings);
+
     return (
       <Paper className='availability-list'>
         <div className='internal-container'>

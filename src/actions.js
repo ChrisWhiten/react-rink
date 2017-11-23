@@ -120,7 +120,7 @@ export function fetchBookings(start, end) {
   return function(dispatch) {
     dispatch(requestBookings());
 
-    return api.getBookings(start, end)
+    return api.getBookings2(start, end)
       .then(json => {
         dispatch(receiveBookings(json));
       })

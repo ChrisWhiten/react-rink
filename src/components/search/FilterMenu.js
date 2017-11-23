@@ -7,6 +7,7 @@ import Checkbox from 'material-ui/Checkbox';
 import classNames from 'classnames';
 import moment from 'moment';
 import {default as MaterialDatePicker} from 'material-ui/DatePicker';
+import Drawer from 'material-ui/Drawer';
 
 import './styles/FilterMenu.css';
 
@@ -17,6 +18,7 @@ class FilterMenu extends React.Component {
 
     this.state = {
       date: new Date(),
+      drawerOpen: false,
     };
   }
 
@@ -54,10 +56,16 @@ class FilterMenu extends React.Component {
     });
   }
 
+  _handleFilterListToggle() {
+    this.setState({
+      drawerOpen: !this.state.drawerOpen,
+    });
+  }
+
   render() {
     return (
       <div className='filter-menu'>
-        <div className='filter-list-icon'>
+        <div className='filter-list-icon' onTouchTap={this._handleFilterListToggle.bind(this)}>
           <FilterList className='filter-list-icon-svg' />
         </div>
         <div className='filter-date-picker' onTouchTap={this._handleDatePickerOpen.bind(this)}>
@@ -92,6 +100,13 @@ class FilterMenu extends React.Component {
           maxDate={new Date(2050, 0, 0, 0, 0, 0, 0)}
           disableYearSelection={false}
           onChange={this._handleDatePickerChange.bind(this)}
+        />
+
+        <Drawer
+          docked={false}
+          width={200}
+          containerClassName='filter-drawer'
+          open={this.state.drawerOpen}
         />
       </div>
     );
