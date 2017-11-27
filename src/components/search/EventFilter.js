@@ -69,6 +69,10 @@ class EventFilter extends React.Component {
       width: '16px',
       color: '#767676',
     };
+    
+    if (this.props.inverted) {
+      iconStyle.color = '#fff';
+    }
 
     const checkboxStyle = {
       marginTop: 'auto',
@@ -82,6 +86,9 @@ class EventFilter extends React.Component {
       {
         active: this.props.active,
       },
+      {
+        inverted: this.props.inverted,
+      },
     );
 
     const chevronClass = classNames(
@@ -89,12 +96,32 @@ class EventFilter extends React.Component {
       {
         active: this.props.active,
       },
+      {
+        inverted: this.props.inverted,
+      },
     );
+
+    const chevronSvgClass = classNames(
+      'chevron-svg',
+      {
+        inverted: this.props.inverted,
+      },
+      {
+        active: this.props.active,
+      },
+    )
 
     const filterClass = classNames(
       'filter-panel',
       {
         active: this.props.active,
+      },
+    );
+
+    const titleClass = classNames(
+      'filter-title',
+      {
+       inverted:  this.props.inverted,
       },
     );
 
@@ -161,7 +188,7 @@ class EventFilter extends React.Component {
           </Paper>
         </div>
         <div className={selectorClass} onClick={this._filterClicked.bind(this)}>
-          <h4 className='filter-title'>
+          <h4 className={titleClass}>
             {this.props.text}
           </h4>
           {
@@ -171,7 +198,7 @@ class EventFilter extends React.Component {
             </div>
           }
           <div className={chevronClass}>
-            <ChevronLeft style={iconStyle} />
+            <ChevronLeft className={chevronSvgClass} style={iconStyle} />
           </div>
         </div>
       </div>

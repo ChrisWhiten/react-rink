@@ -9,6 +9,7 @@ import moment from 'moment';
 import {default as MaterialDatePicker} from 'material-ui/DatePicker';
 import Drawer from 'material-ui/Drawer';
 
+import TimelineFilter from './TimelineFilter';
 import './styles/FilterMenu.css';
 
 class FilterMenu extends React.Component {
@@ -65,9 +66,7 @@ class FilterMenu extends React.Component {
   render() {
     return (
       <div className='filter-menu'>
-        <div className='filter-list-icon' onTouchTap={this._handleFilterListToggle.bind(this)}>
-          <FilterList className='filter-list-icon-svg' />
-        </div>
+        <TimelineFilter inverted={true} />
         <div className='filter-date-picker' onTouchTap={this._handleDatePickerOpen.bind(this)}>
           <span>
             {moment(this.state.date).format('ddd, MMM Do, YYYY')}
