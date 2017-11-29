@@ -17,11 +17,15 @@
   .filter-selector.inverted {
     color: #fff;
     opacity: 0.7; }
+    .filter-selector.inverted.active {
+      color: #767676; }
+      .filter-selector.inverted.active > .chevron > .chevron-svg {
+        color: #767676 !important; }
     .filter-selector.inverted:hover {
       opacity: 1;
       color: #767676; }
-      .filter-selector.inverted:hover .chevron.svg.chevron-svg {
-        color: red; }
+      .filter-selector.inverted:hover > .chevron > .chevron-svg {
+        color: #767676 !important; }
 
 .filter-title {
   display: flex;
