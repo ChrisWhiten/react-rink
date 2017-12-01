@@ -33,16 +33,19 @@ class Tabs extends React.Component {
         <MaterialTabs initialSelectedIndex={selectedIndex}>
           <Tab
             icon={<HomeIcon/>}
+            className='tab'
             label={this.locale.general.myEvents}
             containerElement={<Link to='/' />}
           />
           <Tab
             icon={<EventIcon />}
+            className='tab'
             label={this.locale.general.bookIceTime}
             containerElement={<Link to='/booking' />}
           />
           <Tab
             icon={<SearchIcon />}
+            className='tab'
             label={this.locale.general.joinAGame}
             containerElement={<Link to='/join' />}
           />

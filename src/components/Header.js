@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import {Link} from 'react-router';
 import locale from '../localization/locale';
+import Tabs from './tabs/Tabs';
 
 import './styles/Header.css';
 
@@ -16,6 +17,27 @@ class Header extends React.Component {
   }
 
   render() {
+    return (
+      <div className='header'>
+        <div className='header-title'>
+          <h1>The Place</h1>
+        </div>
+        <Tabs location={this.props.location} />
+        <IconMenu
+          iconButtonElement={<IconButton><div className='account-circle'><AccountCircle color='black' /></div></IconButton>}
+          anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
+        >
+          <MenuItem 
+            primaryText={`${this.locale.general.editProfile}`}
+            containerElement={<Link to='/profile' />}
+          />
+          <MenuItem primaryText={`${this.locale.general.logout}`} />
+        </IconMenu>
+      </div>
+    )
+  }
+  render2() {
     const {styles} = this.props;
 
     const style = {

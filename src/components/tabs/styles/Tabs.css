@@ -1,5 +1,6 @@
 .tab-container {
-  position: fixed;
-  width: 100%;
-  top: 57px;
-  z-index: 10; }
+  width: 400px;
+  background-color: #fafafb; }
+
+.tab {
+  background-color: #fafafb !important; }

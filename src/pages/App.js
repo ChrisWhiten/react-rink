@@ -12,9 +12,7 @@ class App extends React.Component {
     return (
       <MuiThemeProvider muiTheme={ThemeDefault}>
         <div>
-          <Header />
-
-            <Tabs location={this.props.location} />
+          <Header location={this.props.location} />
             <div className='main-content'>
               {this.props.children}
             </div>
