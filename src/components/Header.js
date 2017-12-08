@@ -22,8 +22,11 @@ class Header extends React.Component {
         <div className='header-title'>
           <h1>The Place</h1>
         </div>
+        <div className='header-balance'>
+        </div>
         <Tabs location={this.props.location} />
         <IconMenu
+          className='logout-icon-menu'
           iconButtonElement={<IconButton><div className='account-circle'><AccountCircle color='black' /></div></IconButton>}
           anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
