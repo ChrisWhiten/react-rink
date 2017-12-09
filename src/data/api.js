@@ -20,6 +20,10 @@ function createBookingsList(start, end, events, timestep) {
 }
 
 const endpoints = {
+  getLocations: () => {
+    return api.getLocations();
+  },
+
   getBookings: (start, end) => {
     return api.getBookings(start, end)
       .then(json => {

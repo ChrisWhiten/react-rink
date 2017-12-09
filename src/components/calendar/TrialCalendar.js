@@ -13,7 +13,28 @@ class AvailabilityList extends React.Component {
     this.state = {
       open: false,
       selectedBooking: null,
+      screenWidth: 0,
+      screenHeight: 0,
     };
+
+    this.itemWidth = '100%';
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({
+      screenWidth: window.innerWidth,
+      screenHeight: window.innerHeight,
+    });
   }
 
   _handleOpen(b) {
@@ -33,53 +54,45 @@ class AvailabilityList extends React.Component {
     });
   }
 
+  // this nesting structure is a bit un-intuitive,
+  // fix up later
   _renderCalendarItems(bookings) {
+    if (bookings.length < 1) return null;
     return (
       <tbody>
         <tr>
-          <th className='filler-slot'>
-          </th>
-          <th className='filler-slot'>
-          </th>
+          {
+            Object.keys(bookings).map(locationId => {
+              return (<th className='filler-slot' width={this.itemWidth} key={`filler-slot-${locationId}`}>
+              </th>)
+            })
+          }
         </tr>
         {
-          bookings.map(b => {
+          Object.keys(bookings[0].bookings).map(idx => {
             return (
-              <tr key={`${b.id}_booking`}>
-                <td className='open-spot christopher'>
-                  <div className='open-spot-time-label'>
-                    <span>{moment(b.time).format('LT')}</span>
-                  </div>
-                  {
-                    b.booking &&
-                    <div className='booking-slot sixty-mins unbooked' onTouchTap={this._handleOpen.bind(this, b)}>
-                      <div className='slot-details'>
-                        <span className='slot-time'>
-                          {moment(b.booking.startTime).format('LT')} - {moment(b.booking.endTime).format('LT')}
-                        </span>
-                        <h3>20 Available</h3>
+              <tr key={`${bookings[0].bookings[idx].id}_id`}>
+                {
+                  Object.keys(bookings).map(locationId => {
+                    return (<td className='open-spot'>
+                      <div className='open-spot-time-label'>
+                        <span>{moment(bookings[locationId].bookings[idx].time).format('LT')}</span>
                       </div>
-                    </div>
-                  }
-                </td>
-      
-                <td className='open-spot'>
-                  <div className='open-spot-time-label'>
-                    <span>{moment(b.time).format('LT')}</span>
-                  </div>
-      
-                  {
-                    b.booking &&
-                    <div className='booking-slot sixty-mins unbooked' onTouchTap={this._handleOpen.bind(this, b)}>
-                      <div className='slot-details'>
-                        <span className='slot-time'>
-                          {moment(b.booking.startTime).format('LT')} - {moment(b.booking.endTime).format('LT')}
-                        </span>
-                        <h3>20 Available</h3>
-                      </div>
-                    </div>
-                  }
-                </td>
+          
+                      {
+                        bookings[locationId].bookings[idx].booking &&
+                        <div className='booking-slot sixty-mins unbooked' onTouchTap={this._handleOpen.bind(this, bookings[locationId].bookings[idx])}>
+                          <div className='slot-details'>
+                            <span className='slot-time'>
+                              {moment(bookings[locationId].bookings[idx].booking.startTime).format('LT')} - {moment(bookings[locationId].bookings[idx].booking.endTime).format('LT')}
+                            </span>
+                            <h3>20 Available</h3>
+                          </div>
+                        </div>
+                      }
+                  </td>)
+                  })
+                }
               </tr>
             )
           })
@@ -167,28 +180,36 @@ class AvailabilityList extends React.Component {
       );
     }
 
+    const locationCount = bookings.items.length || 1; // don't divide by 0
+    this.itemWidth = `${100/locationCount}%`;
+
+    const locationsTableWidth = `${this.state.screenWidth - 72}px`;
+
     return (
       <div className='trial-calendar'>
         <div className='calendar-container'>
           <div className='times-slider'>
             { this._renderTimesTable() }
           </div>
-          <div className='locations-wrapper'>
-            <table className='locations-table'>
+          <div className='locations-wrapper' width={locationsTableWidth}>
+            <table className='locations-table' width={locationsTableWidth}>
               <thead>
                 <tr>
-                  <th className='location-header'>
-                    <span className='location-title'>Lansdowne Park</span>
-                  </th>
-                  <th className='location-header'>
-                    <span className='location-title'>Canadian Tire Centre</span>
-                  </th>
+                  {
+                    bookings.items.map(location => {
+                      return (
+                        <th className='location-header' width={this.itemWidth}>
+                          <span className='location-title'>{location.locationName}</span>
+                        </th>
+                      )
+                    })
+                  }
                 </tr>
               </thead>
             </table>
           </div>
-          <div className='calendar-section'>
-            <table className='scrolling-table'>
+          <div className='calendar-section' width={locationsTableWidth}>
+            <table className='scrolling-table' width={locationsTableWidth}>
               { this._renderCalendarItems(this.props.bookings.items) }
             </table>
           </div>

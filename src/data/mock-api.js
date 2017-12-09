@@ -120,6 +120,17 @@ let participationInvitations = [{
   price: 11.75
 }];
 
+const locations = [{
+  id: 'pijwfepiwef',
+  name: 'Lansdowne Park'
+}, {
+  id: 'pojwfpojwf',
+  name: 'Canadian Tire Centre'
+}, {
+  id: 'wjoefiojefwi',
+  name: 'Norberry'
+}];
+
 function generateCalendar(start, end) {
   // generate full list of 15-minute availability (open/closed)
   let list = [];
@@ -196,7 +207,16 @@ const endpoints = {
   getBookings2: (start, end) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        return resolve(generateBookingsList2(generateCalendar(start, end)));
+        let results = [];
+        locations.map(l => {
+          results.push({
+            locationId: l.id,
+            locationName: l.name,
+            bookings: generateBookingsList2(generateCalendar(start, end)),
+          });
+        });
+        
+        return resolve(results);
       }, 800);
     });
   },
@@ -245,6 +265,14 @@ const endpoints = {
     }
 
     return null;
+  },
+
+  getLocations: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return resolve(locations);
+      }, 1000);
+    });
   }
 };
 

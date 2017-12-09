@@ -17,6 +17,7 @@
   border-right: 1px solid #eaecf1
   height: 100%
   overflow: hidden
+  box-sizing: border-box
 
 .times-table
   margin-bottom: 52px
@@ -91,8 +92,6 @@
 
 .locations-wrapper
   z-index: 4
-  width: 100%
-  /* left is 72px + offset from material paper*/
   left: 72px
   position: fixed
   top: 150px
@@ -101,17 +100,12 @@
   overflow-y: scroll !important
 
 .locations-table
-  /* similar to above for width*/
-  width: 90%
   color: #424956
   font-size: 13px
   background-color: #f9f9fb
-  border-collapse: collapse
   border-spacing: 0
 
 .location-header
-  /* width is a ftn of number of locations.  pass in through react*/
-  width: 50%
   padding: 14px 0 12px
   height: 48px
   font-size: 13px
@@ -130,8 +124,6 @@
   color: #424956
 
 .calendar-section
-  /* width should be the same as .locations-wrapper */
-  width: 90%
   /* height seems to auto-adjust too */
   height: 90%
   left: 72px
@@ -142,8 +134,6 @@
 
 .scrolling-table
   position: relative
-  /* TODO: width again. */
-  width: 100%
   background-color: #f9f9fb
   font-size: 13px
   color: #424956
@@ -151,8 +141,6 @@
 
   .filler-slot
     height: 0
-    /* TODO: width needs to be passed dynamically by react depending on number of locations */
-    width: 50%
     padding: 0
     margin: 0
 
