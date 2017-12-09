@@ -2,9 +2,11 @@ import React, {PropTypes} from 'react';
 import Dialog from 'material-ui/Dialog';
 import moment from 'moment';
 import BookingPanel from './BookingPanel';
+import SlideUp from './SlideUp';
 import CircularProgress from 'material-ui/CircularProgress';
-
 import './styles/TrialCalendar.css';
+
+const EXPERIMENT = true;
 
 class AvailabilityList extends React.Component {
   constructor() {
@@ -15,6 +17,7 @@ class AvailabilityList extends React.Component {
       selectedBooking: null,
       screenWidth: 0,
       screenHeight: 0,
+      showSlideup: false,
     };
 
     this.itemWidth = '100%';
@@ -37,7 +40,21 @@ class AvailabilityList extends React.Component {
     });
   }
 
+  _slideupCancel() {
+    this.setState({
+      showSlideup: false,
+    });
+  }
+
   _handleOpen(b) {
+    if (EXPERIMENT) {
+      this.setState({
+        showSlideup: true,
+      });
+
+      return;
+    }
+
     if (!b.availableToBook) {
       return;
     }
@@ -225,6 +242,12 @@ class AvailabilityList extends React.Component {
         >
           <BookingPanel booking={this.state.selectedBooking} onRequestClose={this._handleClose.bind(this)} />
         </Dialog>
+
+        <SlideUp
+          screenHeight={this.state.screenHeight}
+          active={this.state.showSlideup}
+          onCancel={this._slideupCancel.bind(this)}
+        />
       </div>
     );
   }
