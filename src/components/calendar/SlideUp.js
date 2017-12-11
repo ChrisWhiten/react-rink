@@ -27,7 +27,7 @@ class SlideUp extends React.Component {
     
     return (
       <div className={slideUpClass} onTouchTap={this.props.onCancel} style={dynamicStyles}>
-        Hi
+        { this.props.children }
       </div>
     );
   }

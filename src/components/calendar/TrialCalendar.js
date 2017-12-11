@@ -3,6 +3,8 @@ import Dialog from 'material-ui/Dialog';
 import moment from 'moment';
 import BookingPanel from './BookingPanel';
 import SlideUp from './SlideUp';
+import BookingForm from './BookingForm';
+import CheckIn from './CheckIn';
 import CircularProgress from 'material-ui/CircularProgress';
 import './styles/TrialCalendar.css';
 
@@ -246,8 +248,13 @@ class AvailabilityList extends React.Component {
         <SlideUp
           screenHeight={this.state.screenHeight}
           active={this.state.showSlideup}
-          onCancel={this._slideupCancel.bind(this)}
-        />
+          onCancel={this._slideupCancel.bind(this)} >
+          <BookingForm
+            booking={this.state.selectedBooking}
+            onRequestClose={this._slideupCancel.bind(this)}
+          />
+        </SlideUp>
+        <CheckIn />
       </div>
     );
   }
