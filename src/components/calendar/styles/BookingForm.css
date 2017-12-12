@@ -1,2 +1,36 @@
 .booking-form {
   width: 100%; }
+  .booking-form .booking-form-content {
+    width: 80%;
+    background: #eee; }
+    .booking-form .booking-form-content .payment-button {
+      background: blue;
+      color: white;
+      margin: .5em; }
+  .booking-form .booking-form-header {
+    background-color: #1e88e5;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; }
+    .booking-form .booking-form-header .booking-form-header-title {
+      color: #fff;
+      margin: .5em;
+      font-size: 1.5em; }
+    .booking-form .booking-form-header .booking-form-header-close {
+      margin-left: auto;
+      border: 1px solid #fff;
+      display: flex;
+      border-radius: 100%;
+      margin-right: .5em;
+      opacity: 0.9; }
+      .booking-form .booking-form-header .booking-form-header-close:hover {
+        cursor: pointer;
+        opacity: 1; }
+      .booking-form .booking-form-header .booking-form-header-close.invisible {
+        visibility: hidden;
+        cursor: default; }
+      .booking-form .booking-form-header .booking-form-header-close .booking-form-close-icon {
+        color: #fff !important;
+        height: 32px !important;
+        width: 32px !important; }

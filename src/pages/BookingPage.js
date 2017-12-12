@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import PageBase from '../components/PageBase';
-import AvailabilityList from '../components/calendar/AvailabilityList';
+// import AvailabilityList from '../components/calendar/AvailabilityList';
 import TrialCalendar from '../components/calendar/TrialCalendar';
-import DatePicker from '../components/calendar/DatePicker';
+// import DatePicker from '../components/calendar/DatePicker';
 import BigCalendar from 'react-big-calendar';
 import FilterMenu from '../components/search/FilterMenu';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -31,9 +30,9 @@ class BookingPage extends Component {
   }
 
   render() {
-    const msgs = {
-      allDay: '',
-    };
+    // const msgs = {
+    //   allDay: '',
+    // };
 
     // return (
     //   <PageBase>

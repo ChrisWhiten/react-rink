@@ -1,10 +1,8 @@
 import React from 'react';
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
-import FilterList from 'material-ui/svg-icons/content/filter-list';
+// import FilterList from 'material-ui/svg-icons/content/filter-list';
 import EventIcon from 'material-ui/svg-icons/action/event';
-import Checkbox from 'material-ui/Checkbox';
-import classNames from 'classnames';
 import moment from 'moment';
 import {default as MaterialDatePicker} from 'material-ui/DatePicker';
 import Drawer from 'material-ui/Drawer';

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
+import {StripeProvider} from 'react-stripe-elements';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../components/Header';
-import Tabs from '../components/tabs/Tabs';
 import withWidth from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
 import './styles/App.css';
@@ -10,14 +10,16 @@ class App extends React.Component {
   render() {
 
     return (
-      <MuiThemeProvider muiTheme={ThemeDefault}>
-        <div>
-          <Header location={this.props.location} />
-            <div className='main-content'>
-              {this.props.children}
-            </div>
-        </div>
-      </MuiThemeProvider>
+      <StripeProvider apiKey='pk_test_4OhTdqQ8MvzOcJLNJjxYLl9C'>
+        <MuiThemeProvider muiTheme={ThemeDefault}>
+          <div>
+            <Header location={this.props.location} />
+              <div className='main-content'>
+                {this.props.children}
+              </div>
+          </div>
+        </MuiThemeProvider>
+      </StripeProvider>
     );
   }
 }

@@ -43,6 +43,8 @@ class AvailabilityList extends React.Component {
   }
 
   _slideupCancel() {
+    console.log('slide up cancel...');
+    console.trace();
     this.setState({
       showSlideup: false,
     });
@@ -93,7 +95,7 @@ class AvailabilityList extends React.Component {
               <tr key={`${bookings[0].bookings[idx].id}_id`}>
                 {
                   Object.keys(bookings).map(locationId => {
-                    return (<td className='open-spot'>
+                    return (<td className='open-spot' key={`open-spot-${locationId}-${idx}`}>
                       <div className='open-spot-time-label'>
                         <span>{moment(bookings[locationId].bookings[idx].time).format('LT')}</span>
                       </div>
@@ -122,7 +124,7 @@ class AvailabilityList extends React.Component {
 
   _renderTimeRow(hour, meridian, minutes) {
     return (
-      <tr>
+      <tr key={`tr-${hour}-${minutes}-${meridian}`}>
         <td className='time-container'>
           {
             minutes === '00' &&
@@ -217,7 +219,7 @@ class AvailabilityList extends React.Component {
                   {
                     bookings.items.map(location => {
                       return (
-                        <th className='location-header' width={this.itemWidth}>
+                        <th key={`location-header-${location.locationName}`} className='location-header' width={this.itemWidth}>
                           <span className='location-title'>{location.locationName}</span>
                         </th>
                       )
