@@ -1,8 +1,13 @@
 import React, {PropTypes} from 'react';
 import {injectStripe} from 'react-stripe-elements';
+import {
+  Form,
+  Col,
+} from 'react-bootstrap';
 
-import AddressSection from './AddressSection';
+import PersonalInfoSection from './PersonalInfoSection';
 import CardSection from './CardSection';
+import DateAndTimeSection from './DateAndTimeSection';
 
 import './styles/CheckoutForm.css';
 
@@ -32,11 +37,16 @@ class CheckoutForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this._handleSubmit}>
-        <AddressSection />
-        <CardSection />
-        <button>Confirm order</button>
-      </form>
+      <Form onSubmit={this._handleSubmit}>
+        <DateAndTimeSection />
+        <Col sm={6} md={6} smOffset={3} mdOffset={3}>
+          <PersonalInfoSection />
+          <Col sm={12} md={12}>
+            <CardSection />
+            <button className='checkout-button'>Confirm order</button>
+          </Col>
+        </Col>
+      </Form>
     );
   }
 }

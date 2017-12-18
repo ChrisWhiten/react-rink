@@ -32,10 +32,7 @@ class CardSection extends React.Component {
     };
     
     return (
-      <label>
-        Card details
-        <CardElement style={style} />
-      </label>
+      <CardElement style={style} />
     );
   }
 }

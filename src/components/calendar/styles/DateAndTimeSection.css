@@ -1,0 +1,16 @@
+.date-and-time-section {
+  border-bottom: 1px solid #aaa;
+  overflow: hidden;
+  padding: .5em;
+  display: flex;
+  justify-content: center; }
+  .date-and-time-section .info-section {
+    display: inline-flex;
+    flex-direction: column;
+    margin: 0 3em;
+    align-items: center; }
+    .date-and-time-section .info-section .date-and-time-title {
+      font-size: 18px;
+      display: block; }
+    .date-and-time-section .info-section .date-and-time-content {
+      font-size: 14px; }

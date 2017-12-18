@@ -1,8 +1,8 @@
 .booking-form {
   width: 100%; }
   .booking-form .booking-form-content {
-    width: 80%;
-    background: #eee; }
+    /*width: 80%*/
+    width: 100%; }
     .booking-form .booking-form-content .payment-button {
       background: blue;
       color: white;
