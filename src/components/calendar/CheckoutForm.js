@@ -39,9 +39,9 @@ class CheckoutForm extends React.Component {
     return (
       <Form onSubmit={this._handleSubmit}>
         <DateAndTimeSection />
-        <Col sm={6} md={6} smOffset={3} mdOffset={3}>
+        <Col sm={6} md={6} xs={12} smOffset={3} mdOffset={3}>
           <PersonalInfoSection />
-          <Col sm={12} md={12}>
+          <Col sm={12} md={12} xs={12}>
             <CardSection />
             <button className='checkout-button'>Confirm order</button>
           </Col>
