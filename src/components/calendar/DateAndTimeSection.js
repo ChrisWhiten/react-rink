@@ -32,20 +32,6 @@ class DateAndTimeSection extends React.Component {
         </div>
       </div>
     );
-    // return (
-    //   <div className='date-and-time-section'>
-    //     <Col sm={12} md={12}>
-    //       <Col sm={6} md={6}>
-    //         <div className='date-and-time-title'>WHERE</div>
-    //         <div className='date-and-time-content'>Here</div>
-    //       </Col>
-    //       <Col sm={6} md={6}>
-    //         <div className='date-and-time-title'>WHEN</div>
-    //         <div className='date-and-time-content'>Thursday, December 17 @ 8:00PM</div>
-    //       </Col>
-    //     </Col>
-    //   </div>
-    // );
   }
 }
 

@@ -8,6 +8,7 @@ import {
 import PersonalInfoSection from './PersonalInfoSection';
 import CardSection from './CardSection';
 import DateAndTimeSection from './DateAndTimeSection';
+import NumberOfGuestsSection from './NumberOfGuestsSection';
 
 import './styles/CheckoutForm.css';
 
@@ -40,6 +41,7 @@ class CheckoutForm extends React.Component {
       <Form onSubmit={this._handleSubmit}>
         <DateAndTimeSection />
         <Col sm={6} md={6} xs={12} smOffset={3} mdOffset={3}>
+          <NumberOfGuestsSection />
           <PersonalInfoSection />
           <Col sm={12} md={12} xs={12}>
             <CardSection />
