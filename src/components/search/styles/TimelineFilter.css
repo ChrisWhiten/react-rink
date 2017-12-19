@@ -1,2 +1,4 @@
 .timeline-filter {
-  margin: 1em; }
+  margin: 1em;
+  position: fixed;
+  left: 0; }

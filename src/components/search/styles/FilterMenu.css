@@ -1,6 +1,6 @@
 .filter-menu {
   width: 100%;
-  /* height: 70px */
+  height: 70px;
   z-index: 5;
   background-color: #1e88e5;
   position: fixed;
@@ -67,10 +67,12 @@
     cursor: pointer; }
 
 .filter-date-navigator {
-  display: inline-flex;
-  align-self: center;
+  display: flex;
   margin: 1em;
-  margin-left: auto; }
+  position: fixed;
+  right: 0;
+  height: 42px;
+  align-items: center; }
 
 .filter-drawer {
   margin-top: 186px; }
