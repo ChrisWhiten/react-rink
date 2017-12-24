@@ -6,6 +6,9 @@ import People from 'material-ui/svg-icons/social/people';
 import moment from 'moment';
 import classNames from 'classnames';
 
+import SlideUp from '../calendar/SlideUp';
+import BookingForm from '../calendar/BookingForm';
+
 import './ExternalList.css';
 
 class ExternalList extends React.Component {
@@ -16,7 +19,41 @@ class ExternalList extends React.Component {
       open: false,
       selectedBooking: null,
       date: new Date(),
+      screenWidth: 0,
+      screenHeight: 0,
+      showSlideup: false,
     };
+
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.checkout = this.checkout.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({
+      screenWidth: window.innerWidth,
+      screenHeight: window.innerHeight,
+    });
+  }
+
+  checkout() {
+    this.setState({
+      showSlideup: true,
+    });
+  }
+
+  slideupCancel() {
+    this.setState({
+      showSlideup: false,
+    });
   }
 
   renderSlot(slot) {
@@ -24,7 +61,6 @@ class ExternalList extends React.Component {
     slot.bookings.map(b => {
       availabilities -= b.slotCount;
     });
-    console.log('slot', slot);
 
     const slotClass = classNames(
       'external-slot',
@@ -37,9 +73,9 @@ class ExternalList extends React.Component {
     );
 
     return (
-      <div className={slotClass}>
+      <div className={slotClass} onTouchTap={this.checkout}>
         <div className='external-slot-time'>
-        { moment(slot.startTime).format('LT') }
+          { moment(slot.startTime).format('LT') }
         </div>
         <div className='external-slot-availabilities'>
           { availabilities } <People className='external-slot-availaibilities-icon' />
@@ -53,11 +89,11 @@ class ExternalList extends React.Component {
       <div className='legend'>
           <div className='legend-empty unavailable' />
           <div className='legend-text'>
-          = Unavailable
+          <h6>= Unavailable</h6>
           </div>
           <div className='legend-empty available' />
           <div className='legend-text'>
-          = Available (click to book)
+          <h6>= Available (click to book)</h6>
           </div>
       </div>
     );
@@ -71,7 +107,7 @@ class ExternalList extends React.Component {
     return (
       <div className='container location-rendered'>
         <div className='location-metadata'>
-          {location.locationId} - {location.locationName}
+          <h5>{location.locationId} - {location.locationName}</h5>
         </div>
         
         <hr className='external-separator' />
@@ -95,7 +131,7 @@ class ExternalList extends React.Component {
     return (
       <div className='external-list'>
         <div className='container external-date'>
-          { moment(this.state.date).format('dddd, MMMM Do, YYYY') }
+          <h4>{ moment(this.state.date).format('dddd, MMMM Do, YYYY') }</h4>
         </div>
 
           {
@@ -103,6 +139,16 @@ class ExternalList extends React.Component {
               return this.renderByLocation(l)
             })
           }
+
+        <SlideUp
+          screenHeight={this.state.screenHeight}
+          active={this.state.showSlideup}
+          onCancel={this.slideupCancel.bind(this)} >
+          <BookingForm
+            booking={this.state.selectedBooking}
+            onRequestClose={this.slideupCancel.bind(this)}
+          />
+        </SlideUp>
       </div>
     );
   }

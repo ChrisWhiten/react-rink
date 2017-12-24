@@ -40,6 +40,8 @@
 
 .location-rendered {
   border: 1px solid #ccc; }
+  .location-rendered .location-metadata {
+    margin-top: 1em; }
 
 .external-date {
   border: 1px solid #ccc; }
