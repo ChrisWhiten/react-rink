@@ -28,13 +28,19 @@
 .filter-date-picker
   display: inline-flex
   color: #fff
-  opacity: 0.7
   align-self: center
   align-items: center
   margin: auto
+  
+
+.date-picker-area
+  opacity: 0.7
   &:hover
     opacity: 1
     cursor: pointer
+
+  .date-picker-text
+    display: inline-block
 
 
 .filter-date-picker-icon
@@ -51,10 +57,11 @@
 
 
 .filter-chevron
+  margin: 0 1em
   opacity: 0.7
   color: #fff
   display: inline-flex
-  transform: scale(2)
+  /*transform: scale(2)*/
   &:hover
     opacity: 1
     cursor: pointer
@@ -73,15 +80,6 @@
   &:hover
     opacity: 1
     cursor: pointer
-
-
-.filter-date-navigator
-  display: flex
-  margin: 1em
-  position: fixed
-  right: 0
-  height: 42px
-  align-items: center
 
 .filter-drawer
   margin-top: 186px

@@ -44,7 +44,8 @@
   width: 242px;
   top: 40px;
   background-color: #fff;
-  z-index: 10; }
+  z-index: 10;
+  overflow: scroll; }
   .filter-panel.active {
     display: block; }
 

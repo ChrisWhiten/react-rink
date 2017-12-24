@@ -34,14 +34,6 @@ class TimelineFilter extends React.Component {
             filter={`event-type`} 
             text={`${this.locale.filters.eventType}`} />
         </span>
-        <span>
-          <EventFilter 
-            inverted={this.props.inverted} 
-            active={this.state.selected === 'demographic'} 
-            handleClick={this._filterClicked.bind(this)} 
-            filter={`demographic`} 
-            text={`${this.locale.filters.demographic}`} />
-        </span>
       </div>
     );
   }

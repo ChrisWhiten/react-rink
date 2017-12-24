@@ -107,7 +107,7 @@ class ExternalList extends React.Component {
     return (
       <div className='container location-rendered'>
         <div className='location-metadata'>
-          <h5>{location.locationId} - {location.locationName}</h5>
+          <h5>{location.locationName}</h5>
         </div>
         
         <hr className='external-separator' />

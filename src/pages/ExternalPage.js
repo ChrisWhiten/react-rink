@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import ExternalList from '../components/external/ExternalList';
 import FilterMenu from '../components/search/FilterMenu';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import moment from 'moment';
 
 import './styles/ExternalPage.css';
 

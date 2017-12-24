@@ -270,7 +270,7 @@ class AvailabilityList extends React.Component {
                     bookings.items.map(location => {
                       return (
                         <th key={`location-header-${location.locationName}`} className='location-header' width={this.itemWidth}>
-                          <span className='location-title'>{location.locationName}</span>
+                          <h3 className='location-title'>{location.locationName}</h3>
                         </th>
                       )
                     })

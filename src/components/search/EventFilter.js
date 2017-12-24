@@ -19,7 +19,27 @@ class EventFilter extends React.Component {
       morningChecked: false,
       afternoonChecked: false,
       eveningChecked: false,
+      screenWidth: 0,
+      screenHeight: 0,
     };
+
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({
+      screenWidth: window.innerWidth,
+      screenHeight: window.innerHeight,
+    });
   }
 
   _filterClicked() {
@@ -125,13 +145,17 @@ class EventFilter extends React.Component {
       },
     );
 
+    const filterStyles = {
+      maxHeight: this.state.screenHeight - 200,
+    };
+
     const selectedCount = this._selectedCount();
 
     // TODO: pass the actual filter page as this.props.children rather than hard-coding it in the filter div
     return (
       <div className='event-type-filter'>
         <div className='filter'>
-          <Paper className={filterClass}>
+          <Paper className={filterClass} style={filterStyles}>
             <div className='time-range-filter' onTouchTap={this._handleMorningClick.bind(this)}>
               <Checkbox
                 checked={this.state.morningChecked}
@@ -169,6 +193,173 @@ class EventFilter extends React.Component {
             </div>
 
             <div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+              <Checkbox
+                checked={this.state.eveningChecked}
+                style={checkboxStyle}
+              />
+              <div className='foobar'>
+                <div className='time-range-title'>
+                  <span>Evening</span>
+                </div>
+                <div className='time-range-description'>
+                  <span>5PM - Close</span>
+                </div>
+              </div>
+              <div className='time-icon'>
+                <EveningIcon className='time-icon-svg' />
+              </div>
+            </div>
+
+
+
+
+
+
+            <div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+              <Checkbox
+                checked={this.state.eveningChecked}
+                style={checkboxStyle}
+              />
+              <div className='foobar'>
+                <div className='time-range-title'>
+                  <span>Evening</span>
+                </div>
+                <div className='time-range-description'>
+                  <span>5PM - Close</span>
+                </div>
+              </div>
+              <div className='time-icon'>
+                <EveningIcon className='time-icon-svg' />
+              </div>
+            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+              <Checkbox
+                checked={this.state.eveningChecked}
+                style={checkboxStyle}
+              />
+              <div className='foobar'>
+                <div className='time-range-title'>
+                  <span>Evening</span>
+                </div>
+                <div className='time-range-description'>
+                  <span>5PM - Close</span>
+                </div>
+              </div>
+              <div className='time-icon'>
+                <EveningIcon className='time-icon-svg' />
+              </div>
+            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+              <Checkbox
+                checked={this.state.eveningChecked}
+                style={checkboxStyle}
+              />
+              <div className='foobar'>
+                <div className='time-range-title'>
+                  <span>Evening</span>
+                </div>
+                <div className='time-range-description'>
+                  <span>5PM - Close</span>
+                </div>
+              </div>
+              <div className='time-icon'>
+                <EveningIcon className='time-icon-svg' />
+              </div>
+            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+              <Checkbox
+                checked={this.state.eveningChecked}
+                style={checkboxStyle}
+              />
+              <div className='foobar'>
+                <div className='time-range-title'>
+                  <span>Evening</span>
+                </div>
+                <div className='time-range-description'>
+                  <span>5PM - Close</span>
+                </div>
+              </div>
+              <div className='time-icon'>
+                <EveningIcon className='time-icon-svg' />
+              </div>
+            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+              <Checkbox
+                checked={this.state.eveningChecked}
+                style={checkboxStyle}
+              />
+              <div className='foobar'>
+                <div className='time-range-title'>
+                  <span>Evening</span>
+                </div>
+                <div className='time-range-description'>
+                  <span>5PM - Close</span>
+                </div>
+              </div>
+              <div className='time-icon'>
+                <EveningIcon className='time-icon-svg' />
+              </div>
+            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+              <Checkbox
+                checked={this.state.eveningChecked}
+                style={checkboxStyle}
+              />
+              <div className='foobar'>
+                <div className='time-range-title'>
+                  <span>Evening</span>
+                </div>
+                <div className='time-range-description'>
+                  <span>5PM - Close</span>
+                </div>
+              </div>
+              <div className='time-icon'>
+                <EveningIcon className='time-icon-svg' />
+              </div>
+            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+              <Checkbox
+                checked={this.state.eveningChecked}
+                style={checkboxStyle}
+              />
+              <div className='foobar'>
+                <div className='time-range-title'>
+                  <span>Evening</span>
+                </div>
+                <div className='time-range-description'>
+                  <span>5PM - Close</span>
+                </div>
+              </div>
+              <div className='time-icon'>
+                <EveningIcon className='time-icon-svg' />
+              </div>
+            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+              <Checkbox
+                checked={this.state.eveningChecked}
+                style={checkboxStyle}
+              />
+              <div className='foobar'>
+                <div className='time-range-title'>
+                  <span>Evening</span>
+                </div>
+                <div className='time-range-description'>
+                  <span>5PM - Close</span>
+                </div>
+              </div>
+              <div className='time-icon'>
+                <EveningIcon className='time-icon-svg' />
+              </div>
+            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+              <Checkbox
+                checked={this.state.eveningChecked}
+                style={checkboxStyle}
+              />
+              <div className='foobar'>
+                <div className='time-range-title'>
+                  <span>Evening</span>
+                </div>
+                <div className='time-range-description'>
+                  <span>5PM - Close</span>
+                </div>
+              </div>
+              <div className='time-icon'>
+                <EveningIcon className='time-icon-svg' />
+              </div>
+            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}

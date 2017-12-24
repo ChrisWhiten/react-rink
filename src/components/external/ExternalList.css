@@ -21,6 +21,7 @@
     transition: box-shadow 80ms ease-in-out, width 0.4s ease 0.2s !important;
     background: #3C8DBC; }
     .external-slot.available:hover {
+      transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09), 0 4px 40px rgba(0, 0, 0, 0.24) !important;
       cursor: pointer; }
   .external-slot.full {
