@@ -150,27 +150,47 @@ function generateCalendar(start, end) {
   return list;
 }
 
+function _generateSomeBookings() {
+  const bookings = [];
+  const fakeBookings = [{
+    leaderName: 'Luke Skywalker',
+    leaderEmail: 'luke@skywalker.com',
+    slotCount: 8,
+  }, {
+    leaderName: 'Han Solo',
+    leaderEmail: 'han@solo.com',
+    slotCount: 5,
+  }, {
+    leaderName: 'Poe Dameron',
+    leaderEmail: 'poe@dameron.com',
+    slotCount: 7,
+  }];
+
+  const rand = Math.random();
+  if (rand < 0.1) {
+    return bookings;
+  }
+  if (rand < 0.3) {
+    bookings.push(fakeBookings[0]);
+  }
+
+  if (rand < 0.6) {
+    bookings.push(fakeBookings[1]);
+  }
+
+  bookings.push(fakeBookings[2]);
+  return bookings;
+}
+
 function generateBookingsList2(slots) {
   slots.map(s => {
     if (s.availableToBook && Math.random() < 0.1) {
-      s.booking = {
+      s.availabilitySlot = {
         startTime: s.time,
         endTime: moment(s.time).add(60, 'm'),
         isPublic: Math.random() > 0.8,
-        host: {
-          email: 'chris.whiten@gmail.com',
-        },
         totalSlots: 20,
-        slotsBooked: (() => {
-          const rand = Math.random();
-          if (rand < 0.6) {
-            return 0;
-          } else if (rand < 0.8) {
-            return 8;
-          } else {
-            return 20;
-          }
-        })(),
+        bookings: _generateSomeBookings(),
       };
     }
   });

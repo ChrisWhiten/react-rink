@@ -163,11 +163,12 @@
   box-sizing: border-box; }
   .open-spot:hover {
     background: #f3f4f5;
-    border: none; }
+    /*border: none*/ }
     .open-spot:hover .open-spot-time-label {
       display: block; }
 
 .booking-slot {
+  overflow: hidden;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -195,20 +196,33 @@
       color: #fff; }
     .booking-slot.booked .slot-details h3 {
       color: #fff; }
+    .booking-slot.booked .slot-details .slot-booker {
+      color: #fff; }
+    .booking-slot.booked .slot-details .slot-booker-icon {
+      color: #fff !important; }
   .booking-slot:hover:before {
     background-color: rgba(0, 0, 0, 0.09); }
 
 .slot-details {
   position: relative;
   z-index: 2;
-  top: 10px;
-  padding: 0 10px; }
+  /*top: 10px*/
+  padding: 0 10px;
+  height: 100%; }
   .slot-details .slot-time {
     color: #98a5bb;
-    border-color: #98a5bb;
-    font-size: 11px;
-    margin: 0 0 5px;
-    line-height: 1; }
+    font-size: 11px; }
+  .slot-details .slot-booking-list {
+    bottom: 0;
+    position: absolute; }
+    .slot-details .slot-booking-list .slot-booker {
+      color: #98a5bb;
+      font-size: 11px; }
+    .slot-details .slot-booking-list .slot-booker-icon {
+      color: #98a5bb !important;
+      height: 16px !important;
+      width: 16px !important;
+      vertical-align: bottom !important; }
   .slot-details h3 {
     margin: 0 0 2px;
     color: #98a5bb;

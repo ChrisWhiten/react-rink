@@ -49,6 +49,12 @@ class Tabs extends React.Component {
             label={this.locale.general.joinAGame}
             containerElement={<Link to='/join' />}
           />
+          <Tab
+            icon={<EventIcon />}
+            className='tab'
+            label={this.locale.general.joinAGame}
+            containerElement={<Link to='/external' />}
+          />
         </MaterialTabs>
       </div>
     );

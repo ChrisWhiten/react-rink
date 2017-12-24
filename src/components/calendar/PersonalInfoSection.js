@@ -9,10 +9,9 @@ import {
 
 import './styles/PersonalInfoSection.css';
 
-function FieldGroup({ id, label, help, ...props }) {
+function FieldGroup({ id, label, help, validationState, ...props }) {
   return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
+    <FormGroup controlId={id} validationState={validationState}>
       <FormControl {...props} />
       {help && <HelpBlock>{help}</HelpBlock>}
     </FormGroup>
@@ -25,7 +24,25 @@ class PersonalInfoSection extends React.Component {
 
     this.state = {
       selectedBooking: null,
+      firstName: '',
     };
+
+    // this.notEmpty = this._notEmpty.bind(this);
+    this.handleChange = this._handleChange.bind(this);
+  }
+
+  // _notEmpty() {
+  //   if (this.state.firstName === null) {
+  //     return null;
+  //   }
+
+  //   return this.state.firstName.length > 0 ? 'success' : 'error';
+  // }
+
+  _handleChange(e) {
+    this.setState({
+      firstName: e.target.value,
+    });
   }
 
 
@@ -37,6 +54,9 @@ class PersonalInfoSection extends React.Component {
             id='first-name-id'
             type='text'
             placeholder='First name'
+            // validationState={this.notEmpty()}
+            onChange={this.handleChange}
+            value={this.state.firstName}
           />
         </Col>
         <Col md={6} lg={6} sm={6} xs={12}>

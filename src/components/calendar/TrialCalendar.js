@@ -6,6 +6,8 @@ import SlideUp from './SlideUp';
 import BookingForm from './BookingForm';
 import CheckIn from './CheckIn';
 import CircularProgress from 'material-ui/CircularProgress';
+import People from 'material-ui/svg-icons/social/people';
+import classNames from 'classnames';
 import './styles/TrialCalendar.css';
 
 const EXPERIMENT = true;
@@ -75,6 +77,61 @@ class AvailabilityList extends React.Component {
     });
   }
 
+  _renderAvailabilitySlot(slot) {
+    const bookings = slot.availabilitySlot.bookings;
+    bookings.sort((a, b) => {
+      return b.slotCount - a.slotCount;
+    });
+
+    let availableCount = slot.availabilitySlot.totalSlots;
+    let totalBookingCount = 0;
+    slot.availabilitySlot.bookings.forEach(b => {
+      availableCount -= b.slotCount;
+      totalBookingCount += b.slotCount;
+    });
+
+    const slotClass = classNames(
+      'booking-slot',
+      'sixty-mins', {
+        unbooked: totalBookingCount === 0
+      }, {
+        booked: totalBookingCount !== 0
+      },
+    );
+
+    return (
+      <div className={slotClass} onTouchTap={this._handleOpen.bind(this, slot)}>
+        <div className='slot-details'>
+          <span className='slot-time'>
+            {moment(slot.availabilitySlot.startTime).format('LT')} - {moment(slot.availabilitySlot.endTime).format('LT')}
+          </span>
+          <h3>{ availableCount } Available</h3>
+          <div className='slot-booking-list'>
+          {/* {
+            slot.availabilitySlot.bookings.map(b => {
+              return <div className='slot-booker'>
+                {b.slotCount} <People className='slot-booker-icon' /> ({b.leaderName})
+              </div>
+            })
+          } */}
+          {
+            slot.availabilitySlot.bookings.length === 1 &&
+            <div className='slot-booker'>
+              {slot.availabilitySlot.bookings[0].leaderName} ({slot.availabilitySlot.bookings[0].slotCount} <People className='slot-booker-icon' />)
+            </div>
+          }
+          {
+            slot.availabilitySlot.bookings.length > 1 &&
+            <div className='slot-booker'>
+              {slot.availabilitySlot.bookings.length} bookings ({totalBookingCount} <People className='slot-booker-icon' />)
+            </div>
+          }
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // this nesting structure is a bit un-intuitive,
   // fix up later
   _renderCalendarItems(bookings) {
@@ -101,15 +158,8 @@ class AvailabilityList extends React.Component {
                       </div>
           
                       {
-                        bookings[locationId].bookings[idx].booking &&
-                        <div className='booking-slot sixty-mins unbooked' onTouchTap={this._handleOpen.bind(this, bookings[locationId].bookings[idx])}>
-                          <div className='slot-details'>
-                            <span className='slot-time'>
-                              {moment(bookings[locationId].bookings[idx].booking.startTime).format('LT')} - {moment(bookings[locationId].bookings[idx].booking.endTime).format('LT')}
-                            </span>
-                            <h3>20 Available</h3>
-                          </div>
-                        </div>
+                        bookings[locationId].bookings[idx].availabilitySlot &&
+                        this._renderAvailabilitySlot(bookings[locationId].bookings[idx])
                       }
                   </td>)
                   })

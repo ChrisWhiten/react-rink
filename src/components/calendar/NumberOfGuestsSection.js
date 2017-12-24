@@ -13,7 +13,6 @@ import './styles/NumberOfGuestsSection.css';
 function FieldGroup({ id, label, help, ...props }) {
   return (
     <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
       <FormControl {...props} />
       {help && <HelpBlock>{help}</HelpBlock>}
     </FormGroup>
@@ -36,11 +35,12 @@ class NumberOfGuestsSection extends React.Component {
         <Col md={11} lg={11} sm={11} xs={11}>
           <FormGroup controlId='formControlsSelect'>
             <FormControl componentClass='select'>
-              <option value='1'>1 Guest</option>
-              <option value='2'>2 Guests</option>
-              <option value='3'>3 Guests</option>
-              <option value='4'>4 Guests</option>
-              <option value='5'>5 Guests</option>
+              <option value='number-of-players'>Number of Players</option>
+              <option value='1'>1 Player</option>
+              <option value='2'>2 Players</option>
+              <option value='3'>3 Players</option>
+              <option value='4'>4 Players</option>
+              <option value='5'>5 Players</option>
             </FormControl>
           </FormGroup>
         </Col>

@@ -3,6 +3,7 @@ import {injectStripe} from 'react-stripe-elements';
 import {
   Form,
   Col,
+  Checkbox,
 } from 'react-bootstrap';
 
 import PersonalInfoSection from './PersonalInfoSection';
@@ -44,8 +45,12 @@ class CheckoutForm extends React.Component {
           <NumberOfGuestsSection />
           <PersonalInfoSection />
           <Col sm={12} md={12} xs={12}>
+            <Checkbox>
+              I have read and agree with the waiver
+            </Checkbox>
             <CardSection />
-            <button className='checkout-button'>Confirm order</button>
+            <button className='checkout-button'>Confirm order <small>($24)</small></button>
+            <div className='pay-later-button'><a>Or confirm now and pay on-site</a></div>
           </Col>
         </Col>
       </Form>

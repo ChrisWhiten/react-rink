@@ -33,6 +33,10 @@
         > .chevron-svg
           color: #767676 !important
 
+      .selected-count
+        color: #fff
+        background-color: #1E88E5
+
 
 .filter-title
   display: flex
@@ -90,15 +94,19 @@
 .selected-count
   display: inline-block
   /*background-color: #008489*/
-  background-color: #1E88E5
+  background-color: #fff
   border-radius: 10px
   font-size: 12px
   width: 20px
   height: 20px
-  color: #fff
+  color: #1E88E5
   padding-bottom: 0px
   padding-top: 0px
   text-align: center
   letter-spacing: 0.4px
   line-height: 20px
   margin-right: 0.5em
+
+.active .selected-count
+  color: #fff
+  background-color: #1E88E5

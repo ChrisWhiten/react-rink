@@ -165,11 +165,12 @@
 
   &:hover
     background: #f3f4f5
-    border: none
+    /*border: none*/
     .open-spot-time-label
       display: block
 
 .booking-slot
+  overflow: hidden
   position: absolute
   top: 0
   bottom: 0
@@ -201,6 +202,11 @@
         color: #fff
       h3
         color: #fff
+
+      .slot-booker
+        color: #fff
+      .slot-booker-icon
+        color: #fff !important
   &:hover
     &:before
       background-color: rgba(0, 0, 0, 0.09)
@@ -209,15 +215,26 @@
 .slot-details
   position: relative
   z-index: 2
-  top: 10px
+  /*top: 10px*/
   padding: 0 10px
+  height: 100%
 
   .slot-time
     color: #98a5bb
-    border-color: #98a5bb
     font-size: 11px
-    margin: 0 0 5px
-    line-height: 1
+
+  .slot-booking-list
+    bottom: 0
+    position: absolute
+    .slot-booker
+      color: #98a5bb
+      font-size: 11px
+
+    .slot-booker-icon
+      color: #98a5bb !important
+      height: 16px !important
+      width: 16px !important
+      vertical-align: bottom !important
 
   h3
     margin: 0 0 2px
