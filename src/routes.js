@@ -9,6 +9,8 @@ import Dashboard from './containers/DashboardContainer';
 import Search from './containers/SearchContainer';
 import EventPage from './pages/EventPage';
 import External from './containers/ExternalContainer';
+import EditAvailabilitySchedule from './containers/EditAvailabilityScheduleContainer';
+import AvailabilitySchedule from './containers/AvailabilityScheduleContainer';
 
 export default (
   <Route>
@@ -19,6 +21,8 @@ export default (
       <Route path='profile' component={ProfilePage} />
       <Route path='booking' component={Booking} />
       <Route path='external' component={External} />
+      <Route path='availabilitySchedules' component={AvailabilitySchedule} />
+      <Route path='availabilitySchedules/new' component={EditAvailabilitySchedule} />
       <Route path='join' component={Search} />
       <Route path='events/:eventId' component={EventPage} />
       <Route path="*" component={NotFoundPage} />

@@ -1,0 +1,38 @@
+.slot {
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 2px 32px rgba(0, 0, 0, 0.16) !important;
+  transition: box-shadow 80ms ease-in-out, width 0.4s ease 0.2s !important;
+  background: #3C8DBC;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+  padding: .5em;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  color: #fff;
+  overflow: hide; }
+  .slot:hover {
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09), 0 4px 40px rgba(0, 0, 0, 0.24) !important; }
+    .slot:hover > .slot-time {
+      display: none; }
+    .slot:hover > .remove-slot {
+      display: flex; }
+    .slot:hover > .add-icon {
+      display: none !important; }
+    .slot:hover > .add-icon-container {
+      display: none; }
+  .slot .slot-time {
+    display: flex; }
+  .slot .add-icon-container {
+    display: flex; }
+  .slot .add-icon {
+    display: flex !important;
+    color: #fff !important;
+    height: 1em !important;
+    width: 1em !important; }
+  .slot .remove-slot {
+    display: none; }

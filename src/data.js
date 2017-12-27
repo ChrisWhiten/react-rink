@@ -9,6 +9,7 @@ const data = {
     { text: 'Book Ice Time', icon: <EventIcon />, link: '/booking' },
     { text: 'Join a Game', icon: <SearchIcon />, link: '/join' },
     { text: 'External', icon: <EventIcon />, link: '/external' },
+    { text: 'External', icon: <EventIcon />, link: '/availabilitySchedules' },
   ],
 };
 

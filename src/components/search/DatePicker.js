@@ -6,12 +6,12 @@ import EventIcon from 'material-ui/svg-icons/action/event';
 import './styles/DatePicker.css';
 
 class DatePicker extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       date: null,
-      dateText: 'Anytime',
+      dateText: props.nullText || 'Anytime',
     };
   }
 
@@ -28,7 +28,7 @@ class DatePicker extends React.Component {
 
   _formatDate(date) {
     if (!date) {
-      return 'Anytime';
+      return this.props.nullText || 'Anytime';
     } else {
       return `${moment(date).format('MMM Do, YYYY')} (and onwards)`;
     }
@@ -45,6 +45,12 @@ class DatePicker extends React.Component {
           <h4 className='date-text'>
             {this.state.dateText}
           </h4>
+          {
+            this.state.date && this.props.hintText &&
+            <h6 className='hint-text'>
+              {this.props.hintText}
+            </h6>
+          }
         </div>
       </div>
       <MaterialDatePicker
