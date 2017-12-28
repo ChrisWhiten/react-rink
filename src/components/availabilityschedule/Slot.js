@@ -1,7 +1,5 @@
-import React, {PropTypes} from 'react';
-import classNames from 'classnames';
+import React from 'react';
 import moment from 'moment';
-import Add from 'material-ui/svg-icons/content/add';
 
 import './Slot.css';
 

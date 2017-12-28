@@ -1,19 +1,4 @@
-import React, {PropTypes} from 'react';
-import {
-  Panel,
-} from 'react-bootstrap';
-import classNames from 'classnames';
-import Slot from './Slot';
-import TimePicker from 'material-ui/TimePicker';
-import DatePicker from '../search/DatePicker';
-import {
-  Button,
-  HelpBlock,
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  Col,
-} from 'react-bootstrap';
+import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Add from 'material-ui/svg-icons/content/add';
 import {List, ListItem} from 'material-ui/List';
@@ -22,26 +7,71 @@ import {
 } from 'react-router';
 
 import Avatar from 'material-ui/Avatar';
-import FileFolder from 'material-ui/svg-icons/file/folder';
-import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import Subheader from 'material-ui/Subheader';
-import ActionInfo from 'material-ui/svg-icons/action/info';
+import Event from 'material-ui/svg-icons/action/event';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconButton from 'material-ui/IconButton';
+import MenuItem from 'material-ui/MenuItem';
+import {grey400} from 'material-ui/styles/colors';
+import IconMenu from 'material-ui/IconMenu';
 
 import './ScheduleSummary.css';
 
-class ScheduleSummary extends React.Component {
-  constructor() {
-    super();
+const iconButtonElement = (
+  <IconButton
+    touch={true}
+    tooltip='more'
+    tooltipPosition='bottom-left'
+  >
+    <MoreVertIcon color={grey400} />
+  </IconButton>
+);
 
-    this.state = {
-      // schedules: [],
-      schedules: [{
-        name: 'My schedule',
-      }],
-    };
+const rightIconMenu = (
+  <IconMenu iconButtonElement={iconButtonElement}>
+    <MenuItem>Edit</MenuItem>
+    <MenuItem>Delete</MenuItem>
+  </IconMenu>
+);
+
+class ScheduleSummary extends React.Component {
+
+  renderFetching(isFetching) {
+    if (!isFetching) return null;
+
+    return <div>Fetching...</div>;
+  }
+
+  renderSchedules(isFetching, schedules) {
+    if (isFetching) return null;
+
+    if (!schedules || schedules.length === 0) {
+      return <div className='no-schedules'>
+        No schedules!
+      </div>;
+    }
+
+    return <div className='schedule-list'>
+      <List>
+        <Subheader inset={true}>Schedules</Subheader>
+        {
+          schedules.map(s => {
+            return <ListItem
+              key={`schedule-${s.id}`}
+              leftAvatar={<Avatar icon={<Event />} />}
+              rightIconButton={rightIconMenu}
+              primaryText={s.name}
+              secondaryText={`${s.start} - ${s.end}`}
+            />
+          })
+        }
+      </List>
+    </div>;
   }
 
   render() {
+    const schedules = this.props.schedules.items;
+    const isFetching = this.props.schedules.isFetching;
     return (
       <div className='schedule-summary'>
         <div className='create-new'>
@@ -54,38 +84,9 @@ class ScheduleSummary extends React.Component {
           </Link>
         </div>
 
-        {
-          this.state.schedules && this.state.schedules.length === 0 &&
-          <div className='no-schedules'>
-            No schedules!
-          </div>
-        }
-        {
-          this.state.schedules && this.state.schedules.length > 0 &&
-          <div className='schedule-list'>
-            <List>
-              <Subheader inset={true}>Folders</Subheader>
-              <ListItem
-                leftAvatar={<Avatar icon={<FileFolder />} />}
-                rightIcon={<ActionInfo />}
-                primaryText="Photos"
-                secondaryText="Jan 9, 2014"
-              />
-              <ListItem
-                leftAvatar={<Avatar icon={<FileFolder />} />}
-                rightIcon={<ActionInfo />}
-                primaryText="Recipes"
-                secondaryText="Jan 17, 2014"
-              />
-              <ListItem
-                leftAvatar={<Avatar icon={<FileFolder />} />}
-                rightIcon={<ActionInfo />}
-                primaryText="Work"
-                secondaryText="Jan 28, 2014"
-              />
-            </List>
-          </div>
-        }
+        { this.renderFetching(isFetching) }
+        { this.renderSchedules(isFetching, schedules) }
+
       </div>
     );
   }

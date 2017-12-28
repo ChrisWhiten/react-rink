@@ -1,11 +1,4 @@
-import React, {PropTypes} from 'react';
-import {
-  HelpBlock,
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  Col,
-} from 'react-bootstrap';
+import React from 'react';
 
 import './styles/DateAndTimeSection.css';
 

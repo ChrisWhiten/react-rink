@@ -54,6 +54,10 @@ const endpoints = {
   getParticipationInvitations: () => {
     return api.getParticipationInvitations();
   },
+
+  getSchedules: (start, end) => {
+    return api.getSchedules(start, end);
+  }
 };
 
 export default endpoints;

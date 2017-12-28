@@ -3,19 +3,18 @@ import ScheduleSummary from '../components/availabilityschedule/ScheduleSummary'
 import './styles/AvailabilitySchedulePage.css';
 
 class AvailabilitySchedulePage extends Component {
-  componentDidMount() {
-    // dispatch to fetch data
-    let start = new Date();
-    start.setHours(0, 0, 0, 0); // midnight this morning
-    let end = new Date();
-    end.setHours(23, 59, 59, 999); // end of day
-    this.props.fetchBookings(start, end);
+  constructor(props) {
+    super(props);
+
+    // fetch schedule data
+    console.log('huh', props.fetchSchedules)
+    props.fetchSchedules(new Date(), new Date(2040, 0, 0));
   }
 
   render() {
     return (
       <div>
-        <ScheduleSummary bookings={this.props.bookings} />
+        <ScheduleSummary schedules={this.props.schedules} bookings={this.props.bookings} />
       </div>
     );
   }

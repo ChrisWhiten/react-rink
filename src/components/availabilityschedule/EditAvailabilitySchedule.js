@@ -1,9 +1,4 @@
-// TODO: The minutesStep property is not working on the time picker!
-import React, {PropTypes} from 'react';
-import {
-  Panel,
-} from 'react-bootstrap';
-import classNames from 'classnames';
+import React from 'react';
 import Slot from './Slot';
 import TimePicker from 'material-ui/TimePicker';
 import DatePicker from '../search/DatePicker';
@@ -11,7 +6,6 @@ import {
   Button,
   HelpBlock,
   FormGroup,
-  ControlLabel,
   FormControl,
   Col,
 } from 'react-bootstrap';

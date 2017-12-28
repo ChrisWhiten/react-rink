@@ -1,7 +1,4 @@
 import React, {PropTypes} from 'react';
-import {
-  Panel,
-} from 'react-bootstrap';
 import People from 'material-ui/svg-icons/social/people';
 import moment from 'moment';
 import classNames from 'classnames';
@@ -126,8 +123,6 @@ class ExternalList extends React.Component {
   }
 
   render() {
-    const { bookings } = this.props;
-
     return (
       <div className='external-list'>
         <div className='container external-date'>

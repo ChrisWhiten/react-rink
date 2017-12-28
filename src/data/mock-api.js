@@ -10,6 +10,19 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
+let schedules = [{
+  id: guid(),
+  name: 'Open Hours',
+  start: new Date(),
+  end: new Date(2100, 10, 0),
+
+}, {
+  id: guid(),
+  name: 'Long hours over winter',
+  start: new Date(),
+  end: new Date(2030, 3, 29),
+}];
+
 let organized = [{
     id: 'this-is-an-id',
     title: 'foo',
@@ -216,6 +229,14 @@ function generateBookingList(start, end) {
 }
 
 const endpoints = {
+  getSchedules: (start, end) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return resolve(schedules);
+      }, 1000);
+    })
+  },
+
   getBookings: (start, end) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

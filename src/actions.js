@@ -16,6 +16,9 @@ import {
   FETCHING_EVENTS,
   FETCHING_EVENTS_SUCCESS,
   FETCHING_EVENTS_ERROR,
+  GET_SCHEDULES_ERROR,
+  FETCHING_SCHEDULES_SUCCESS,
+  FETCHING_SCHEDULES,
 } from './constants/actionTypes';
 
 import api from './data/api';
@@ -113,6 +116,46 @@ function receiveUpcomingOrganized(events) {
 
 function getUpcomingOrganizedError() {
   return { type: FETCHING_ORGANIZED_ERROR };
+}
+
+// schedules
+export function fetchSchedules(start, end) {
+  return function(dispatch) {
+    dispatch(requestSchedules(start, end));
+
+    return api.getSchedules(start, end)
+      .then(json => {
+        dispatch(receiveSchedules(json));
+      })
+      .catch(err => {
+        console.error('error getting schedules', err);
+        dispatch(getSchedulesError(start, end, err));
+      });
+  }
+}
+
+function requestSchedules(start, end) {
+  return {
+    type: FETCHING_SCHEDULES,
+    start,
+    end
+  };
+}
+
+function receiveSchedules(schedules) {
+  return {
+    type: FETCHING_SCHEDULES_SUCCESS,
+    schedules
+  };
+}
+
+function getSchedulesError(start, end, error) {
+  return {
+    type: GET_SCHEDULES_ERROR,
+    start,
+    end,
+    error
+  };
 }
 
 // bookings

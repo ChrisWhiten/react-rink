@@ -1,23 +1,12 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {
-  HelpBlock,
   FormGroup,
-  ControlLabel,
   FormControl,
   Col,
 } from 'react-bootstrap';
 import People from 'material-ui/svg-icons/social/people';
 
 import './styles/NumberOfGuestsSection.css';
-
-function FieldGroup({ id, label, help, ...props }) {
-  return (
-    <FormGroup controlId={id}>
-      <FormControl {...props} />
-      {help && <HelpBlock>{help}</HelpBlock>}
-    </FormGroup>
-  );
-}
 
 class NumberOfGuestsSection extends React.Component {
   constructor() {
