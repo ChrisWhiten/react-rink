@@ -1,5 +1,5 @@
-import api from './mock-api';
-// import api from './sls-api';
+// import api from './mock-api';
+import api from './sls-api';
 import moment from 'moment';
 
 function guid() {
@@ -22,7 +22,7 @@ function generateCalendar(start, end) {
     list.push({
       id: guid(),
       time: new Date(currentDate),
-      availableToBook: Math.random() > 0.2, // in practice, actually generate this status based on fetched availability...server-side
+      availableToBook: true,// Math.random() > 0.2, // in practice, actually generate this status based on fetched availability...server-side
     });
     // at the end...
     currentDate = moment(currentDate).add(timeslot, 'm');
@@ -61,9 +61,26 @@ const endpoints = {
   },
 
   getBookings2: (start, end) => {
-    return api.getBookings2(start, end, generateCalendar(start, end))
+    const calendar = generateCalendar(start, end);
+    return api.getBookings2(start, end, calendar)
       .then(bookings => {
         console.log('bookings???', bookings);
+        console.log('calendar???', calendar);
+        bookings.forEach(location => {
+          const bookingsMapping = {};
+          location.bookings.forEach(b => {
+            bookingsMapping[b.startTime.getTime()] = b;
+            location.bookings = generateCalendar(start, end);
+            location.bookings.forEach(b => {
+              const timestamp = b.time.getTime();
+              if (timestamp in bookingsMapping) {
+                b.availabilitySlot = bookingsMapping[timestamp];
+              }
+            });
+          });
+        });
+
+        console.log('returning bookings', bookings);
         return bookings;
       });;
   },

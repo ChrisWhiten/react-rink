@@ -101,6 +101,8 @@ class ExternalList extends React.Component {
       return b.availabilitySlot;
     });
 
+    console.log('slots', slots);
+
     return (
       <div className='container location-rendered'>
         <div className='location-metadata'>

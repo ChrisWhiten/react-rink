@@ -256,19 +256,20 @@ function _generateSomeBookings() {
 
 function generateBookingsList2(slots) {
   console.log('generaitng bookings list with these slots', slots);
+  const availabilities = [];
   slots.map(s => {
     if (s.availableToBook && Math.random() < 0.1) {
-      s.availabilitySlot = {
+      availabilities.push({
         startTime: s.time,
         endTime: moment(s.time).add(60, 'm'),
         isPublic: Math.random() > 0.8,
         totalSlots: 20,
         bookings: _generateSomeBookings(),
-      };
+      });
     }
   });
 
-  return slots;
+  return availabilities;
 }
 
 function generateBookingList(start, end) {
