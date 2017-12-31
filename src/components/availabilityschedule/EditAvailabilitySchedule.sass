@@ -1,3 +1,24 @@
+.loading-schedule
+  display: flex
+  justify-content: center
+  margin-top: 1em
+  
+.save-button-container
+  position: fixed
+  bottom: -300px
+  width: 100%
+  background: #fafafb
+  transition: all 250ms ease-in-out
+  box-shadow: 0 -1px 0 rgba(12, 13, 14, 0.15), 0 0 0 transparent, 0 0 0 transparent, 0 0 0 transparent
+
+  &.active
+    bottom: 0
 .save-button
   margin-top: 1em
   margin-bottom: 1em
+
+.schedule-rendered.last
+    margin-bottom: 80px
+
+.schedule-date-picker
+  margin: .5em 1em .5em 0

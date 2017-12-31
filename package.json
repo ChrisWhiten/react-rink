@@ -6,6 +6,7 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "classnames": "^2.2.5",
     "flexboxgrid": "^6.3.1",
     "font-awesome": "^4.7.0",

@@ -23,6 +23,7 @@ export default (
       <Route path='external' component={External} />
       <Route path='availabilitySchedules' component={AvailabilitySchedule} />
       <Route path='availabilitySchedules/new' component={EditAvailabilitySchedule} />
+      <Route path='availabilitySchedule/:scheduleId' component={EditAvailabilitySchedule} />
       <Route path='join' component={Search} />
       <Route path='events/:eventId' component={EventPage} />
       <Route path="*" component={NotFoundPage} />

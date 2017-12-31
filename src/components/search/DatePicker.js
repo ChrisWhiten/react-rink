@@ -10,9 +10,30 @@ class DatePicker extends React.Component {
     super(props);
 
     this.state = {
-      date: null,
-      dateText: props.nullText || 'Anytime',
+      date: props.date || null,
+      dateText: this.generateDateText(props.date, props.nullText),
     };
+  }
+
+  generateDateText(date, nullText) {
+    if (date) {
+      return moment(date).format('MMM Do, YYYY');
+    }
+
+    if (nullText) {
+      return nullText;
+    }
+
+    return 'Anytime';
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.date !== this.state.date) {
+      this.setState({
+        date: nextProps.date,
+        dateText: this.generateDateText(nextProps.date, this.props.nullText),
+      });
+    }
   }
 
    _handleDatePickerOpen() {
@@ -24,6 +45,10 @@ class DatePicker extends React.Component {
       date: d,
       dateText: moment(d).format('MMM Do, YYYY'),
     });
+
+    if (this.props.onChange) {
+      this.props.onChange(d);
+    }
   }
 
   _formatDate(date) {

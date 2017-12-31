@@ -19,7 +19,6 @@ class SlideUp extends React.Component {
   }
 
   render() {
-    console.log('rendering?', this.props.active);
     const slideUpClass = classNames(
       'slide-up',
       {

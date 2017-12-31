@@ -7,7 +7,6 @@ class AvailabilitySchedulePage extends Component {
     super(props);
 
     // fetch schedule data
-    console.log('huh', props.fetchSchedules)
     props.fetchSchedules(new Date(), new Date(2040, 0, 0));
   }
 

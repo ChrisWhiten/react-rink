@@ -1,21 +1,30 @@
 import { connect } from 'react-redux';
 import EditAvailabilitySchedulePage from '../pages/EditAvailabilitySchedulePage';
 import { 
-  fetchBookings,
+  fetchSchedule,
+  updateSchedule,
+  createSchedule,
 } from '../actions';
 
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchBookings: (start, end) => {
-      dispatch(fetchBookings(start, end))
+    fetchSchedule: (id) => {
+      dispatch(fetchSchedule(id));
+    },
+    updateSchedule: (schedule, cb) => {
+      dispatch(updateSchedule(schedule, cb));
+    },
+    createSchedule: (schedule, cb) => {
+      dispatch(createSchedule(schedule, cb));
     }
-  }
+  };
 };
 
 const mapStateToProps = (state) => {
   return {
-    bookings: state.bookings,
+    schedule: state.schedule,
+    locations: state.locations,
   };
 };
 

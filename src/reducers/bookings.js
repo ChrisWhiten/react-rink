@@ -28,6 +28,7 @@ export default function bookings(state = initialState, action) {
         isFetching: false,
       });
     case FETCHING_BOOKINGS_SUCCESS:
+      console.log('booking time', action.bookings);
       return Object.assign({}, state, {
         isFetching: false,
         items: action.bookings,

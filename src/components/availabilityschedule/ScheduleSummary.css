@@ -1,3 +1,8 @@
+.loading-schedules {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em; }
+
 .schedule-summary {
   display: flex;
   flex-direction: column; }

@@ -11,16 +11,91 @@ function guid() {
 }
 
 let schedules = [{
-  id: guid(),
+  id: 'wjoiefjowief',
   name: 'Open Hours',
-  start: new Date(),
-  end: new Date(2100, 10, 0),
-
+  schedule: {
+    Monday: [
+      new Date(2017, 3, 3, 8, 30),
+      new Date(2017, 3, 3, 9, 30),
+      new Date(2017, 3, 3, 10, 30),
+    ],
+    Tuesday: [
+      new Date(2017, 3, 3, 8, 30),
+      new Date(2017, 3, 3, 9, 30),
+      new Date(2017, 3, 3, 10, 30),
+      new Date(2017, 3, 3, 11, 30),
+      new Date(2017, 3, 3, 12, 30),
+      new Date(2017, 3, 3, 13, 30),
+    ],
+    Wednesday: [],
+    Thursday: [
+      new Date(2017, 3, 3, 8, 30),
+    ],
+    Friday: [
+      new Date(2017, 3, 3, 8, 30),
+      new Date(2017, 3, 3, 9, 30),
+      new Date(2017, 3, 3, 10, 30),
+      new Date(2017, 3, 3, 11, 30),
+      new Date(2017, 3, 3, 12, 30),
+      new Date(2017, 3, 3, 13, 30),
+      new Date(2017, 3, 3, 14, 30),
+      new Date(2017, 3, 3, 15, 30),
+      new Date(2017, 3, 3, 16, 30),
+      new Date(2017, 3, 3, 17, 30),
+      new Date(2017, 3, 3, 18, 30),
+      new Date(2017, 3, 3, 19, 30),
+    ],
+    Saturday: [
+      new Date(2017, 3, 3, 8, 30),
+      new Date(2017, 3, 3, 9, 30),
+      new Date(2017, 3, 3, 10, 30),
+      new Date(2017, 3, 3, 11, 30),
+      new Date(2017, 3, 3, 12, 30),
+      new Date(2017, 3, 3, 13, 30),
+      new Date(2017, 3, 3, 14, 30),
+      new Date(2017, 3, 3, 15, 30),
+      new Date(2017, 3, 3, 16, 30),
+      new Date(2017, 3, 3, 17, 30),
+      new Date(2017, 3, 3, 18, 30),
+      new Date(2017, 3, 3, 19, 30),
+      new Date(2017, 3, 3, 20, 30),
+      new Date(2017, 3, 3, 21, 30),
+      new Date(2017, 3, 3, 22, 30),
+    ],
+    Sunday: [
+      new Date(2017, 3, 3, 7, 30),
+      new Date(2017, 3, 3, 8, 30),
+      new Date(2017, 3, 3, 9, 30),
+      new Date(2017, 3, 3, 10, 30),
+      new Date(2017, 3, 3, 11, 30),
+      new Date(2017, 3, 3, 12, 30),
+      new Date(2017, 3, 3, 13, 30),
+      new Date(2017, 3, 3, 14, 30),
+      new Date(2017, 3, 3, 15, 30),
+      new Date(2017, 3, 3, 16, 30),
+      new Date(2017, 3, 3, 17, 30),
+      new Date(2017, 3, 3, 18, 30),
+      new Date(2017, 3, 3, 19, 30),
+      new Date(2017, 3, 3, 20, 30),
+      new Date(2017, 3, 3, 21, 30),
+      new Date(2017, 3, 3, 22, 30),
+      new Date(2017, 3, 3, 23, 30),
+    ],
+  },
 }, {
-  id: guid(),
+  id: 'woijfoirgjewgjio',
   name: 'Long hours over winter',
   start: new Date(),
   end: new Date(2030, 3, 29),
+  schedule: {
+    Monday: [],
+    Tuesday: [],
+    Wednesday: [],
+    Thursday: [],
+    Friday: [],
+    Saturday: [],
+    Sunday: [new Date(2017, 3, 3, 12, 30)],
+  },
 }];
 
 let organized = [{
@@ -144,38 +219,22 @@ const locations = [{
   name: 'Norberry'
 }];
 
-function generateCalendar(start, end) {
-  // generate full list of 15-minute availability (open/closed)
-  let list = [];
-  const timeslot = 15; // 15 minutes
-  let currentDate = start;
-
-  while (currentDate < end) {
-    list.push({
-      id: guid(),
-      time: new Date(currentDate),
-      availableToBook: Math.random() > 0.2, // in practice, actually generate this status based on fetched availability...server-side
-    });
-    // at the end...
-    currentDate = moment(currentDate).add(timeslot, 'm');
-  }
-
-  return list;
-}
-
 function _generateSomeBookings() {
   const bookings = [];
   const fakeBookings = [{
     leaderName: 'Luke Skywalker',
     leaderEmail: 'luke@skywalker.com',
+    leaderPhoneNumber: '613-555-5555',
     slotCount: 8,
   }, {
     leaderName: 'Han Solo',
     leaderEmail: 'han@solo.com',
+    leaderPhoneNumber: '613-555-5555',
     slotCount: 5,
   }, {
     leaderName: 'Poe Dameron',
     leaderEmail: 'poe@dameron.com',
+    leaderPhoneNumber: '613-555-5555',
     slotCount: 7,
   }];
 
@@ -196,6 +255,7 @@ function _generateSomeBookings() {
 }
 
 function generateBookingsList2(slots) {
+  console.log('generaitng bookings list with these slots', slots);
   slots.map(s => {
     if (s.availableToBook && Math.random() < 0.1) {
       s.availabilitySlot = {
@@ -229,12 +289,35 @@ function generateBookingList(start, end) {
 }
 
 const endpoints = {
+  updateSchedule: (schedule) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (schedule.id) {
+          const idx = schedules.findIndex(s => s.id === schedule.id);
+          schedules[idx] = schedule;
+          return resolve(schedule);
+        }
+        schedule.id = guid();
+        schedules.push(schedule);
+        return resolve(schedule);
+      }, 700);
+    });
+  },
+
+  getSchedule: (id) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return resolve(schedules.filter(s => s.id === id)[0]);
+      }, 800);
+    });
+  },
+
   getSchedules: (start, end) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         return resolve(schedules);
       }, 1000);
-    })
+    });
   },
 
   getBookings: (start, end) => {
@@ -245,7 +328,7 @@ const endpoints = {
     });
   },
 
-  getBookings2: (start, end) => {
+  getBookings2: (start, end, calendar) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         let results = [];
@@ -253,7 +336,7 @@ const endpoints = {
           results.push({
             locationId: l.id,
             locationName: l.name,
-            bookings: generateBookingsList2(generateCalendar(start, end)),
+            bookings: generateBookingsList2(calendar),
           });
         });
         

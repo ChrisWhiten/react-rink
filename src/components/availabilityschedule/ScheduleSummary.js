@@ -6,9 +6,11 @@ import {
   Link,
 } from 'react-router';
 
+import moment from 'moment';
 import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
 import Event from 'material-ui/svg-icons/action/event';
+import CircularProgress from 'material-ui/CircularProgress';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconButton from 'material-ui/IconButton';
 import MenuItem from 'material-ui/MenuItem';
@@ -34,12 +36,28 @@ const rightIconMenu = (
   </IconMenu>
 );
 
+const generateTimeframeText = (s) => {
+  if (!s.start && !s.end) {
+    return 'Permanent schedule';
+  }
+  if (!s.start && s.end) {
+    return `Until ${moment(s.end).format('MMM Do, YYYY')}`
+  }
+  if (s.start && !s.end) {
+    return `From ${moment(s.start).format('MMM Do, YYYY')} onwards`
+  }
+
+  return `From ${moment(s.start).format('MMM Do, YYYY')} to ${moment(s.end).format('MMM Do, YYYY')}`;
+};
+
 class ScheduleSummary extends React.Component {
 
   renderFetching(isFetching) {
     if (!isFetching) return null;
 
-    return <div>Fetching...</div>;
+    return <div className='loading-schedules'>
+      <CircularProgress />
+    </div>;
   }
 
   renderSchedules(isFetching, schedules) {
@@ -58,10 +76,11 @@ class ScheduleSummary extends React.Component {
           schedules.map(s => {
             return <ListItem
               key={`schedule-${s.id}`}
+              containerElement={<Link to={`availabilitySchedule/${s.id}`} />}
               leftAvatar={<Avatar icon={<Event />} />}
               rightIconButton={rightIconMenu}
               primaryText={s.name}
-              secondaryText={`${s.start} - ${s.end}`}
+              secondaryText={generateTimeframeText(s)}
             />
           })
         }

@@ -4,18 +4,21 @@ import './styles/EditAvailabilitySchedulePage.css';
 
 class EditAvailabilitySchedulePage extends Component {
   componentDidMount() {
-    // dispatch to fetch data
-    let start = new Date();
-    start.setHours(0, 0, 0, 0); // midnight this morning
-    let end = new Date();
-    end.setHours(23, 59, 59, 999); // end of day
-    this.props.fetchBookings(start, end);
+    if (this.props.params.scheduleId) {
+      this.props.fetchSchedule(this.props.params.scheduleId);
+    }
   }
 
   render() {
     return (
       <div>
-        <EditAvailabilitySchedule bookings={this.props.bookings} />
+        <EditAvailabilitySchedule
+          createSchedule={this.props.createSchedule}
+          router={this.props.router}
+          updateSchedule={this.props.updateSchedule}
+          schedule={this.props.schedule}
+          locations={this.props.locations}
+        />
       </div>
     );
   }

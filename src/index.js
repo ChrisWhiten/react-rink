@@ -11,9 +11,7 @@ import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import {
-	fetchInvitations,
-	fetchUpcomingOrganized,
-	fetchUpcomingParticipations,
+	fetchLocations,
 } from './actions';
 import './styles/style.css';
 
@@ -26,9 +24,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 const store = createStore(reducer, applyMiddleware(...middleware));
 
-store.dispatch(fetchInvitations());
-store.dispatch(fetchUpcomingOrganized());
-store.dispatch(fetchUpcomingParticipations());
+store.dispatch(fetchLocations());
+// store.dispatch(fetchInvitations());
+// store.dispatch(fetchUpcomingOrganized());
+// store.dispatch(fetchUpcomingParticipations());
 
 render(
   <Provider store={store}>

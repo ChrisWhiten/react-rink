@@ -19,12 +19,54 @@ import {
   GET_SCHEDULES_ERROR,
   FETCHING_SCHEDULES_SUCCESS,
   FETCHING_SCHEDULES,
+  FETCH_SCHEDULE_ERROR,
+  FETCH_SCHEDULE_SUCCESS,
+  FETCHING_SCHEDULE,
+  UPDATING_SCHEDULE,
+  UPDATING_SCHEDULE_SUCCESS,
+  UPDATING_SCHEDULE_ERROR,
+  CREATING_SCHEDULE,
+  CREATING_SCHEDULE_SUCCESS,
+  CREATING_SCHEDULE_ERROR,
+  FETCHING_LOCATIONS,
+  FETCHING_LOCATIONS_SUCCESS,
+  FETCHING_LOCATIONS_ERROR,
 } from './constants/actionTypes';
 
 import api from './data/api';
 
 // action creators
 ////////////////////
+
+// locations
+export function fetchLocations() {
+  return function(dispatch) {
+    dispatch(requestLocations());
+
+    return api.getLocations()
+      .then(json => {
+        console.log('get locations completed', json);
+        dispatch(receiveLocations(json.data));
+      })
+      .catch(err => {
+        console.error('error getting locations', err);
+        dispatch(getLocationsError());
+      });
+  }
+}
+
+function requestLocations() {
+  return { type: FETCHING_LOCATIONS };
+}
+
+function receiveLocations(locations) {
+  console.log('received locations', locations);
+  return { type: FETCHING_LOCATIONS_SUCCESS, locations };
+}
+
+function getLocationsError() {
+  return { type: FETCHING_LOCATIONS_ERROR };
+}
 
 // invitations
 export function declineInvitation(invitationId) {
@@ -119,6 +161,105 @@ function getUpcomingOrganizedError() {
 }
 
 // schedules
+export function createSchedule(schedule, cb) {
+  return function(dispatch) {
+    dispatch(requestScheduleCreate());
+
+    return api.createSchedule(schedule)
+      .then(json => {
+        console.warn('created!', json);
+        dispatch(scheduleCreated(json));
+        cb(null, json);
+      })
+      .catch(err => {
+        console.error('error creating schedule', err);
+        dispatch(createScheduleError(err));
+        cb(err, null);
+      });
+  }
+}
+
+export function updateSchedule(schedule, cb) {
+  return function(dispatch) {
+    dispatch(requestScheduleUpdate());
+
+    return api.updateSchedule(schedule)
+      .then(json => {
+        console.warn('updated!', json);
+        dispatch(scheduleUpdated(json));
+        cb(null, json);
+      })
+      .catch(err => {
+        console.error('error updating schedule', err);
+        dispatch(updateScheduleError(err));
+        cb(err, null);
+      });
+  }
+}
+
+function requestScheduleCreate() {
+  return {
+    type: CREATING_SCHEDULE,
+  };
+}
+
+function scheduleCreated(schedule) {
+  return {
+    type: CREATING_SCHEDULE_SUCCESS,
+    schedule,
+  };
+}
+
+function createScheduleError(error) {
+  return {
+    type: CREATING_SCHEDULE_ERROR,
+    error,
+  };
+}
+
+function requestScheduleUpdate() {
+  return {
+    type: UPDATING_SCHEDULE,
+  };
+}
+
+function scheduleUpdated(schedule) {
+  return {
+    type: UPDATING_SCHEDULE_SUCCESS,
+    schedule,
+  };
+}
+
+function updateScheduleError(error) {
+  return {
+    type: UPDATING_SCHEDULE_ERROR,
+    error,
+  };
+}
+
+export function fetchSchedule(id) {
+  return function(dispatch) {
+    dispatch(requestSchedule(id));
+
+    return api.getSchedule(id)
+      .then(json => {
+        console.warn('fetched!', json);
+        dispatch(receiveSchedule(json));
+      })
+      .catch(err => {
+        console.error('error getting schedule', err);
+        dispatch(getScheduleError(id, err));
+      });
+  }
+}
+
+function requestSchedule(id) {
+  return {
+    type: FETCHING_SCHEDULE,
+    id,
+  };
+}
+
 export function fetchSchedules(start, end) {
   return function(dispatch) {
     dispatch(requestSchedules(start, end));
@@ -138,14 +279,29 @@ function requestSchedules(start, end) {
   return {
     type: FETCHING_SCHEDULES,
     start,
-    end
+    end,
+  };
+}
+
+function receiveSchedule(schedule) {
+  return {
+    type: FETCH_SCHEDULE_SUCCESS,
+    schedule,
+  };
+}
+
+function getScheduleError(id, error) {
+  return {
+    type: FETCH_SCHEDULE_ERROR,
+    id,
+    error,
   };
 }
 
 function receiveSchedules(schedules) {
   return {
     type: FETCHING_SCHEDULES_SUCCESS,
-    schedules
+    schedules,
   };
 }
 
@@ -154,7 +310,7 @@ function getSchedulesError(start, end, error) {
     type: GET_SCHEDULES_ERROR,
     start,
     end,
-    error
+    error,
   };
 }
 
@@ -165,6 +321,7 @@ export function fetchBookings(start, end) {
 
     return api.getBookings2(start, end)
       .then(json => {
+        console.log('got bookings 2', json);
         dispatch(receiveBookings(json));
       })
       .catch(err => {
