@@ -84,8 +84,15 @@ class EditAvailabilitySchedule extends React.Component {
   }
 
   handleSelectedLocationsChange(event, index, values) {
+    console.log('values...', values);
+    console.log('prev...', this.state.selectedLocations);
+    const newSelectedLocations = this.props.locations.items
+    .filter(l => values.indexOf(l.id) > -1)
+    .map(l => {
+      return { locationId: l.id, locationName: l.locationName };
+    });
     this.setState({
-      selectedLocations: values,
+      selectedLocations: newSelectedLocations,
       isChanged: true,
     });
   }
@@ -115,9 +122,10 @@ class EditAvailabilitySchedule extends React.Component {
     this.setState({
       updating: true,
     });
-    
+
     const fn = this.state.id ? this.props.updateSchedule : this.props.createSchedule;
 
+    console.log('saving...', this.state.selectedLocations);
     fn({
       id: this.state.id,
       name: this.state.scheduleName,
@@ -197,11 +205,14 @@ class EditAvailabilitySchedule extends React.Component {
   }
 
   renderLocations(locations, selectedLocations) {
+    console.log('shoudl it be checked?', selectedLocations.map(l => l.id).indexOf(location.id) > -1);
+    console.log(selectedLocations.map(l => l.locationId));
+    console.log(locations);
     return locations.map(location => (
       <MenuItem
         key={location.locationName}
         insetChildren={true}
-        checked={selectedLocations.indexOf(location.id) > -1}
+        checked={selectedLocations.map(l => l.locationId).indexOf(location.id) > -1}
         value={location.id}
         primaryText={location.locationName}
       />
@@ -248,7 +259,7 @@ class EditAvailabilitySchedule extends React.Component {
             <SelectField
               multiple={true}
               hintText='Assigned locations'
-              value={this.state.selectedLocations}
+              value={this.state.selectedLocations.map(l => l.locationId)}
               onChange={this.handleSelectedLocationsChange}
             >
               {this.renderLocations(this.props.locations.items, this.state.selectedLocations)}

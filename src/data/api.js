@@ -103,6 +103,10 @@ const endpoints = {
   createSchedule: (schedule) => {
     return api.createSchedule(schedule);
   },
+
+  deleteSchedule: (id) => {
+    return api.deleteSchedule(id);
+  },
 };
 
 export default endpoints;

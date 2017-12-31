@@ -31,6 +31,9 @@ import {
   FETCHING_LOCATIONS,
   FETCHING_LOCATIONS_SUCCESS,
   FETCHING_LOCATIONS_ERROR,
+  SCHEDULE_DELETED,
+  DELETING_SCHEDULE,
+  DELETE_SCHEDULE_ERROR,
 } from './constants/actionTypes';
 
 import api from './data/api';
@@ -233,6 +236,44 @@ function scheduleUpdated(schedule) {
 function updateScheduleError(error) {
   return {
     type: UPDATING_SCHEDULE_ERROR,
+    error,
+  };
+}
+
+export function deleteSchedule(id) {
+  return function(dispatch) {
+    dispatch(requestScheduleDelete(id));
+
+    return api.deleteSchedule(id)
+      .then(json => {
+        console.warn('deleted!', json);
+        dispatch(scheduleDeleted(json));
+      })
+      .catch(err => {
+        console.error('error getting schedule', err);
+        dispatch(deleteScheduleError(id, err));
+      });
+  }
+}
+
+function requestScheduleDelete(id) {
+  return {
+    type: DELETING_SCHEDULE,
+    id,
+  };
+}
+
+function scheduleDeleted(schedule) {
+  return {
+    type: SCHEDULE_DELETED,
+    schedule,
+  };
+}
+
+function deleteScheduleError(id, error) {
+  return {
+    type: DELETE_SCHEDULE_ERROR,
+    id,
     error,
   };
 }

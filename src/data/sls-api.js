@@ -63,6 +63,14 @@ const endpoints = {
       });
   },
 
+  deleteSchedule: (id) => {
+    return axios.delete(`${apiSource}/schedules/${id}`)
+      .then(res => {
+        console.log('schedule deleted', res);
+        return res;
+      });
+  },
+
   getSchedule: (id) => {
     return fetch(`${apiSource}/schedules/${id}`)
       .then(res => {

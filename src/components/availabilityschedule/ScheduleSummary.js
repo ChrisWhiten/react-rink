@@ -29,8 +29,12 @@ const iconButtonElement = (
   </IconButton>
 );
 
+const iconMenuClick = (event) => {
+  event.preventDefault();
+}
+
 const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
+  <IconMenu iconButtonElement={iconButtonElement} onClick={iconMenuClick}>
     <MenuItem>Edit</MenuItem>
     <MenuItem>Delete</MenuItem>
   </IconMenu>
@@ -49,6 +53,15 @@ const generateTimeframeText = (s) => {
 
   return `From ${moment(s.start).format('MMM Do, YYYY')} to ${moment(s.end).format('MMM Do, YYYY')}`;
 };
+
+function deleteSchedule(id) {
+  console.log('delete schedule', id);
+  this.props.deleteSchedule(id);
+}
+
+function editSchedule(router, id) {
+  router.push(`/availabilitySchedule/${id}`);
+}
 
 class ScheduleSummary extends React.Component {
 
@@ -78,7 +91,12 @@ class ScheduleSummary extends React.Component {
               key={`schedule-${s.id}`}
               containerElement={<Link to={`availabilitySchedule/${s.id}`} />}
               leftAvatar={<Avatar icon={<Event />} />}
-              rightIconButton={rightIconMenu}
+              rightIconButton={
+                <IconMenu iconButtonElement={iconButtonElement} onClick={iconMenuClick}>
+                  <MenuItem onClick={editSchedule.bind(this, this.props.router, s.id)}>Edit</MenuItem>
+                  <MenuItem onClick={deleteSchedule.bind(this, s.id)}>Delete {s.name}</MenuItem>
+                </IconMenu>
+              }
               primaryText={s.name}
               secondaryText={generateTimeframeText(s)}
             />

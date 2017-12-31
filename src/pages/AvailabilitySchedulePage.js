@@ -13,7 +13,12 @@ class AvailabilitySchedulePage extends Component {
   render() {
     return (
       <div>
-        <ScheduleSummary schedules={this.props.schedules} bookings={this.props.bookings} />
+        <ScheduleSummary
+          deleteSchedule={this.props.deleteSchedule}
+          router={this.props.router}
+          schedules={this.props.schedules}
+          bookings={this.props.bookings}
+        />
       </div>
     );
   }

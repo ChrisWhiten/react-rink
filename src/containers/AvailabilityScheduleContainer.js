@@ -3,6 +3,7 @@ import AvailabilitySchedulePage from '../pages/AvailabilitySchedulePage';
 import { 
   fetchBookings,
   fetchSchedules,
+  deleteSchedule,
 } from '../actions';
 
 
@@ -13,6 +14,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     fetchSchedules: (start, end) => {
       dispatch(fetchSchedules(start, end));
+    },
+    deleteSchedule: (id) => {
+      dispatch(deleteSchedule(id));
     },
   }
 };
