@@ -29,7 +29,7 @@ class EditAvailabilitySchedule extends React.Component {
   constructor(props) {
     super(props);
 
-    this.schedule = {
+    let initialSchedule = {
       Monday: [],
       Tuesday: [],
       Wednesday: [],
@@ -40,7 +40,7 @@ class EditAvailabilitySchedule extends React.Component {
     };
 
     if (this.props.schedule && this.props.schedule.schedule) {
-      this.schedule = this.props.schedule.schedule.schedule;
+      initialSchedule = this.props.schedule.schedule.schedule;
     }
 
     this.state = {
@@ -48,7 +48,7 @@ class EditAvailabilitySchedule extends React.Component {
       screenHeight: 0,
       showSlideup: false,
       addMode: null,
-      schedule: this.schedule,
+      schedule: initialSchedule,
       scheduleName: '',
       isChanged: false,
       startDate: null,
@@ -69,10 +69,9 @@ class EditAvailabilitySchedule extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.schedule && nextProps.schedule.schedule) {
-      this.schedule = nextProps.schedule.schedule.schedule;
 
       this.setState({
-        schedule: this.schedule,
+        schedule: nextProps.schedule.schedule.schedule,
         scheduleName: nextProps.schedule.schedule.name,
         id: nextProps.schedule.schedule.id,
         isChanged: false,
@@ -149,22 +148,34 @@ class EditAvailabilitySchedule extends React.Component {
     newTime.setMinutes(time.getMinutes());
     newTime.setSeconds(0);
 
-    // this is where an API call might go
-    this.schedule[this.state.addMode].push(newTime);
+    const newSlot = {
+      startTime: newTime,
+      duration: 60,
+      totalSlots: 20,
+      isPublic: true,
+    };
+
+    console.log('add mode', this.state.addMode);
+    console.log('pre', this.state.schedule);
+    console.log('post', this.state.schedule[this.state.addMode].concat([newSlot]));
+
+    const newSchedule = Object.assign({}, this.state.schedule);
+    newSchedule[this.state.addMode] = newSchedule[this.state.addMode].concat([newSlot]);
     this.setState({
-      schedule: this.schedule,
+      schedule: newSchedule,
       isChanged: true,
     });
   }
 
   removeSlot(day, slot) {
-    this.schedule[day] = this.schedule[day].filter(s => {
-      const _s = new Date(s);
+    console.warn('remove slot', day, slot);
+    const newSchedule = Object.assign({}, this.state.schedule);
+    newSchedule[day] = newSchedule[day].filter(s => {
+      const _s = new Date(s.startTime);
       return _s.getHours() !== slot.getHours() || _s.getMinutes() !== slot.getMinutes();
     });
-
     this.setState({
-      schedule: this.schedule,
+      schedule: newSchedule,
       isChanged: true,
     });
   }
@@ -178,6 +189,8 @@ class EditAvailabilitySchedule extends React.Component {
   }
 
   renderSchedule(day, schedule) {
+    console.log('full sched', this.state.schedule);
+    console.log('schedule?', schedule);
     const scheduleClass = classNames(
       'container',
       'schedule-rendered',
@@ -196,7 +209,7 @@ class EditAvailabilitySchedule extends React.Component {
 
         <div className='availability-slots'>
           {
-            schedule.map(s => <Slot key={`slot-${day}-${s}`} time={ new Date(s) } hoverText='Remove' day={day} onClick={this.removeSlot} />)
+            schedule.map(s => <Slot key={`slot-${day}-${s.startTime}`} time={ new Date(s.startTime) } hoverText='Remove' day={day} onClick={this.removeSlot} />)
           }
           <Slot hoverText='Add Slot' day={day} onClick={this.setAddMode} />
         </div>

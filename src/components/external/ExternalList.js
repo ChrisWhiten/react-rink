@@ -55,9 +55,12 @@ class ExternalList extends React.Component {
 
   renderSlot(slot) {
     let availabilities = slot.totalSlots;
-    slot.bookings.map(b => {
-      availabilities -= b.slotCount;
-    });
+    
+    if (slot.bookings) {
+      slot.bookings.map(b => {
+        availabilities -= b.slotCount;
+      });
+    }
 
     const slotClass = classNames(
       'external-slot',
@@ -100,8 +103,6 @@ class ExternalList extends React.Component {
     const slots = location.bookings.filter(b => {
       return b.availabilitySlot;
     });
-
-    console.log('slots', slots);
 
     return (
       <div className='container location-rendered'>

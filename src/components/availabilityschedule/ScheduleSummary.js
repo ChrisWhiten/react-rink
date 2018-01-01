@@ -33,13 +33,6 @@ const iconMenuClick = (event) => {
   event.preventDefault();
 }
 
-const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement} onClick={iconMenuClick}>
-    <MenuItem>Edit</MenuItem>
-    <MenuItem>Delete</MenuItem>
-  </IconMenu>
-);
-
 const generateTimeframeText = (s) => {
   if (!s.start && !s.end) {
     return 'Permanent schedule';

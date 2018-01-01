@@ -14,16 +14,7 @@ const endpoints = {
   },
 
   getBookings2: (start, end) => {
-    console.log('getting bookings 2', start, end);
     return axios.get(`${apiSource}/slots?start=${start}&end=${end}`).then(res => {
-      console.log('got slots', res.data);
-      // locations.map(l => {
-      //   results.push({
-      //     locationId: l.id,
-      //     locationName: l.name,
-      //     bookings: generateBookingsList2(calendar),
-      //   });
-      // });
       return res.data;
     }).catch(err => {
       console.error('error getting slots', err);

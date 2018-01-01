@@ -362,7 +362,6 @@ export function fetchBookings(start, end) {
 
     return api.getBookings2(start, end)
       .then(json => {
-        console.log('got bookings 2', json);
         dispatch(receiveBookings(json));
       })
       .catch(err => {

@@ -1,5 +1,5 @@
-// import api from './mock-api';
-import api from './sls-api';
+import api from './mock-api';
+// import api from './sls-api';
 import moment from 'moment';
 
 function guid() {
@@ -64,23 +64,20 @@ const endpoints = {
     const calendar = generateCalendar(start, end);
     return api.getBookings2(start, end, calendar)
       .then(bookings => {
-        console.log('bookings???', bookings);
-        console.log('calendar???', calendar);
         bookings.forEach(location => {
-          const bookingsMapping = {};
-          location.bookings.forEach(b => {
-            bookingsMapping[b.startTime.getTime()] = b;
-            location.bookings = generateCalendar(start, end);
-            location.bookings.forEach(b => {
-              const timestamp = b.time.getTime();
-              if (timestamp in bookingsMapping) {
-                b.availabilitySlot = bookingsMapping[timestamp];
+          const updatedBookings = generateCalendar(start, end);
+          updatedBookings.map(slot => {
+            const timestamp = new Date(slot.time);
+            location.bookings.forEach(booking => {
+              const bookingTime = new Date(booking.startTime);
+              if (timestamp.getHours() === bookingTime.getHours() && timestamp.getMinutes() === bookingTime.getMinutes()) {
+                slot.availabilitySlot = booking;
               }
             });
           });
+          location.bookings = updatedBookings;
         });
 
-        console.log('returning bookings', bookings);
         return bookings;
       });;
   },

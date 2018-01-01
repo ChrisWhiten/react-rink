@@ -78,14 +78,14 @@ class AvailabilityList extends React.Component {
   }
 
   _renderAvailabilitySlot(slot) {
-    const bookings = slot.availabilitySlot.bookings;
+    const bookings = slot.availabilitySlot.bookings || [];
     bookings.sort((a, b) => {
       return b.slotCount - a.slotCount;
     });
 
     let availableCount = slot.availabilitySlot.totalSlots;
     let totalBookingCount = 0;
-    slot.availabilitySlot.bookings.forEach(b => {
+    bookings.forEach(b => {
       availableCount -= b.slotCount;
       totalBookingCount += b.slotCount;
     });
@@ -103,27 +103,27 @@ class AvailabilityList extends React.Component {
       <div className={slotClass} onTouchTap={this._handleOpen.bind(this, slot)}>
         <div className='slot-details'>
           <span className='slot-time'>
-            {moment(slot.availabilitySlot.startTime).format('LT')} - {moment(slot.availabilitySlot.endTime).format('LT')}
+            {moment(slot.availabilitySlot.startTime).format('LT')} - {moment(slot.availabilitySlot.startTime).add(slot.availabilitySlot.duration, 'minutes').format('LT')}
           </span>
           <h3>{ availableCount } Available</h3>
           <div className='slot-booking-list'>
           {/* {
-            slot.availabilitySlot.bookings.map(b => {
+            bookings.map(b => {
               return <div className='slot-booker'>
                 {b.slotCount} <People className='slot-booker-icon' /> ({b.leaderName})
               </div>
             })
           } */}
           {
-            slot.availabilitySlot.bookings.length === 1 &&
+            bookings.length === 1 &&
             <div className='slot-booker'>
-              {slot.availabilitySlot.bookings[0].leaderName} ({slot.availabilitySlot.bookings[0].slotCount} <People className='slot-booker-icon' />)
+              {bookings[0].leaderName} ({bookings[0].slotCount} <People className='slot-booker-icon' />)
             </div>
           }
           {
-            slot.availabilitySlot.bookings.length > 1 &&
+            bookings.length > 1 &&
             <div className='slot-booker'>
-              {slot.availabilitySlot.bookings.length} bookings ({totalBookingCount} <People className='slot-booker-icon' />)
+              {bookings.length} bookings ({totalBookingCount} <People className='slot-booker-icon' />)
             </div>
           }
           </div>
