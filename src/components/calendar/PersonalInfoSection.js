@@ -27,7 +27,10 @@ class PersonalInfoSection extends React.Component {
     };
 
     // this.notEmpty = this._notEmpty.bind(this);
-    this.handleChange = this._handleChange.bind(this);
+    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+    this.handleLastNameChange = this.handleLastNameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePhoneNumberChange = this.handlePhoneNumberChange.bind(this);
   }
 
   // _notEmpty() {
@@ -38,12 +41,29 @@ class PersonalInfoSection extends React.Component {
   //   return this.state.firstName.length > 0 ? 'success' : 'error';
   // }
 
-  _handleChange(e) {
+  handleFirstNameChange(e) {
     this.setState({
       firstName: e.target.value,
     });
   }
 
+  handleLastNameChange(e) {
+    this.setState({
+      lastName: e.target.value,
+    });
+  }
+
+  handleEmailChange(e) {
+    this.setState({
+      email: e.target.value,
+    });
+  }
+
+  handlePhoneNumberChange(e) {
+    this.setState({
+      phoneNumber: e.target.value,
+    });
+  }
 
   render() {
     return (
@@ -54,7 +74,7 @@ class PersonalInfoSection extends React.Component {
             type='text'
             placeholder='First name'
             // validationState={this.notEmpty()}
-            onChange={this.handleChange}
+            onChange={this.handleFirstNameChange}
             value={this.state.firstName}
           />
         </Col>
@@ -62,6 +82,7 @@ class PersonalInfoSection extends React.Component {
           <FieldGroup
             id='last-name-id'
             type='text'
+            onChange={this.handleLastNameChange}
             placeholder='Last name'
           />
         </Col>
@@ -70,6 +91,7 @@ class PersonalInfoSection extends React.Component {
             id='email-id'
             type='text'
             placeholder='Email'
+            onChange={this.handleEmailChange}
           />
         </Col>
         <Col md={6} lg={6} sm={6} xs={12}>
@@ -77,6 +99,7 @@ class PersonalInfoSection extends React.Component {
             id='phone-number-id'
             type='text'
             placeholder='Phone number'
+            onChange={this.handlePhoneNumberChange}
           />
         </Col>
       </div>

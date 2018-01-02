@@ -34,6 +34,9 @@ import {
   SCHEDULE_DELETED,
   DELETING_SCHEDULE,
   DELETE_SCHEDULE_ERROR,
+  TRY_CREATE_BOOKING,
+  BOOKING_CREATED,
+  CREATE_BOOKING_ERROR,
 } from './constants/actionTypes';
 
 import api from './data/api';
@@ -356,6 +359,38 @@ function getSchedulesError(start, end, error) {
 }
 
 // bookings
+export function createBooking(booking, cb) {
+  return function(dispatch) {
+    dispatch(tryCreateBooking());
+
+    return api.createBooking(booking)
+      .then(json => {
+        console.log('uh...', json);
+        dispatch(bookingCreated(json));
+
+        if (cb) {
+          cb(json);
+        }
+      })
+      .catch(err => {
+        console.error('error creating booking', err);
+        dispatch(createBookingError());
+      });
+  }
+}
+
+function tryCreateBooking(booking) {
+  return { type: TRY_CREATE_BOOKING, booking };
+}
+
+function bookingCreated(booking) {
+  return { type: BOOKING_CREATED, booking };
+}
+
+function createBookingError() {
+  return { type: CREATE_BOOKING_ERROR };
+}
+
 export function fetchBookings(start, end) {
   return function(dispatch) {
     dispatch(requestBookings());

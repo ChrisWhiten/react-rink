@@ -1,6 +1,18 @@
 import axios from 'axios';
 const apiSource = 'http://localhost:3000';
 const endpoints = {
+  createBooking: (booking) => {
+    return axios.post(`${apiSource}/bookings`, booking)
+      .then(res => {
+        console.log('created booking', res);
+        return res.data;
+      })
+      .catch(err => {
+        console.error('error creating booking', err);
+        throw err;
+      });
+  },
+
   getLocations: () => {
     console.log('getting locations');
     return axios.get(`${apiSource}/locations`)

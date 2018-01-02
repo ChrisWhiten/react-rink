@@ -1,5 +1,5 @@
-import api from './mock-api';
-// import api from './sls-api';
+// import api from './mock-api';
+import api from './sls-api';
 import moment from 'moment';
 
 function guid() {
@@ -49,6 +49,10 @@ function createBookingsList(start, end, events, timestep) {
 }
 
 const endpoints = {
+  createBooking: (booking) => {
+    return api.createBooking(booking);
+  },
+
   getLocations: () => {
     return api.getLocations();
   },
@@ -79,7 +83,7 @@ const endpoints = {
         });
 
         return bookings;
-      });;
+      });
   },
 
   getBookingById: (id) => {

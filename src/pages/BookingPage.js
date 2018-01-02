@@ -69,7 +69,10 @@ class BookingPage extends Component {
     return (
       <div>
         <FilterMenu />
-        <TrialCalendar bookings={this.props.bookings} />
+        <TrialCalendar
+          bookings={this.props.bookings}
+          createBooking={this.props.createBooking}
+        />
       </div>
     );
   }

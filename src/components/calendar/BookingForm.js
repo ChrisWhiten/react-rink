@@ -5,13 +5,21 @@ import './styles/BookingForm.css';
 import CheckoutForm from './CheckoutForm';
 
 class BookingForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       active: false,
-      selectedBooking: null,
     };
+
+    this.payLater = this.payLater.bind(this);
+  }
+
+  payLater(booking) {
+    console.error('pay later!', booking);
+    this.props.createBooking(booking, (createdBooking) => {
+      console.log('booking created!', createdBooking);
+    });
   }
 
   _onClose() {
@@ -35,7 +43,7 @@ class BookingForm extends React.Component {
         </div>
         <div className='booking-form-content'>
           <Elements>
-            <CheckoutForm />
+            <CheckoutForm booking={this.props.booking} location={this.props.location} payLater={this.payLater} />
           </Elements>
         </div>
       </div>

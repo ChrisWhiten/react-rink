@@ -52,10 +52,15 @@ class AvailabilityList extends React.Component {
     });
   }
 
-  _handleOpen(b) {
+  _handleOpen(b, locationName, locationId) {
     if (EXPERIMENT) {
       this.setState({
         showSlideup: true,
+        selectedBooking: b,
+        selectedLocation: {
+          locationName,
+          locationId
+        },
       });
 
       return;
@@ -77,7 +82,7 @@ class AvailabilityList extends React.Component {
     });
   }
 
-  _renderAvailabilitySlot(slot) {
+  _renderAvailabilitySlot(slot, locationName, locationId) {
     const bookings = slot.availabilitySlot.bookings || [];
     bookings.sort((a, b) => {
       return b.slotCount - a.slotCount;
@@ -100,7 +105,7 @@ class AvailabilityList extends React.Component {
     );
 
     return (
-      <div className={slotClass} onTouchTap={this._handleOpen.bind(this, slot)}>
+      <div className={slotClass} onTouchTap={this._handleOpen.bind(this, slot, locationName, locationId)}>
         <div className='slot-details'>
           <span className='slot-time'>
             {moment(slot.availabilitySlot.startTime).format('LT')} - {moment(slot.availabilitySlot.startTime).add(slot.availabilitySlot.duration, 'minutes').format('LT')}
@@ -117,7 +122,7 @@ class AvailabilityList extends React.Component {
           {
             bookings.length === 1 &&
             <div className='slot-booker'>
-              {bookings[0].leaderName} ({bookings[0].slotCount} <People className='slot-booker-icon' />)
+              {bookings[0].leaderFirstName} {bookings[0].leaderLastName} ({bookings[0].slotCount} <People className='slot-booker-icon' />)
             </div>
           }
           {
@@ -151,15 +156,15 @@ class AvailabilityList extends React.Component {
             return (
               <tr key={`${bookings[0].bookings[idx].id}_id`}>
                 {
-                  Object.keys(bookings).map(locationId => {
-                    return (<td className='open-spot' key={`open-spot-${locationId}-${idx}`}>
+                  Object.keys(bookings).map(locationIdx => {
+                    return (<td className='open-spot' key={`open-spot-${locationIdx}-${idx}`}>
                       <div className='open-spot-time-label'>
-                        <span>{moment(bookings[locationId].bookings[idx].time).format('LT')}</span>
+                        <span>{moment(bookings[locationIdx].bookings[idx].time).format('LT')}</span>
                       </div>
           
                       {
-                        bookings[locationId].bookings[idx].availabilitySlot &&
-                        this._renderAvailabilitySlot(bookings[locationId].bookings[idx])
+                        bookings[locationIdx].bookings[idx].availabilitySlot &&
+                        this._renderAvailabilitySlot(bookings[locationIdx].bookings[idx], bookings[locationIdx].locationName, bookings[locationIdx].locationID)
                       }
                   </td>)
                   })
@@ -302,8 +307,10 @@ class AvailabilityList extends React.Component {
           active={this.state.showSlideup}
           onCancel={this._slideupCancel.bind(this)} >
           <BookingForm
+            location={this.state.selectedLocation}
             booking={this.state.selectedBooking}
             onRequestClose={this._slideupCancel.bind(this)}
+            createBooking={this.props.createBooking}
           />
         </SlideUp>
         <CheckIn />

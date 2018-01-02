@@ -222,17 +222,19 @@ const locations = [{
 function _generateSomeBookings() {
   const bookings = [];
   const fakeBookings = [{
-    leaderName: 'Luke Skywalker',
+    leaderFirstName: 'Luke',
+    leaderLastName: 'Skywalker',
     leaderEmail: 'luke@skywalker.com',
     leaderPhoneNumber: '613-555-5555',
     slotCount: 8,
   }, {
-    leaderName: 'Han Solo',
+    leaderFirstName: 'Han Solo',
     leaderEmail: 'han@solo.com',
     leaderPhoneNumber: '613-555-5555',
     slotCount: 5,
   }, {
-    leaderName: 'Poe Dameron',
+    leaderFirstName: 'Poe',
+    leaderLastName: 'Dameron',
     leaderEmail: 'poe@dameron.com',
     leaderPhoneNumber: '613-555-5555',
     slotCount: 7,
