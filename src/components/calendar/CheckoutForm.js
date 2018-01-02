@@ -26,7 +26,7 @@ class CheckoutForm extends React.Component {
 
   payLater() {
     const defaultCost = 2400;
-    console.log('pay later??');
+    console.log('pay later');
     console.log(this.personalInfoRef.state);
     console.log(this.guestsSection.state);
     console.warn(this.props.booking);
@@ -66,7 +66,7 @@ class CheckoutForm extends React.Component {
   render() {
     return (
       <Form onSubmit={this._handleSubmit}>
-        <DateAndTimeSection />
+        <DateAndTimeSection location={this.props.location} booking={this.props.booking} />
         <Col sm={6} md={6} xs={12} smOffset={3} mdOffset={3}>
           <NumberOfGuestsSection ref={(guestsSection) => this.guestsSection = guestsSection} />
           <PersonalInfoSection ref={(personalInfoRef) => this.personalInfoRef = personalInfoRef} />

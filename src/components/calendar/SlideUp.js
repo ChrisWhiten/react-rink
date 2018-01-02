@@ -13,11 +13,6 @@ class SlideUp extends React.Component {
     };
   }
 
-  _slideupClick() {
-    console.warn('slide up clicked');
-    // this.props.onCancel();
-  }
-
   render() {
     const slideUpClass = classNames(
       'slide-up',
@@ -32,7 +27,7 @@ class SlideUp extends React.Component {
     };
     
     return (
-      <div className={slideUpClass} onTouchTap={this._slideupClick.bind(this)} style={dynamicStyles}>
+      <div className={slideUpClass} style={dynamicStyles}>
         { this.props.children }
       </div>
     );

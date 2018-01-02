@@ -20,11 +20,15 @@ class BookingPage extends Component {
     start.setHours(0, 0, 0, 0); // midnight this morning
     let end = new Date();
     end.setHours(23, 59, 59, 999); // end of day
+
+    console.log('fetching bookings', start, end);
     this.props.fetchBookings(start, end);
   }
 
   _onDateChange(startDate) {
+    startDate.setHours(0, 0, 0, 0);
     let endDate = new Date(startDate);
+    console.log('fetching bookings', startDate, endDate);
     endDate.setHours(23, 59, 59, 999);
     this.props.fetchBookings(startDate, endDate);
   }
@@ -68,7 +72,7 @@ class BookingPage extends Component {
     // );
     return (
       <div>
-        <FilterMenu />
+        <FilterMenu onDateChange={this._onDateChange.bind(this)} />
         <TrialCalendar
           bookings={this.props.bookings}
           createBooking={this.props.createBooking}

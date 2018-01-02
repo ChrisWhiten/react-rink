@@ -9,7 +9,6 @@ import './styles/EventPage.css';
 
 const EventPage = (props) => {
   const booking = api.getBookingById(props.params.eventId);
-  console.log(booking);
   return (
     <PageBase>
       <div className='event-page-container'>

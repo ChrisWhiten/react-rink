@@ -59,6 +59,7 @@ class ExternalList extends React.Component {
     if (slot.bookings) {
       slot.bookings.map(b => {
         availabilities -= b.slotCount;
+        return null;
       });
     }
 

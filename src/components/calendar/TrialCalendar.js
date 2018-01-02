@@ -4,13 +4,12 @@ import moment from 'moment';
 import BookingPanel from './BookingPanel';
 import SlideUp from './SlideUp';
 import BookingForm from './BookingForm';
+import BookingSummaryForm from './BookingSummaryForm';
 import CheckIn from './CheckIn';
 import CircularProgress from 'material-ui/CircularProgress';
 import People from 'material-ui/svg-icons/social/people';
 import classNames from 'classnames';
 import './styles/TrialCalendar.css';
-
-const EXPERIMENT = true;
 
 class AvailabilityList extends React.Component {
   constructor() {
@@ -21,11 +20,13 @@ class AvailabilityList extends React.Component {
       selectedBooking: null,
       screenWidth: 0,
       screenHeight: 0,
-      showSlideup: false,
+      showBookingSlideup: false,
+      showSlotSlideup: false,
     };
 
     this.itemWidth = '100%';
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.summarySlideupCancel = this.summarySlideupCancel.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +38,34 @@ class AvailabilityList extends React.Component {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // scroll the earliest slot into view on data load
+    if (prevProps.bookings && prevProps.bookings.isFetching && !this.props.bookings.isFetching) {
+      let earliest = new Date(2100, 0, 0);
+      let earliestId;
+      this.props.bookings.items.forEach(location => {
+        for (let i = 0; i < location.bookings.length; i++) {
+          if (location.bookings[i].availabilitySlot) {
+            if (location.bookings[i].time < earliest) {
+              earliest = location.bookings[i].time;
+              earliestId = location.bookings[i].id;
+            }
+            break;
+          }
+        }
+      });
+
+      if (earliestId) {
+        const slot = document.getElementById(earliestId);
+        slot.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest',
+        });
+      }
+    }
+  }
+
   updateWindowDimensions() {
     this.setState({
       screenWidth: window.innerWidth,
@@ -44,36 +73,35 @@ class AvailabilityList extends React.Component {
     });
   }
 
-  _slideupCancel() {
-    console.log('slide up cancel...');
-    console.trace();
+  summarySlideupCancel() {
     this.setState({
-      showSlideup: false,
+      showBookingSlideup: false,
+    });
+  }
+
+  _slideupCancel() {
+    this.setState({
+      showBookingSlideup: false,
+      showSlotSlideup: false,
     });
   }
 
   _handleOpen(b, locationName, locationId) {
-    if (EXPERIMENT) {
-      this.setState({
-        showSlideup: true,
-        selectedBooking: b,
-        selectedLocation: {
-          locationName,
-          locationId
-        },
-      });
-
-      return;
-    }
-
-    if (!b.availableToBook) {
-      return;
-    }
-
-    this.setState({
-      open: true,
+    const newState = {
       selectedBooking: b,
-    });
+      selectedLocation: {
+        locationName,
+        locationId,
+      },
+    };
+
+    if (b.availabilitySlot.bookings && b.availabilitySlot.bookings.length > 0) {
+      newState.showSlotSlideup = true;
+    } else {
+      newState.showBookingSlideup = true;
+    }
+
+    this.setState(newState);
   }
 
   _handleClose() {
@@ -105,7 +133,7 @@ class AvailabilityList extends React.Component {
     );
 
     return (
-      <div className={slotClass} onTouchTap={this._handleOpen.bind(this, slot, locationName, locationId)}>
+      <div className={slotClass} id={slot.id} onTouchTap={this._handleOpen.bind(this, slot, locationName, locationId)}>
         <div className='slot-details'>
           <span className='slot-time'>
             {moment(slot.availabilitySlot.startTime).format('LT')} - {moment(slot.availabilitySlot.startTime).add(slot.availabilitySlot.duration, 'minutes').format('LT')}
@@ -304,12 +332,23 @@ class AvailabilityList extends React.Component {
 
         <SlideUp
           screenHeight={this.state.screenHeight}
-          active={this.state.showSlideup}
-          onCancel={this._slideupCancel.bind(this)} >
+          active={this.state.showBookingSlideup}
+          onCancel={this._slideupCancel.bind(this)}>
           <BookingForm
             location={this.state.selectedLocation}
             booking={this.state.selectedBooking}
             onRequestClose={this._slideupCancel.bind(this)}
+            createBooking={this.props.createBooking}
+          />
+        </SlideUp>
+        <SlideUp
+          screenHeight={this.state.screenHeight}
+          active={this.state.showSlotSlideup}
+          onCancel={this._slideupCancel.bind(this)}>
+          <BookingSummaryForm
+            location={this.state.selectedLocation}
+            booking={this.state.selectedBooking}
+            onRequestClose={this.summarySlideupCancel}
             createBooking={this.props.createBooking}
           />
         </SlideUp>

@@ -29,6 +29,10 @@ class FilterMenu extends React.Component {
     this.setState({
       date: d,
     });
+
+    if (this.props.onDateChange) {
+      this.props.onDateChange(d);
+    }
   }
 
   _backOne() {
@@ -38,6 +42,10 @@ class FilterMenu extends React.Component {
     this.setState({
       date: newDate,
     });
+
+    if (this.props.onDateChange) {
+      this.props.onDateChange(newDate);
+    }
   }
 
   _forwardsOne() {
@@ -47,6 +55,10 @@ class FilterMenu extends React.Component {
     this.setState({
       date: newDate,
     });
+
+    if (this.props.onDateChange) {
+      this.props.onDateChange(newDate);
+    }
   }
 
   _jumpToToday() {

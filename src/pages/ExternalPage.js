@@ -15,6 +15,7 @@ class ExternalPage extends Component {
   }
 
   _onDateChange(startDate) {
+    startDate.setHours(0, 0, 0, 0);
     let endDate = new Date(startDate);
     endDate.setHours(23, 59, 59, 999);
     this.props.fetchBookings(startDate, endDate);
