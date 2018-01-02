@@ -1,7 +1,9 @@
 .slide-up {
   background: #fff;
   width: 100%;
-  height: 100%;
+  bottom: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
   position: fixed;
   z-index: 6;
   transition-property: all;

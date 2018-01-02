@@ -28,6 +28,7 @@ class SlideUp extends React.Component {
 
     const dynamicStyles = {
       top: this.props.active ? '83px' : `${this.props.screenHeight + 100}px`,
+      height: this.props.screenHeight - 83,
     };
     
     return (
