@@ -1,7 +1,7 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {blue600, grey400} from 'material-ui/styles/colors';
 
-const colour = blue600;
+const colour = '#0088cc';//blue600;
 // const colour = 'rgb(0, 132, 137)';
 const themeDefault = getMuiTheme({
   fontFamily: 'Source Sans Pro, sans-serif',
@@ -25,6 +25,13 @@ const themeDefault = getMuiTheme({
   },
   appBar: {
     height: 57
+  },
+  datePicker: {
+    // calendarYearBackgroundColor: colour,
+    headerColor: colour,
+  },
+  timePicker: {
+    headerColor: colour,
   },
   raisedButton: {
     primaryColor: colour,

@@ -27,6 +27,7 @@ class AvailabilityList extends React.Component {
     this.itemWidth = '100%';
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.summarySlideupCancel = this.summarySlideupCancel.bind(this);
+    this.openNewBookingForm = this.openNewBookingForm.bind(this);
   }
 
   componentDidMount() {
@@ -75,14 +76,24 @@ class AvailabilityList extends React.Component {
 
   summarySlideupCancel() {
     this.setState({
-      showBookingSlideup: false,
+      showSlotSlideup: false,
     });
   }
 
   _slideupCancel() {
     this.setState({
       showBookingSlideup: false,
-      showSlotSlideup: false,
+    });
+  }
+
+  openNewBookingForm(b, locationName, locationId) {
+    this.setState({
+      selectedBooking: b,
+      selectedLocation: {
+        locationName,
+        locationId,
+      },
+      showBookingSlideup: true,
     });
   }
 
@@ -189,7 +200,7 @@ class AvailabilityList extends React.Component {
                       <div className='open-spot-time-label'>
                         <span>{moment(bookings[locationIdx].bookings[idx].time).format('LT')}</span>
                       </div>
-          
+
                       {
                         bookings[locationIdx].bookings[idx].availabilitySlot &&
                         this._renderAvailabilitySlot(bookings[locationIdx].bookings[idx], bookings[locationIdx].locationName, bookings[locationIdx].locationID)
@@ -227,7 +238,7 @@ class AvailabilityList extends React.Component {
     const hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     const pieces = ['00', '15', '30', '45'];
     const slots = [];
-    
+
     // am
     hours.forEach(h => {
       pieces.forEach(p => {
@@ -333,7 +344,9 @@ class AvailabilityList extends React.Component {
         <SlideUp
           screenHeight={this.state.screenHeight}
           active={this.state.showBookingSlideup}
-          onCancel={this._slideupCancel.bind(this)}>
+          onCancel={this._slideupCancel.bind(this)}
+          zIndex={7}
+        >
           <BookingForm
             location={this.state.selectedLocation}
             booking={this.state.selectedBooking}
@@ -344,11 +357,13 @@ class AvailabilityList extends React.Component {
         <SlideUp
           screenHeight={this.state.screenHeight}
           active={this.state.showSlotSlideup}
-          onCancel={this._slideupCancel.bind(this)}>
+          onCancel={this._slideupCancel.bind(this)}
+        >
           <BookingSummaryForm
             location={this.state.selectedLocation}
             booking={this.state.selectedBooking}
             onRequestClose={this.summarySlideupCancel}
+            requestNewBooking={this.openNewBookingForm}
             createBooking={this.props.createBooking}
           />
         </SlideUp>

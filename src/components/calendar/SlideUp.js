@@ -24,8 +24,9 @@ class SlideUp extends React.Component {
     const dynamicStyles = {
       top: this.props.active ? '83px' : `${this.props.screenHeight + 100}px`,
       height: this.props.screenHeight - 83,
+      zIndex: this.props.zIndex ? this.props.zIndex : 6,
     };
-    
+
     return (
       <div className={slideUpClass} style={dynamicStyles}>
         { this.props.children }

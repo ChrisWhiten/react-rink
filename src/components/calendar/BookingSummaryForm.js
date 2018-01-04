@@ -1,5 +1,10 @@
 import React, {PropTypes} from 'react';
+import CheckinCounter from './CheckinCounter';
 import Close from 'material-ui/svg-icons/navigation/close';
+import AccountCircle from 'material-ui/svg-icons/action/account-circle';
+import NoteAdd from 'material-ui/svg-icons/content/add-box';
+import CheckCircle from 'material-ui/svg-icons/action/check-circle';
+import Warning from 'material-ui/svg-icons/alert/warning';
 import moment from 'moment';
 
 import './styles/BookingSummaryForm.css';
@@ -12,17 +17,25 @@ class BookingForm extends React.Component {
       active: false,
     };
 
+    this.newBooking = this.newBooking.bind(this);
+    this.updateCounter = this.updateCounter.bind(this);
   }
 
-  _onClose() {
-    this.props.onRequestClose();
+  updateCounter(booking, newValue) {
+    console.error('should be updating', booking, ' to ', newValue);
+  }
+
+  newBooking() {
+    this.props.requestNewBooking(this.props.booking, this.props.location.locationName, this.props.location.locationId);
   }
 
   renderNewBooking() {
-    return <div className='summary-box new-booking'>
-      New booking
+    return <div className='summary-box new-booking' onTouchTap={this.newBooking}>
+      <div className='new-booking-text'><h4>Add Booking</h4></div>
+      <NoteAdd className='new-booking-icon' />
     </div>
   }
+
   renderBooking(b) {
     return (
       <div className='summary-box existing-booking' key={`booking-${b.id}`}>
@@ -30,7 +43,7 @@ class BookingForm extends React.Component {
           {
             b.bookingCost > b.paidAmount &&
             <div className='owed'>
-              Owes: ${(b.bookingCost - b.paidAmount).toFixed(2)}
+              ${((b.bookingCost - b.paidAmount)/100).toFixed(2)} Owed
             </div>
           }
           {
@@ -41,17 +54,36 @@ class BookingForm extends React.Component {
           }
         </div>
 
+        <div className='status-section'>
+        {
+          true &&
+          <div className='completed'>
+            <CheckCircle className='completed-circle' />
+          </div>
+        }
+        {
+          false &&
+          <Warning className='warning-incomplete' />
+        }
+        </div>
+
         <div className='title-section'>
           <div className='title'>
-            {b.leaderFirstName} {b.leaderLastName}
+            <h4>{b.leaderFirstName} {b.leaderLastName}</h4>
           </div>
           <div className='subtitle'>
-          {b.locationName} @ {moment(b.start).format('LT')}
+            <h5>{b.locationName} @ {moment(b.start).format('LT')}</h5>
           </div>
         </div>
 
+        <div className='img-section'>
+          <AccountCircle className='user-no-img-avatar' />
+        </div>
         <div className='checkin-section'>
-          0/{b.slotCount}
+          <CheckinCounter
+            booking={b}
+            updateCounter={this.updateCounter}
+          />
         </div>
 
       </div>

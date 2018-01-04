@@ -1,0 +1,43 @@
+.checkin-counter
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: center
+
+  .current-values
+    margin-left: .5em
+    margin-right: .5em
+
+    .checkin-text
+      display: flex
+      align-items: center
+
+      .checkin-people-icon
+        margin-left: .1em
+
+  .remove
+    border: 1px solid #f54
+    border-radius: 1em
+
+    &:hover
+      background-color: #f54
+      .remove-icon
+        fill: white !important
+
+    .remove-icon
+      display: block !important
+      fill: #f54 !important
+  .add
+    border: 1px solid #0088cc
+    border-radius: 1em
+
+    &:hover
+      background-color: #0088cc
+
+      .add-icon
+        fill: white !important
+
+
+    .add-icon
+      display: block !important
+      fill: #0088cc !important

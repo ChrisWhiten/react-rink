@@ -1,0 +1,33 @@
+.checkin-counter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; }
+  .checkin-counter .current-values {
+    margin-left: .5em;
+    margin-right: .5em; }
+    .checkin-counter .current-values .checkin-text {
+      display: flex;
+      align-items: center; }
+      .checkin-counter .current-values .checkin-text .checkin-people-icon {
+        margin-left: .1em; }
+  .checkin-counter .remove {
+    border: 1px solid #f54;
+    border-radius: 1em; }
+    .checkin-counter .remove:hover {
+      background-color: #f54; }
+      .checkin-counter .remove:hover .remove-icon {
+        fill: white !important; }
+    .checkin-counter .remove .remove-icon {
+      display: block !important;
+      fill: #f54 !important; }
+  .checkin-counter .add {
+    border: 1px solid #0088cc;
+    border-radius: 1em; }
+    .checkin-counter .add:hover {
+      background-color: #0088cc; }
+      .checkin-counter .add:hover .add-icon {
+        fill: white !important; }
+    .checkin-counter .add .add-icon {
+      display: block !important;
+      fill: #0088cc !important; }

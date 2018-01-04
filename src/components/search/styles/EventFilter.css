@@ -28,7 +28,7 @@
         color: #767676 !important; }
       .filter-selector.inverted:hover .selected-count {
         color: #fff;
-        background-color: #1E88E5; }
+        background-color: #0088cc; }
 
 .filter-title {
   display: flex;
@@ -91,7 +91,7 @@
   font-size: 12px;
   width: 20px;
   height: 20px;
-  color: #1E88E5;
+  color: #0088cc;
   padding-bottom: 0px;
   padding-top: 0px;
   text-align: center;
@@ -101,4 +101,4 @@
 
 .active .selected-count {
   color: #fff;
-  background-color: #1E88E5; }
+  background-color: #0088cc; }

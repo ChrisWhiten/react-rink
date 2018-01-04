@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ExternalList from '../components/external/ExternalList';
 import FilterMenu from '../components/search/FilterMenu';
+import moment from 'moment';
 
 import './styles/ExternalPage.css';
 
@@ -11,7 +12,8 @@ class ExternalPage extends Component {
     start.setHours(0, 0, 0, 0); // midnight this morning
     let end = new Date();
     end.setHours(23, 59, 59, 999); // end of day
-    this.props.fetchBookings(start, end);
+    // end = moment(end).add(3, 'days'); // TODO: put this back on and fix multi-day query rendering
+    this.props.fetchBookings(start, new Date(end));
   }
 
   _onDateChange(startDate) {

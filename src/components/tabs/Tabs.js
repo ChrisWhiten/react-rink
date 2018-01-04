@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {Tabs as MaterialTabs, Tab} from 'material-ui/Tabs';
-import HomeIcon from 'material-ui/svg-icons/action/home';
-import SearchIcon from 'material-ui/svg-icons/action/search';
+// import HomeIcon from 'material-ui/svg-icons/action/home';
+// import SearchIcon from 'material-ui/svg-icons/action/search';
 import EventIcon from 'material-ui/svg-icons/action/event';
 import locale from '../../localization/locale';
 
@@ -13,14 +13,23 @@ class Tabs extends React.Component {
     super(props);
     this.locale = locale.getLocale();
   }
-  
+
   render() {
+    let path = '';
+    const parts = this.props.location.pathname.trim('/').split('/');
+    if (parts.length === 2) {
+      path = parts[1];
+    }
     let selectedIndex = 0;
-    switch (this.props.location.pathname) {
-      case '/booking':
+    switch (path) {
+      case 'booking':
+        selectedIndex = 0;
+        break;
+      case 'external':
         selectedIndex = 1;
         break;
-      case '/join':
+      case 'availabilitySchedule':
+      case 'availabilitySchedules':
         selectedIndex = 2;
         break;
       default:
@@ -31,24 +40,24 @@ class Tabs extends React.Component {
     return (
       <div className='tab-container'>
         <MaterialTabs initialSelectedIndex={selectedIndex}>
-          <Tab
+          {/* <Tab
             icon={<HomeIcon/>}
             className='tab'
             label={this.locale.general.myEvents}
             containerElement={<Link to='/' />}
-          />
+          /> */}
           <Tab
             icon={<EventIcon />}
             className='tab'
             label={this.locale.general.bookIceTime}
             containerElement={<Link to='/booking' />}
           />
-          <Tab
+          {/* <Tab
             icon={<SearchIcon />}
             className='tab'
             label={this.locale.general.joinAGame}
             containerElement={<Link to='/join' />}
-          />
+          /> */}
           <Tab
             icon={<EventIcon />}
             className='tab'

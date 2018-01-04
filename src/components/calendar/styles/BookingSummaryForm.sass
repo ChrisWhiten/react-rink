@@ -13,6 +13,10 @@
       margin: 1em
       transition: box-shadow 80ms ease-in-out, width 0.4s ease 0.2s !important
       box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 2px 32px rgba(0, 0, 0, 0.16) !important
+      display: inline-flex
+      flex-direction: column
+      align-items: center
+      position: relative
 
       &:hover
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09), 0 4px 40px rgba(0, 0, 0, 0.24) !important
@@ -20,13 +24,68 @@
         cursor: pointer
 
       &.new-booking
-        background-color: green
+        background-color: #52B266
+
+        .new-booking-text
+          color: #fff
+          margin-top: 1em
+
+        .new-booking-icon
+          color: #fff !important
+          position: absolute
+          bottom: 125px
+          transform: scale(2)
 
       &.existing-booking
         background-color: #fafafb
 
+      .title-section
+        /*text-transform: uppercase*/
+        text-transform: capitalize
+        text-align: center
+        margin-top: 1.5em
+
+      .checkin-section
+        bottom: 0
+        position: absolute
+        margin-bottom: 1em
+
+      .img-section
+        width: 100%
+
+        .user-no-img-avatar
+          display: block !important
+          margin: auto
+          width: 48px !important
+          height: 48px !important
+          color: black
+
+      .status-section
+        top: 0
+        left: 0
+        position: absolute
+        padding: .2em
+        margin: .5em
+
+        .completed-circle
+          color: #52B266 !important
+
+        .warning-incomplete
+          color: #ffa000 !important
+
+      .paid-section
+        font-size: 11px
+        color: red
+        position: absolute
+        top: 0
+        right: 0
+        padding: .2em
+        border-radius: 1em
+        border: 1px solid red
+        margin: .5em
+
   .booking-form-header
-    background-color: #1e88e5
+    background-color: #0088cc
     width: 100%
     display: flex
     align-items: center
