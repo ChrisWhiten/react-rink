@@ -12,7 +12,7 @@ module.exports = {
   filters: {
     anywhere: 'Anywhere',
     anytime: 'Anytime',
-    eventType: 'Filter 1',
+    eventType: 'Locations',
     demographic: 'Filter 2',
     moreFilters: 'Filter 3',
   },

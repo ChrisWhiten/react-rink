@@ -1,5 +1,9 @@
 .external-list
-  margin-top: 175px
+  padding-top: 80px
+  background: #f7f7f7
+
+  &.headless
+    padding-top: 0
 
 .location-bookings
   display: flex
@@ -21,7 +25,7 @@
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 2px 32px rgba(0, 0, 0, 0.16) !important
     transition: box-shadow 80ms ease-in-out, width 0.4s ease 0.2s !important
     background: #3C8DBC
-  
+
     &:hover
       transform: translateY(-1px)
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09), 0 4px 40px rgba(0, 0, 0, 0.24) !important
@@ -46,12 +50,14 @@
     margin-left: .5em
 
 .location-rendered
+  background: #fff
   border: 1px solid #ccc
   .location-metadata
     margin-top: 1em
 
 .external-date
   border: 1px solid #ccc
+  background: #fff
 
 .external-separator
   color: #ccc

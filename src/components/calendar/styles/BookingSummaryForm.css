@@ -29,45 +29,6 @@
           position: absolute;
           bottom: 125px;
           transform: scale(2); }
-      .booking-form .summary-content .summary-box.existing-booking {
-        background-color: #fafafb; }
-      .booking-form .summary-content .summary-box .title-section {
-        /*text-transform: uppercase*/
-        text-transform: capitalize;
-        text-align: center;
-        margin-top: 1.5em; }
-      .booking-form .summary-content .summary-box .checkin-section {
-        bottom: 0;
-        position: absolute;
-        margin-bottom: 1em; }
-      .booking-form .summary-content .summary-box .img-section {
-        width: 100%; }
-        .booking-form .summary-content .summary-box .img-section .user-no-img-avatar {
-          display: block !important;
-          margin: auto;
-          width: 48px !important;
-          height: 48px !important;
-          color: black; }
-      .booking-form .summary-content .summary-box .status-section {
-        top: 0;
-        left: 0;
-        position: absolute;
-        padding: .2em;
-        margin: .5em; }
-        .booking-form .summary-content .summary-box .status-section .completed-circle {
-          color: #52B266 !important; }
-        .booking-form .summary-content .summary-box .status-section .warning-incomplete {
-          color: #ffa000 !important; }
-      .booking-form .summary-content .summary-box .paid-section {
-        font-size: 11px;
-        color: red;
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: .2em;
-        border-radius: 1em;
-        border: 1px solid red;
-        margin: .5em; }
   .booking-form .booking-form-header {
     background-color: #0088cc;
     width: 100%;

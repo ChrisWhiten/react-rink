@@ -11,7 +11,8 @@ import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import {
-	fetchLocations,
+  fetchLocations,
+  fetchWalkins,
 } from './actions';
 import './styles/style.css';
 
@@ -25,6 +26,10 @@ if (process.env.NODE_ENV !== 'production') {
 const store = createStore(reducer, applyMiddleware(...middleware));
 
 store.dispatch(fetchLocations());
+// TODO: do not use this set timeout in prod.  problem with aws-sam-local concurrency
+setTimeout(() => {
+  store.dispatch(fetchWalkins());
+}, 10000);
 // store.dispatch(fetchInvitations());
 // store.dispatch(fetchUpcomingOrganized());
 // store.dispatch(fetchUpcomingParticipations());
@@ -32,6 +37,6 @@ store.dispatch(fetchLocations());
 render(
   <Provider store={store}>
       <Router routes={routes} history={browserHistory} />
-  </Provider>, 
+  </Provider>,
   document.getElementById('root')
 );

@@ -3,9 +3,8 @@ import Slot from './Slot';
 import TimePicker from 'material-ui/TimePicker';
 import DatePicker from '../search/DatePicker';
 import CircularProgress from 'material-ui/CircularProgress';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import classNames from 'classnames';
+import Select from 'react-select';
 import {
   Button,
   HelpBlock,
@@ -15,6 +14,9 @@ import {
 } from 'react-bootstrap';
 
 import './EditAvailabilitySchedule.css';
+import 'react-select/dist/react-select.css';
+
+const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 function FieldGroup({ id, label, help, validationState, ...props }) {
   return (
@@ -39,8 +41,9 @@ class EditAvailabilitySchedule extends React.Component {
       Sunday: [],
     };
 
-    if (this.props.schedule && this.props.schedule.schedule) {
-      initialSchedule = this.props.schedule.schedule.schedule;
+    // only work with a fetched schedule if we are viewing a fetched schedule...makese sense
+    if (props.router && props.router.params.scheduleId && props.schedule && props.schedule.schedule) {
+      initialSchedule = props.schedule.schedule.schedule;
     }
 
     this.state = {
@@ -48,7 +51,7 @@ class EditAvailabilitySchedule extends React.Component {
       screenHeight: 0,
       showSlideup: false,
       addMode: null,
-      schedule: initialSchedule,
+      schedule: Object.assign({}, initialSchedule),
       scheduleName: '',
       isChanged: false,
       startDate: null,
@@ -82,18 +85,8 @@ class EditAvailabilitySchedule extends React.Component {
     }
   }
 
-  handleSelectedLocationsChange(event, index, values) {
-    console.log('values...', values);
-    console.log('prev...', this.state.selectedLocations);
-    const newSelectedLocations = this.props.locations.items
-    .filter(l => values.indexOf(l.id) > -1)
-    .map(l => {
-      return { locationId: l.id, locationName: l.locationName };
-    });
-    this.setState({
-      selectedLocations: newSelectedLocations,
-      isChanged: true,
-    });
+  handleSelectedLocationsChange = (selectedLocations) => {
+    this.setState({ selectedLocations });
   }
 
   onStartChange(d) {
@@ -124,7 +117,6 @@ class EditAvailabilitySchedule extends React.Component {
 
     const fn = this.state.id ? this.props.updateSchedule : this.props.createSchedule;
 
-    console.log('saving...', this.state.selectedLocations);
     fn({
       id: this.state.id,
       name: this.state.scheduleName,
@@ -155,10 +147,6 @@ class EditAvailabilitySchedule extends React.Component {
       isPublic: true,
     };
 
-    console.log('add mode', this.state.addMode);
-    console.log('pre', this.state.schedule);
-    console.log('post', this.state.schedule[this.state.addMode].concat([newSlot]));
-
     const newSchedule = Object.assign({}, this.state.schedule);
     newSchedule[this.state.addMode] = newSchedule[this.state.addMode].concat([newSlot]);
     this.setState({
@@ -168,7 +156,6 @@ class EditAvailabilitySchedule extends React.Component {
   }
 
   removeSlot(day, slot) {
-    console.warn('remove slot', day, slot);
     const newSchedule = Object.assign({}, this.state.schedule);
     newSchedule[day] = newSchedule[day].filter(s => {
       const _s = new Date(s.startTime);
@@ -189,8 +176,6 @@ class EditAvailabilitySchedule extends React.Component {
   }
 
   renderSchedule(day, schedule) {
-    console.log('full sched', this.state.schedule);
-    console.log('schedule?', schedule);
     const scheduleClass = classNames(
       'container',
       'schedule-rendered',
@@ -204,7 +189,7 @@ class EditAvailabilitySchedule extends React.Component {
         <div className='availability-day-of-week'>
           <h5>{ day }</h5>
         </div>
-        
+
         <hr className='external-separator' />
 
         <div className='availability-slots'>
@@ -217,23 +202,7 @@ class EditAvailabilitySchedule extends React.Component {
     );
   }
 
-  renderLocations(locations, selectedLocations) {
-    console.log('shoudl it be checked?', selectedLocations.map(l => l.id).indexOf(location.id) > -1);
-    console.log(selectedLocations.map(l => l.locationId));
-    console.log(locations);
-    return locations.map(location => (
-      <MenuItem
-        key={location.locationName}
-        insetChildren={true}
-        checked={selectedLocations.map(l => l.locationId).indexOf(location.id) > -1}
-        value={location.id}
-        primaryText={location.locationName}
-      />
-    ));
-  }
-
   render() {
-    console.log('render avail', this.state.selectedLocations);
     if (this.props.schedule && this.props.schedule.isFetching) {
       return <div className='loading-schedule'>
         <CircularProgress />
@@ -250,10 +219,14 @@ class EditAvailabilitySchedule extends React.Component {
       },
     );
 
+    const options = this.props.locations.items.map(l => {
+      return {locationId: l.id, locationName: l.locationName};
+    });
+
     return (
       <div className='availability-schedule'>
         <div className='schedule-name container'>
-          <Col md={3} lg={3} sm={3} xs={12} style={{paddingLeft: 0}}>
+          <Col md={8} lg={8} sm={8} xs={12} style={{paddingLeft: 0}}>
             <div className='availability-day-of-week'>
               <h5>What should we name this schedule?</h5>
             </div>
@@ -265,18 +238,18 @@ class EditAvailabilitySchedule extends React.Component {
               value={this.state.scheduleName}
             />
           </Col>
-          <Col md={9} lg={9} sm={9} xs={12} style={{paddingLeft: 0}}>
+          <Col md={8} lg={8} sm={8} xs={12} style={{paddingLeft: 0}}>
             <div className='availability-day-of-week'>
               <h5>What locations should follow this schedule?</h5>
             </div>
-            <SelectField
-              multiple={true}
-              hintText='Assigned locations'
-              value={this.state.selectedLocations.map(l => l.locationId)}
+            <Select
+              multi={true}
+              valueKey='locationId'
+              labelKey='locationName'
+              value={this.state.selectedLocations}
               onChange={this.handleSelectedLocationsChange}
-            >
-              {this.renderLocations(this.props.locations.items, this.state.selectedLocations)}
-            </SelectField>
+              options={options}
+            />
           </Col>
         </div>
         <hr className='external-separator' />
@@ -293,7 +266,7 @@ class EditAvailabilitySchedule extends React.Component {
           <hr className='external-separator' />
         </div>
         {
-          Object.keys(this.state.schedule).map(day => {
+          daysOfWeek.map(day => {
             return this.renderSchedule(day, this.state.schedule[day]);
           })
         }

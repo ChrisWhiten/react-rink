@@ -4,6 +4,8 @@ import {Tabs as MaterialTabs, Tab} from 'material-ui/Tabs';
 // import HomeIcon from 'material-ui/svg-icons/action/home';
 // import SearchIcon from 'material-ui/svg-icons/action/search';
 import EventIcon from 'material-ui/svg-icons/action/event';
+import Schedule from 'material-ui/svg-icons/action/schedule';
+import EventSeat from 'material-ui/svg-icons/action/event-seat';
 import locale from '../../localization/locale';
 
 import './styles/Tabs.css';
@@ -59,16 +61,16 @@ class Tabs extends React.Component {
             containerElement={<Link to='/join' />}
           /> */}
           <Tab
-            icon={<EventIcon />}
+            icon={<EventSeat />}
             className='tab'
             label='External'
             containerElement={<Link to='/external' />}
           />
 
           <Tab
-            icon={<EventIcon />}
+            icon={<Schedule />}
             className='tab'
-            label='Schedule'
+            label='Scheduling'
             containerElement={<Link to='/availabilitySchedules' />}
           />
 

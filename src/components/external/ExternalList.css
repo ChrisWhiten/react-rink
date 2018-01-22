@@ -1,5 +1,8 @@
 .external-list {
-  margin-top: 175px; }
+  padding-top: 80px;
+  background: #f7f7f7; }
+  .external-list.headless {
+    padding-top: 0; }
 
 .location-bookings {
   display: flex;
@@ -40,12 +43,14 @@
     margin-left: .5em; }
 
 .location-rendered {
+  background: #fff;
   border: 1px solid #ccc; }
   .location-rendered .location-metadata {
     margin-top: 1em; }
 
 .external-date {
-  border: 1px solid #ccc; }
+  border: 1px solid #ccc;
+  background: #fff; }
 
 .external-separator {
   color: #ccc;

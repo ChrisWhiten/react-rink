@@ -7,6 +7,10 @@
   top: 80px;
   display: flex;
   justify-content: space-between; }
+  .filter-menu.headless {
+    top: 0; }
+  .filter-menu .filter-menu-balance {
+    width: 20em; }
 
 .filter-list-icon-svg {
   color: white !important;
@@ -30,12 +34,18 @@
   margin: auto; }
 
 .date-picker-area {
-  opacity: 0.7; }
+  opacity: 0.9; }
   .date-picker-area:hover {
     opacity: 1;
     cursor: pointer; }
   .date-picker-area .date-picker-text {
     display: inline-block; }
+    @media screen and (max-width: 480px) {
+      .date-picker-area .date-picker-text {
+        display: none; } }
+    @media screen and (max-width: 850px) {
+      .date-picker-area .date-picker-text {
+        display: none; } }
 
 .filter-date-picker-icon {
   display: inline-flex;

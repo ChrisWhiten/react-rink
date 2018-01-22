@@ -1,5 +1,6 @@
-import React, {PropTypes} from 'react';
-import {injectStripe} from 'react-stripe-elements';
+import React from 'react';
+import PropTypes from 'prop-types';
+// import {injectStripe} from 'react-stripe-elements';
 import {
   Form,
   Col,
@@ -7,7 +8,8 @@ import {
 } from 'react-bootstrap';
 
 import PersonalInfoSection from './PersonalInfoSection';
-import CardSection from './CardSection';
+import Schedule from 'material-ui/svg-icons/action/schedule';
+// import CardSection from './CardSection';
 import DateAndTimeSection from './DateAndTimeSection';
 import NumberOfGuestsSection from './NumberOfGuestsSection';
 
@@ -22,6 +24,10 @@ class CheckoutForm extends React.Component {
     };
 
     this.payLater = this.payLater.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.personalInfoRef.clear();
   }
 
   payLater() {
@@ -43,6 +49,7 @@ class CheckoutForm extends React.Component {
         duration: this.props.booking.availabilitySlot.duration,
         paidAmount: 0,
         bookingCost: defaultCost * this.guestsSection.state.numberOfGuests,
+        checkedIn: 0,
       }, (bookingCreated => {
         console.log('made it to checkoutform bookingCreated', bookingCreated);
       }));
@@ -52,7 +59,7 @@ class CheckoutForm extends React.Component {
   _handleSubmit = (ev) => {
     // We don't want to let default form submission happen here, which would refresh the page.
     ev.preventDefault();
-    
+
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
     this.props.stripe.createToken({name: 'Jenny Rosen'}).then(({token}) => {
@@ -64,17 +71,28 @@ class CheckoutForm extends React.Component {
   }
 
   render() {
+    let slotCount = 0;
+    if (this.props.booking && this.props.booking.availabilitySlot) {
+      slotCount = this.props.booking.availabilitySlot.totalSlots;
+
+      if (this.props.booking.availabilitySlot.bookings) {
+        this.props.booking.availabilitySlot.bookings.forEach(b => {
+          slotCount -= b.slotCount;
+        });
+      }
+    }
+
     return (
       <Form onSubmit={this._handleSubmit}>
         <DateAndTimeSection location={this.props.location} booking={this.props.booking} />
         <Col sm={6} md={6} xs={12} smOffset={3} mdOffset={3}>
-          <NumberOfGuestsSection ref={(guestsSection) => this.guestsSection = guestsSection} />
+          <NumberOfGuestsSection ref={(guestsSection) => this.guestsSection = guestsSection} slotCount={slotCount} />
           <PersonalInfoSection ref={(personalInfoRef) => this.personalInfoRef = personalInfoRef} />
           <Col sm={12} md={12} xs={12}>
             <Checkbox>
-              I have read and agree with the waiver
+              Yes, I have read and agree with the waiver
             </Checkbox>
-            <CardSection />
+            {/* <CardSection /> */}
             <button className='checkout-button'>Confirm order <small>($24)</small></button>
             <div className='pay-later-button' onTouchTap={this.payLater}><a>Or confirm now and pay on-site</a></div>
           </Col>
@@ -89,4 +107,5 @@ CheckoutForm.propTypes = {
   screenHeight: PropTypes.number,
 };
 
-export default injectStripe(CheckoutForm);
+// export default injectStripe(CheckoutForm);
+export default CheckoutForm

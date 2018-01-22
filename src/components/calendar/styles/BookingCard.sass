@@ -1,0 +1,110 @@
+hello
+  color: #fff
+
+.summary-box
+  width: 300px
+  height: 250px
+  margin: 1em
+  transition: box-shadow 80ms ease-in-out, width 0.4s ease 0.2s !important
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 2px 32px rgba(0, 0, 0, 0.16) !important
+  display: inline-flex
+  flex-direction: column
+  align-items: center
+  position: relative
+
+  &.existing-booking
+    background-color: #fafafb
+
+    .title-section
+      /*text-transform: uppercase*/
+      text-transform: capitalize
+      text-align: center
+      margin-top: 1.5em
+
+    .checkin-section
+      bottom: 0
+      position: absolute
+      margin-bottom: 1em
+
+    .cancelled-section
+      bottom: 0
+      position: absolute
+      text-align: center
+      background-color: #f54
+      width: 100%
+
+      .cancelled-text
+        color: #fff
+
+    .img-section
+      width: 100%
+
+      .user-no-img-avatar
+        display: block !important
+        margin: auto
+        width: 48px !important
+        height: 48px !important
+        color: black
+
+    .status-section
+      top: 0
+      left: 0
+      position: absolute
+      padding: .2em
+      margin: .5em
+
+      &.hide
+        display: none
+
+      .completed-circle
+        color: #52B266 !important
+
+      .warning-incomplete
+        color: #ffa000 !important
+
+    .paid-section
+      position: absolute
+      top: 0
+      right: 0
+      padding: .2em
+      margin: .5em
+
+      &.hide
+        display: none
+
+      .paid
+        color: #52B266
+        margin-top: 0
+
+      .owed
+        /*color: #a62f23*/
+        /*color: #c84f42*/
+        color: #f54
+        margin-top: 0
+
+.booking-link
+  display: inline-flex
+  align-items: center
+  flex-direction: column
+  width: 100%
+  height: 100%
+  color: inherit
+  text-decoration: inherit
+  font-weight: inherit
+
+  &:link
+    color: inherit
+    text-decoration: inherit
+    font-weight: inherit
+  &:active
+    color: inherit
+    text-decoration: inherit
+    font-weight: inherit
+  &:visited
+    color: inherit
+    text-decoration: inherit
+    font-weight: inherit
+  &:hover
+    color: inherit
+    text-decoration: inherit
+    font-weight: inherit

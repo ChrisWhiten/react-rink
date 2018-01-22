@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {CardElement} from 'react-stripe-elements';
 
 // import './styles/CardSection.css';
@@ -30,7 +31,7 @@ class CardSection extends React.Component {
         iconColor: '#fa755a'
       }
     };
-    
+
     return (
       <CardElement style={style} />
     );

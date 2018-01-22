@@ -1,10 +1,13 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import People from 'material-ui/svg-icons/social/people';
+import CircularProgress from 'material-ui/CircularProgress';
 import moment from 'moment';
 import classNames from 'classnames';
 
 import SlideUp from '../calendar/SlideUp';
 import BookingForm from '../calendar/BookingForm';
+import BookingCompleted from './BookingCompleted';
 
 import './ExternalList.css';
 
@@ -14,24 +17,35 @@ class ExternalList extends React.Component {
 
     this.state = {
       open: false,
-      selectedBooking: null,
+      selectedSlot: null,
       date: new Date(),
       screenWidth: 0,
       screenHeight: 0,
       showSlideup: false,
+      createdBooking: undefined,
     };
 
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.onScroll = this.onScroll.bind(this);
     this.checkout = this.checkout.bind(this);
+    this.onBookingCreated = this.onBookingCreated.bind(this);
   }
 
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
+    window.addEventListener('scroll', this.onScroll, false);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions);
+    window.removeEventListener('scroll', this.onScroll, false);
+  }
+
+  onScroll() {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) && !this.props.isFetching) {
+      this.props.loadMore();
+    }
   }
 
   updateWindowDimensions() {
@@ -41,9 +55,26 @@ class ExternalList extends React.Component {
     });
   }
 
-  checkout() {
+  onBookingCreated(booking) {
+    this.setState({
+      showSlideup: false,
+      createdBooking: booking,
+    });
+
+    console.error('here i should jump to a new congrats page')
+
+    // force a new date to fetch fresh bookings
+    // this.props.onDateChange(booking.start);
+  }
+
+  checkout(slot, locationName, locationId) {
     this.setState({
       showSlideup: true,
+      selectedSlot: slot,
+      selectedLocation: {
+        locationName,
+        locationId,
+      },
     });
   }
 
@@ -53,11 +84,11 @@ class ExternalList extends React.Component {
     });
   }
 
-  renderSlot(slot) {
-    let availabilities = slot.totalSlots;
-    
-    if (slot.bookings) {
-      slot.bookings.map(b => {
+  renderSlot(slot, locationName, locationId) {
+    let availabilities = slot.availabilitySlot.totalSlots;
+
+    if (slot.availabilitySlot.bookings) {
+      slot.availabilitySlot.bookings.map(b => {
         availabilities -= b.slotCount;
         return null;
       });
@@ -74,9 +105,9 @@ class ExternalList extends React.Component {
     );
 
     return (
-      <div className={slotClass} onTouchTap={this.checkout}>
+      <div className={slotClass} onTouchTap={this.checkout.bind(this, slot, locationName, locationId)} key={`slot-${new Date(slot.availabilitySlot.startTime).getTime()}`}>
         <div className='external-slot-time'>
-          { moment(slot.startTime).format('LT') }
+          { moment(slot.availabilitySlot.startTime).format('LT') }
         </div>
         <div className='external-slot-availabilities'>
           { availabilities } <People className='external-slot-availaibilities-icon' />
@@ -100,22 +131,22 @@ class ExternalList extends React.Component {
     );
   }
 
-  renderByLocation(location) {
+  renderByLocation(location, date) {
     const slots = location.bookings.filter(b => {
       return b.availabilitySlot;
     });
 
     return (
-      <div className='container location-rendered'>
-        <div className='location-metadata'>
+      <div className='container location-rendered' key={`location-rendered-${location.locationID}-${date}`}>
+        <div className='location-metadata' key={`location-metadata-${location.locationID}-${date}`}>
           <h5>{location.locationName}</h5>
         </div>
-        
+
         <hr className='external-separator' />
 
         <div className='location-bookings'>
           {
-            slots.map(b => this.renderSlot(b.availabilitySlot))
+            slots.map(b => this.renderSlot(b, location.locationName, location.locationID))
           }
         </div>
 
@@ -127,24 +158,59 @@ class ExternalList extends React.Component {
   }
 
   render() {
-    return (
-      <div className='external-list'>
-        <div className='container external-date'>
-          <h4>{ moment(this.state.date).format('dddd, MMMM Do, YYYY') }</h4>
-        </div>
+    const dates = this.props.bookings;
+    console.error('oh no', this.props);
+    const externalListClass = classNames(
+      'external-list', {
+        headless: !!this.props.headless,
+      },
+    );
 
-          {
-            this.props.bookings.items.map(l => {
-              return this.renderByLocation(l)
-            })
-          }
+    return (
+      <div className={externalListClass}>
+        {
+          Object.keys(dates).map(d => {
+            return <div key={`date-container-${d}`}>
+              <div className='container external-date'>
+                <h4>{ moment(d).format('dddd, MMMM Do, YYYY') }</h4>
+              </div>
+
+                {
+                  dates[d].map(l => {
+                    return this.renderByLocation(l, d)
+                  })
+                }
+              </div>
+          })
+        }
+        {
+          this.props.isFetching &&
+          <CircularProgress style={{marginLeft: '50%', position: 'relative'}} />
+        }
 
         <SlideUp
           screenHeight={this.state.screenHeight}
           active={this.state.showSlideup}
           onCancel={this.slideupCancel.bind(this)} >
           <BookingForm
-            booking={this.state.selectedBooking}
+            location={this.state.selectedLocation}
+            slot={this.state.selectedSlot}
+            createBooking={this.props.createBooking}
+            onBookingCreated={this.onBookingCreated}
+            onRequestClose={this.slideupCancel.bind(this)}
+          />
+        </SlideUp>
+
+        <SlideUp
+          screenHeight={this.state.screenHeight}
+          active={!!this.state.createdBooking}
+          onCancel={this.slideupCancel.bind(this)} >
+          <BookingCompleted
+            location={this.state.selectedLocation}
+            booking={this.state.createdBooking}
+            slot={this.state.selectedSlot}
+            createBooking={this.props.createBooking}
+            onBookingCreated={this.onBookingCreated}
             onRequestClose={this.slideupCancel.bind(this)}
           />
         </SlideUp>

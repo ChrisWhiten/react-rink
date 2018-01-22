@@ -2,3 +2,46 @@
   margin: 1em
   position: fixed
   left: 0
+
+.new-location-picker
+  display: block
+  margin-top: auto
+  margin-bottom: auto
+  margin-left: 1em
+  width: 20em
+
+  .hello123.is-focused
+    background-color: #0088cc
+    .Select-control
+      background-color: #0088cc !important
+      color: #fff
+  .hello123.is-open
+    background-color: #0088cc
+
+    .Select-control
+      background-color: #0088cc
+      color: #fff
+
+
+  .Select-control
+    background-color: #0088cc
+    color: #fff
+    border: none
+    &:hover
+      cursor: pointer
+
+    .Select-placeholder
+      color: #fff
+
+    .Select-arrow
+      border-color: #fff transparent transparent
+
+    .Select-value
+      color: #fff
+
+.Select-value.test
+  .Select-value-label
+    max-width: 5em
+    text-overflow: ellipsis
+    overflow-y: hidden
+    white-space: nowrap

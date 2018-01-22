@@ -1,0 +1,6 @@
+.creating-new-slot-progress {
+  transform: scale(0.5); }
+
+.accept-new-slot-button {
+  margin-left: 0.5em;
+  display: inline-block; }

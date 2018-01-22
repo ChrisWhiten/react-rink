@@ -1,5 +1,8 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {Elements} from 'react-stripe-elements';
+import CheckCircle from 'material-ui/svg-icons/action/check-circle';
+import CircularProgress from 'material-ui/CircularProgress';
 import Close from 'material-ui/svg-icons/navigation/close';
 import './styles/BookingForm.css';
 import CheckoutForm from './CheckoutForm';
@@ -9,7 +12,8 @@ class BookingForm extends React.Component {
     super(props);
 
     this.state = {
-      active: false,
+      creating: false,
+      created: false,
     };
 
     this.payLater = this.payLater.bind(this);
@@ -17,8 +21,28 @@ class BookingForm extends React.Component {
 
   payLater(booking) {
     console.error('pay later!', booking);
-    this.props.createBooking(booking, (createdBooking) => {
-      console.log('booking created!', createdBooking);
+    this.setState({
+      creating: true,
+    });
+
+    this.props.createBooking(booking, this.props.slot, (err, createdBooking) => {
+      console.log('booking created callback called!')
+      if (err) {
+        console.error('but there was an error!', err);
+      }
+      this.setState({
+        creating: false,
+        created: true,
+      });
+
+      setTimeout(() => {
+        this.props.onBookingCreated(createdBooking);
+        setTimeout(() => {
+          this.setState({
+            created: false,
+          });
+        }, 200);
+      }, 500);
     });
   }
 
@@ -42,9 +66,29 @@ class BookingForm extends React.Component {
           </div>
         </div>
         <div className='booking-form-content'>
-          <Elements>
-            <CheckoutForm booking={this.props.booking} location={this.props.location} payLater={this.payLater} />
-          </Elements>
+        {
+          this.state.creating &&
+          <div className='creation-container'>
+            <div className='creation-status'><CircularProgress size={80} /></div>
+            <h5 className='creation-text'>Booking...</h5>
+          </div>
+        }
+        {
+          !this.state.creating && this.state.created &&
+          <div className='creation-container'>
+            <div className='creation-status'><CheckCircle size={80} className='booking-completed-checkmark' /></div>
+            <h5 className='creation-text'>Booking complete!</h5>
+          </div>
+        }
+        {
+          !this.state.creating && !this.state.created &&
+          <div>
+            {/* remove the above div once we bring back <Elemnets> */}
+            {/* <Elements> */}
+            <CheckoutForm booking={this.props.slot} location={this.props.location} payLater={this.payLater} />
+            {/* </Elements> */}
+          </div>
+        }
         </div>
       </div>
     );
@@ -52,7 +96,7 @@ class BookingForm extends React.Component {
 }
 
 BookingForm.propTypes = {
-  booking: PropTypes.object,
+  slot: PropTypes.object,
   onRequestClose: PropTypes.func,
 };
 

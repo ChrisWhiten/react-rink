@@ -4,7 +4,6 @@ import {
   FormControl,
   Col,
 } from 'react-bootstrap';
-import People from 'material-ui/svg-icons/social/people';
 
 import './styles/NumberOfGuestsSection.css';
 
@@ -26,24 +25,40 @@ class NumberOfGuestsSection extends React.Component {
     });
   }
 
+  reset() {
+    // TODO: change value of actual select component
+    // this.setState({
+    //   numberOfGuests: 0,
+    // });
+  }
+
+  renderOptions(slotCount) {
+    let options = [];
+    for (let i = 0; i < slotCount; i++) {
+      if (i === 0) {
+        options.push(<option key={`option-${i}`} value='1'>1 Player</option>);
+      } else {
+        options.push(<option key={`option-${i}`} value={i + 1}>{i + 1} Players</option>);
+      }
+    }
+    return options;
+  }
+
 
   render() {
+    const style = {};
+    if (!this.state.numberOfGuests) {
+      style.color = '#ccc';
+    }
     return (
       <div className='number-of-guests-section'>
-        <Col md={11} lg={11} sm={11} xs={11}>
+        <Col md={12} lg={12} sm={12} xs={12}>
           <FormGroup controlId='formControlsSelect'>
-            <FormControl componentClass='select' onChange={this.handleNumberOfPlayersChanged}>
+            <FormControl style={style} componentClass='select' onChange={this.handleNumberOfPlayersChanged}>
               <option value='number-of-players'>Number of Players</option>
-              <option value='1'>1 Player</option>
-              <option value='2'>2 Players</option>
-              <option value='3'>3 Players</option>
-              <option value='4'>4 Players</option>
-              <option value='5'>5 Players</option>
+              { this.renderOptions(this.props.slotCount) }
             </FormControl>
           </FormGroup>
-        </Col>
-        <Col md={1} lg={1} sm={1} xs={1}>
-          <People />
         </Col>
       </div>
     );

@@ -1,8 +1,10 @@
 .slide-up {
-  background: #fff;
+  background: #f7f7f7;
+  /* background: #fff */
   width: 100%;
   bottom: 0;
-  overflow-y: scroll;
+  /*overflow-y: scroll*/
+  overflow-y: hidden;
   overflow-x: hidden;
   position: fixed;
   z-index: 6;

@@ -1,6 +1,44 @@
 import axios from 'axios';
 const apiSource = 'http://localhost:3000';
 const endpoints = {
+  createSlot: (slot) => {
+    return axios.post(`${apiSource}/slots`, slot)
+      .then(res => {
+        console.error('slot created?', res);
+        return res.data;
+      })
+      .catch(err => {
+        console.error('error creating slot', err);
+        throw err;
+      });
+  },
+
+  fetchBooking: (id) => {
+    return axios.get(`${apiSource}/bookings/${id}`)
+      .then(res => {
+        return res.data;
+      });
+  },
+
+  updateBooking: (booking) => {
+    // these are unused...consider whitelisting, but not sure that we need to here.
+    // console.error('update params...????', booking);
+    // const bookingParams = {
+    //   id: booking.id,
+    //   checkedIn: booking.checkedIn,
+    // };
+
+    return axios.put(`${apiSource}/bookings/${booking.id}`, booking)//bookingParams)
+      .then(res => {
+        console.log('updated booking', res);
+        return res.data.Attributes;
+      })
+      .catch(err => {
+        console.error('error updating booking', err);
+        throw err;
+      });
+  },
+
   createBooking: (booking) => {
     return axios.post(`${apiSource}/bookings`, booking)
       .then(res => {
@@ -14,7 +52,6 @@ const endpoints = {
   },
 
   getLocations: () => {
-    console.log('getting locations');
     return axios.get(`${apiSource}/locations`)
       .then(res => {
         return res;

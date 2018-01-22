@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center; }
   .checkin-counter .current-values {
-    margin-left: .5em;
-    margin-right: .5em; }
+    margin-left: 1em;
+    margin-right: 1em; }
     .checkin-counter .current-values .checkin-text {
       display: flex;
       align-items: center; }

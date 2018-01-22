@@ -37,28 +37,115 @@ import {
   TRY_CREATE_BOOKING,
   BOOKING_CREATED,
   CREATE_BOOKING_ERROR,
+  BOOKING_UPDATING,
+  BOOKING_UPDATE_ERROR,
+  BOOKING_UPDATED,
+  FETCH_BOOKING_ERROR,
+  BOOKING_FETCHED,
+  FETCHING_BOOKING,
+  FETCHING_WALKINS,
+  FETCHING_WALKINS_SUCCESS,
+  FETCHING_WALKINS_ERROR,
+  CREATING_SLOT_ERROR,
+  SLOT_CREATED,
+  CREATING_SLOT,
 } from './constants/actionTypes';
+import moment from 'moment';
 
 import api from './data/api';
 
 // action creators
 ////////////////////
 
+// slots
+export function createSlot(slot, cb) {
+  return (dispatch) => {
+    dispatch(requestCreateSlot());
+    return api.createSlot(slot)
+      .then(json => {
+        dispatch(slotCreated(json));
+
+        if (cb) {
+          cb(null, json);
+        }
+      })
+      .catch(err => {
+        console.error('error creating slot', err);
+        dispatch(createSlotError(err));
+
+        if (cb) {
+          cb(err, null);
+        }
+      });
+  };
+}
+
+function requestCreateSlot() {
+  return { type: CREATING_SLOT };
+}
+
+function slotCreated(slot) {
+  return { type: SLOT_CREATED, slot };
+}
+
+function createSlotError(error)  {
+  return { type: CREATING_SLOT_ERROR, error }
+}
+
+// walk-ins
+export function fetchWalkins() {
+  // should set up a timer and everything...
+  return (dispatch) => {
+    // get current time - 1hr, current time + 1hr, request slots from that interval?
+    let start = moment().subtract(1, 'hour');
+    start.set({
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    });
+
+    start = start.valueOf();
+    let end = moment().add(1, 'hour').valueOf()
+
+    dispatch(requestWalkins(start));
+
+    return api.getBookings2(start, end)
+      .then(json => {
+        dispatch(receiveWalkins(json, start));
+      })
+      .catch(err => {
+        console.error('error getting bookings', err);
+        dispatch(getWalkinsError());
+      });
+  };
+}
+
+function requestWalkins(start) {
+  return { type: FETCHING_WALKINS, start };
+}
+
+function receiveWalkins(bookings, start) {
+  return { type: FETCHING_WALKINS_SUCCESS, bookings, start };
+}
+
+function getWalkinsError() {
+  return { type: FETCHING_WALKINS_ERROR };
+}
+
 // locations
 export function fetchLocations() {
-  return function(dispatch) {
+  return (dispatch) => {
     dispatch(requestLocations());
 
     return api.getLocations()
       .then(json => {
-        console.log('get locations completed', json);
         dispatch(receiveLocations(json.data));
       })
       .catch(err => {
         console.error('error getting locations', err);
         dispatch(getLocationsError());
       });
-  }
+  };
 }
 
 function requestLocations() {
@@ -66,7 +153,6 @@ function requestLocations() {
 }
 
 function receiveLocations(locations) {
-  console.log('received locations', locations);
   return { type: FETCHING_LOCATIONS_SUCCESS, locations };
 }
 
@@ -359,22 +445,81 @@ function getSchedulesError(start, end, error) {
 }
 
 // bookings
-export function createBooking(booking, cb) {
-  return function(dispatch) {
-    dispatch(tryCreateBooking());
+export function fetchBooking(id) {
+  return (dispatch) => {
+    dispatch(tryFetchBooking(id));
 
-    return api.createBooking(booking)
+    return api.fetchBooking(id)
       .then(json => {
-        console.log('uh...', json);
-        dispatch(bookingCreated(json));
+        console.log('got booking?', json);
+        dispatch(bookingFetched(json));
+      })
+      .catch(err => {
+        console.error('Error fetching booking', err);
+        dispatch(fetchBookingError(id, err));
+      });
+  };
+}
 
+function tryFetchBooking(id) {
+  return { type: FETCHING_BOOKING, id };
+}
+
+function bookingFetched(booking) {
+  return { type: BOOKING_FETCHED, booking };
+}
+
+function fetchBookingError(id, err) {
+  return { type: FETCH_BOOKING_ERROR, id, err };
+}
+
+export function updateBooking(booking, cb) {
+  return function(dispatch) {
+    dispatch(tryUpdateBooking(booking));
+
+    return api.updateBooking(booking)
+      .then(json => {
+        console.log('got json', json);
+        dispatch(bookingUpdated(json));
         if (cb) {
           cb(json);
         }
       })
       .catch(err => {
+        console.error('Error updating booking', err);
+        dispatch(updateBookingError(booking));
+      });
+  };
+}
+
+function tryUpdateBooking(booking) {
+  return { type: BOOKING_UPDATING, booking };
+}
+
+function updateBookingError(booking) {
+  return { type: BOOKING_UPDATE_ERROR, booking };
+}
+
+function bookingUpdated(booking) {
+  return { type: BOOKING_UPDATED, booking };
+}
+
+export function createBooking(booking, slot, cb) {
+  return function(dispatch) {
+    dispatch(tryCreateBooking());
+
+    return api.createBooking(booking)
+      .then(json => {
+        dispatch(bookingCreated(json, slot));
+
+        if (cb) {
+          cb(null, json);
+        }
+      })
+      .catch(err => {
         console.error('error creating booking', err);
-        dispatch(createBookingError());
+        dispatch(createBookingError(err));
+        cb(err, null);
       });
   }
 }
@@ -383,19 +528,19 @@ function tryCreateBooking(booking) {
   return { type: TRY_CREATE_BOOKING, booking };
 }
 
-function bookingCreated(booking) {
-  return { type: BOOKING_CREATED, booking };
+function bookingCreated(booking, slot) {
+  return { type: BOOKING_CREATED, booking, slot };
 }
 
-function createBookingError() {
-  return { type: CREATE_BOOKING_ERROR };
+function createBookingError(error) {
+  return { type: CREATE_BOOKING_ERROR, error };
 }
 
 export function fetchBookings(start, end) {
   return function(dispatch) {
     dispatch(requestBookings());
 
-    return api.getBookings2(start, end)
+    return api.getBookings2(new Date(start).getTime(), new Date(end).getTime())
       .then(json => {
         dispatch(receiveBookings(json));
       })

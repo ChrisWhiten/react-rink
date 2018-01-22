@@ -12,6 +12,7 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
+// TODO: we should probably move this server-side to avoid timezone drifts causing misalignment...
 function generateCalendar(start, end) {
   // generate full list of 15-minute availability (open/closed)
   let list = [];
@@ -49,6 +50,13 @@ function createBookingsList(start, end, events, timestep) {
 }
 
 const endpoints = {
+  createSlot: (slot) => {
+    return api.createSlot(slot);
+  },
+  fetchBooking: (id) => {
+    return api.fetchBooking(id);
+  },
+
   createBooking: (booking) => {
     return api.createBooking(booking);
   },
@@ -74,10 +82,12 @@ const endpoints = {
             const timestamp = new Date(slot.time);
             location.bookings.forEach(booking => {
               const bookingTime = new Date(booking.startTime);
-              if (timestamp.getHours() === bookingTime.getHours() && timestamp.getMinutes() === bookingTime.getMinutes()) {
+              if (moment(timestamp).isSame(bookingTime)) {
                 slot.availabilitySlot = booking;
               }
             });
+
+            return timestamp; // just for linting
           });
           location.bookings = updatedBookings;
         });
@@ -124,6 +134,10 @@ const endpoints = {
 
   deleteSchedule: (id) => {
     return api.deleteSchedule(id);
+  },
+
+  updateBooking: (booking) => {
+    return api.updateBooking(booking);
   },
 };
 

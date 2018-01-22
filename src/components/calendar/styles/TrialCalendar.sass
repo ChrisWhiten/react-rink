@@ -99,6 +99,9 @@
   overflow: hidden
   overflow-y: scroll !important
 
+  &.headless
+    top: 0
+
 .locations-table
   color: #424956
   font-size: 13px
@@ -194,9 +197,23 @@
   &.unbooked
     background: #FFF
 
+  &.full
+    background: #c84f42
+    .slot-details
+      .slot-time
+        color: #fff
+      h3
+        color: #fff
+
+      .slot-booker
+        color: #fff
+        color: #fff !important
+      .slot-booker-icon
+        color: #fff !important
+
   &.booked
     background: #52B266
-    .slot-details 
+    .slot-details
       .slot-time
         color: #fff
       h3

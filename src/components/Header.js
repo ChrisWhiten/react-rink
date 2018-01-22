@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import IconMenu from 'material-ui/IconMenu';
@@ -31,10 +32,10 @@ class Header extends React.Component {
           anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
         >
-          <MenuItem 
+          {/* <MenuItem
             primaryText={`${this.locale.general.editProfile}`}
             containerElement={<Link to='/profile' />}
-          />
+          /> */}
           <MenuItem primaryText={`${this.locale.general.logout}`} />
         </IconMenu>
       </div>
@@ -66,7 +67,7 @@ class Header extends React.Component {
                   anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                   targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
                 >
-                  <MenuItem 
+                  <MenuItem
                     primaryText={`${this.locale.general.editProfile}`}
                     containerElement={<Link to='/profile' />}
                   />

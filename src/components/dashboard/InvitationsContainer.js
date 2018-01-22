@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import NewReleases from 'material-ui/svg-icons/av/new-releases';
 import CircularProgress from 'material-ui/CircularProgress';

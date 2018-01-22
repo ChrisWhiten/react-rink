@@ -2,3 +2,38 @@
   margin: 1em;
   position: fixed;
   left: 0; }
+
+.new-location-picker {
+  display: block;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 1em;
+  width: 20em; }
+  .new-location-picker .hello123.is-focused {
+    background-color: #0088cc; }
+    .new-location-picker .hello123.is-focused .Select-control {
+      background-color: #0088cc !important;
+      color: #fff; }
+  .new-location-picker .hello123.is-open {
+    background-color: #0088cc; }
+    .new-location-picker .hello123.is-open .Select-control {
+      background-color: #0088cc;
+      color: #fff; }
+  .new-location-picker .Select-control {
+    background-color: #0088cc;
+    color: #fff;
+    border: none; }
+    .new-location-picker .Select-control:hover {
+      cursor: pointer; }
+    .new-location-picker .Select-control .Select-placeholder {
+      color: #fff; }
+    .new-location-picker .Select-control .Select-arrow {
+      border-color: #fff transparent transparent; }
+    .new-location-picker .Select-control .Select-value {
+      color: #fff; }
+
+.Select-value.test .Select-value-label {
+  max-width: 5em;
+  text-overflow: ellipsis;
+  overflow-y: hidden;
+  white-space: nowrap; }

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 // import FilterList from 'material-ui/svg-icons/content/filter-list';
@@ -74,8 +75,14 @@ class FilterMenu extends React.Component {
   }
 
   render() {
+    const filterMenuClass = classNames(
+      'filter-menu', {
+        headless: !!this.props.headless,
+      },
+    );
+
     return (
-      <div className='filter-menu'>
+      <div className={filterMenuClass}>
         <TimelineFilter inverted={true} />
         <div className='filter-date-picker'>
           <div className='filter-chevron' onTouchTap={this._backOne.bind(this)}>
@@ -94,6 +101,7 @@ class FilterMenu extends React.Component {
           </div>
         </div>
 
+        <div className='filter-menu-balance' />
         <MaterialDatePicker
           id='booking-date-picker'
           style={{display: 'none'}}

@@ -1,5 +1,5 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {blue600, grey400} from 'material-ui/styles/colors';
+import {/*blue600,*/ grey400} from 'material-ui/styles/colors';
 
 const colour = '#0088cc';//blue600;
 // const colour = 'rgb(0, 132, 137)';

@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './styles/SlideUp.css';
@@ -22,8 +23,8 @@ class SlideUp extends React.Component {
     );
 
     const dynamicStyles = {
-      top: this.props.active ? '83px' : `${this.props.screenHeight + 100}px`,
-      height: this.props.screenHeight - 83,
+      top: this.props.active ? '80px' : `${this.props.screenHeight + 100}px`,
+      height: this.props.screenHeight - 80,
       zIndex: this.props.zIndex ? this.props.zIndex : 6,
     };
 

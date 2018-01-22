@@ -5,6 +5,7 @@ import {
   FormControl,
   Col,
 } from 'react-bootstrap';
+import MaskedInput from 'react-maskedinput';
 
 import './styles/PersonalInfoSection.css';
 
@@ -65,6 +66,15 @@ class PersonalInfoSection extends React.Component {
     });
   }
 
+  clear() {
+    this.setState({
+      phoneNumber: '',
+      email: '',
+      lastName: '',
+      firstName: '',
+    });
+  }
+
   render() {
     return (
       <div>
@@ -95,12 +105,20 @@ class PersonalInfoSection extends React.Component {
           />
         </Col>
         <Col md={6} lg={6} sm={6} xs={12}>
-          <FieldGroup
+          <MaskedInput
+            className='form-control'
+            mask='(111) 111-1111'
+            placeholder='(613) 555-5555'
+            name='phone-number'
+            id='phone-number-id'
+            onChange={this.handlePhoneNumberChange}
+          />
+          {/* <FieldGroup
             id='phone-number-id'
             type='text'
             placeholder='Phone number'
             onChange={this.handlePhoneNumberChange}
-          />
+          /> */}
         </Col>
       </div>
     );
