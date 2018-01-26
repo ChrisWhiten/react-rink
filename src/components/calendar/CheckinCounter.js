@@ -78,7 +78,7 @@ class CheckinCounter extends React.Component {
     return (
       <div className='checkin-counter'>
         <OverlayTrigger placement='bottom' overlay={<Tooltip id='remove-tooltip'>Remove person</Tooltip>}>
-          <div className={removeClass} onClick={preventLinking} onTouchTap={this.remove}>
+          <div className={removeClass} onClick={preventLinking} onClick={this.remove}>
             <Remove className='remove-icon' />
           </div>
         </OverlayTrigger>
@@ -88,7 +88,7 @@ class CheckinCounter extends React.Component {
         </div>
 
         <OverlayTrigger placement='bottom' overlay={<Tooltip id='add-tooltip'>Add person</Tooltip>}>
-          <div className={addClass} onClick={preventLinking} onTouchTap={this.add}>
+          <div className={addClass} onClick={preventLinking} onClick={this.add}>
             <Add className='add-icon' />
           </div>
         </OverlayTrigger>

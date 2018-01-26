@@ -82,7 +82,7 @@ class EditParticipantsModal extends Component {
           label={label}
           backgroundColor='#52B266'
           icon={icon}
-          onTouchTap={this.submitPartipantCount}
+          onClick={this.submitPartipantCount}
         />
         </Modal.Footer>
       </Modal>

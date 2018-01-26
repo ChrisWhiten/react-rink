@@ -9,45 +9,29 @@ import {
 import './styles/UncancelBookingModal.css';
 import CircularProgress from 'material-ui/CircularProgress/CircularProgress';
 
-class UncancelBookingModal extends Component {
+class ComingSoonModal extends Component {
   constructor(props) {
     super(props);
 
     this.uncancel = this.uncancel.bind(this);
-    this.decline = this.decline.bind(this);
   }
 
-  decline() {
-    this.props.decline();
-  }
-
-  uncancel(e) {
-    this.props.onSubmit();
+  uncancel() {
+    this.props.ok();
   }
 
   render() {
-    const label = this.props.isUpdating ? 'Uncancelling...' : 'Yes';
-    const icon = this.props.isUpdating ? <CircularProgress className='uncancel-booking-progress' thickness={1.75} /> : <ThumbsUp color='#fff' />;
-    const declineLabel = 'No';
-    const declineIcon = <ThumbsDown color='#f54' />;
+    const label = 'Cool';
+    const icon = <ThumbsUp color='#fff' />;
 
     return (
       <Modal show={this.props.show} onHide={this.props.hide}>
         <Modal.Header closeButton>
-          <Modal.Title>Are you'd like to uncancel this booking?</Modal.Title>
+          <Modal.Title>This feature is coming soon</Modal.Title>
         </Modal.Header>
         <Modal.Footer>
-        <RaisedButton
-          disabled={this.props.isUpdating}
-          labelColor='#f54'
-          label={declineLabel}
-          backgroundColor='#fff'
-          icon={declineIcon}
-          onClick={this.decline}
-        />
         <div className='uncancel-button'>
           <RaisedButton
-            disabled={this.props.isUpdating}
             labelColor='#fff'
             label={label}
             backgroundColor='#52B266'
@@ -61,4 +45,4 @@ class UncancelBookingModal extends Component {
   }
 };
 
-export default UncancelBookingModal;
+export default ComingSoonModal;

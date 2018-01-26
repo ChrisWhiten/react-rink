@@ -84,7 +84,7 @@ class AddPaymentModal extends Component {
           label={label}
           backgroundColor='#52B266'
           icon={icon}
-          onTouchTap={this.submitPayment}
+          onClick={this.submitPayment}
         />
         </Modal.Footer>
       </Modal>

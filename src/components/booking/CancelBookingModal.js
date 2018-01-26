@@ -135,7 +135,7 @@ class CancelBookingModal extends Component {
           label={label}
           backgroundColor='#f54'
           icon={icon}
-          onTouchTap={this.submitCancellation}
+          onClick={this.submitCancellation}
         />
         </Modal.Footer>
       </Modal>

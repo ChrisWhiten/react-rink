@@ -105,7 +105,7 @@ class ExternalList extends React.Component {
     );
 
     return (
-      <div className={slotClass} onTouchTap={this.checkout.bind(this, slot, locationName, locationId)} key={`slot-${new Date(slot.availabilitySlot.startTime).getTime()}`}>
+      <div className={slotClass} onClick={this.checkout.bind(this, slot, locationName, locationId)} key={`slot-${new Date(slot.availabilitySlot.startTime).getTime()}`}>
         <div className='external-slot-time'>
           { moment(slot.availabilitySlot.startTime).format('LT') }
         </div>
@@ -177,7 +177,7 @@ class ExternalList extends React.Component {
       <div className={externalListClass}>
         {
           Object.keys(dates).map(d => {
-            return <div key={`date-container-${d}`}>
+            return <div className='external-list-date-container' key={`date-container-${d}`}>
               <div className='container external-date'>
                 <h4>{ moment(d).format('dddd, MMMM Do, YYYY') }</h4>
               </div>

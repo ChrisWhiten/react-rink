@@ -429,32 +429,6 @@ class BookingItemPage extends Component {
         <UncancelBookingModal isUpdating={this.state.isUpdating} onSubmit={this.uncancelBooking} decline={this.hideUncancelBookingModal} show={this.state.showUncancelModal} hide={this.hideUncancelBookingModal} />
       </div>
     );
-
-    // return (
-    //   <div>
-    //     <Col sm={12} md={12} xs={12} className='action-bar-column'>
-    //       <Divider />
-    //       {/* <Subheader>Actions</Subheader> */}
-    //       { this.renderActionBar(b) }
-    //     </Col>
-    //     <Col sm={12} md={12} xs={12}>
-    //       <Divider />
-    //       <Subheader>Summary</Subheader>
-    //       { this.renderHeader(b) }
-    //     </Col>
-
-    //     <Col sm={12} md={12} xs={12}>
-    //       <Divider />
-    //       <Subheader>Contact</Subheader>
-    //       { this.renderContactInfo(b) }
-    //     </Col>
-    //     { this.renderHistory(b) }
-    //     <AddPaymentModal isUpdating={this.state.isUpdating} onSubmit={this.addPayment} show={this.state.showAddPaymentModal} hide={this.hidePaymentModal} />
-    //     <EditParticipantsModal booking={this.props.booking} isUpdating={this.state.isUpdating} onSubmit={this.editParticipantCount} show={this.state.showParticipantsModal} hide={this.hideEditParticipantsModal} />
-    //     <CancelBookingModal isUpdating={this.state.isUpdating} onSubmit={this.cancelBooking} show={this.state.showCancelModal} hide={this.hideCancelBookingModal} />
-    //     <UncancelBookingModal isUpdating={this.state.isUpdating} onSubmit={this.uncancelBooking} decline={this.hideUncancelBookingModal} show={this.state.showUncancelModal} hide={this.hideUncancelBookingModal} />
-    //   </div>
-    // );
   }
 };
 

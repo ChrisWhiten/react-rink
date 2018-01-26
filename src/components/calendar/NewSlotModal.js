@@ -51,7 +51,7 @@ class NewSlotModal extends Component {
           label={declineLabel}
           backgroundColor='#fff'
           icon={declineIcon}
-          onTouchTap={this.decline}
+          onClick={this.decline}
         />
         <div className='accept-new-slot-button'>
           <RaisedButton
@@ -60,7 +60,7 @@ class NewSlotModal extends Component {
             label={label}
             backgroundColor='#52B266'
             icon={icon}
-            onTouchTap={this.createSlot}
+            onClick={this.createSlot}
           />
         </div>
         </Modal.Footer>

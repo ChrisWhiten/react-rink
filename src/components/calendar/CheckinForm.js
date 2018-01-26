@@ -165,7 +165,7 @@ class CheckInForm extends React.Component {
   renderNewBooking() {
     switch (this.state.stage) {
       case 0:
-        return <div className='summary-box new-booking' onTouchTap={this.newBooking}>
+        return <div className='summary-box new-booking' onClick={this.newBooking}>
           <div className='new-booking-text'><h4>Add Booking</h4></div>
           <NoteAdd className='new-booking-icon' />
         </div>;
@@ -204,7 +204,7 @@ class CheckInForm extends React.Component {
 
           <div className='actions'>
             <RaisedButton
-              onTouchTap={this.confirmSelectedTimeAndPlace}
+              onClick={this.confirmSelectedTimeAndPlace}
               disabled={!this.state.newBookingLocation || !this.state.newBookingTimeslot}
               labelColor='#fff'
               label="OK"
@@ -214,7 +214,7 @@ class CheckInForm extends React.Component {
             <RaisedButton
               labelColor='#fff'
               backgroundColor='#f54'
-              onTouchTap={this.cancelAddNewBooking}
+              onClick={this.cancelAddNewBooking}
               label='Cancel'
             />
           </div>
@@ -262,7 +262,7 @@ class CheckInForm extends React.Component {
           <div className='checkin-form-header-title'>
             Walk-in
           </div>
-          <div className='checkin-form-header-close' onTouchTap={this.props.onRequestClose}>
+          <div className='checkin-form-header-close' onClick={this.props.onRequestClose}>
             <Close className='checkin-form-close-icon' />
           </div>
         </div>

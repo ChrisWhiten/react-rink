@@ -3,6 +3,8 @@
   background: #f7f7f7; }
   .external-list.headless {
     padding-top: 0; }
+  .external-list .external-list-date-container {
+    margin: 0 .5em; }
 
 .location-bookings {
   display: flex;

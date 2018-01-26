@@ -31,18 +31,18 @@ class LocationPicker extends React.Component {
       <FlatButton
         label='Cancel'
         primary={true}
-        onTouchTap={this._handleClose.bind(this)}
+        onClick={this._handleClose.bind(this)}
       />,
       <FlatButton
         label='Submit'
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this._handleClose.bind(this)}
+        onClick={this._handleClose.bind(this)}
       />,
     ];
 
     return (
-      <div className='location-picker' onTouchTap={this._handleOpen.bind(this)}>
+      <div className='location-picker' onClick={this._handleOpen.bind(this)}>
         <div className='location-target'>
         	<div className='location-icon'>
         		<RoomIcon className='location-icon-svg' />

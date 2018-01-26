@@ -22,7 +22,7 @@ import './ScheduleSummary.css';
 const iconButtonElement = (
   <IconButton
     touch={true}
-    tooltip='more'
+    // tooltip='more'
     tooltipPosition='bottom-left'
   >
     <MoreVertIcon color={grey400} />

@@ -20,7 +20,7 @@ class Slot extends React.Component {
 
   render() {
     return (
-      <div className='slot' onTouchTap={this.onClick}>
+      <div className='slot' onClick={this.onClick}>
         {
           this.props.time &&
           <div className='slot-time'>

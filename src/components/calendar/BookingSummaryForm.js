@@ -18,7 +18,7 @@ class BookingSummaryForm extends React.Component {
   }
 
   renderNewBooking() {
-    return <div className='summary-box new-booking' onTouchTap={this.newBooking}>
+    return <div className='summary-box new-booking' onClick={this.newBooking}>
       <div className='new-booking-text'><h4>Add Booking</h4></div>
       <NoteAdd className='new-booking-icon' />
     </div>
@@ -38,7 +38,7 @@ class BookingSummaryForm extends React.Component {
           <div className='booking-form-header-title'>
             Booking Summary
           </div>
-          <div className='booking-form-header-close' onTouchTap={this.props.onRequestClose}>
+          <div className='booking-form-header-close' onClick={this.props.onRequestClose}>
             <Close className='booking-form-close-icon' />
           </div>
         </div>

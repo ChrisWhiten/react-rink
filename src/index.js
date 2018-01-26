@@ -17,7 +17,8 @@ import {
 import './styles/style.css';
 
 injectTapEventPlugin({
-  shouldRejectClick: () => true//document.body.querySelector('.Select-menu-outer') // hack to get around issue with react-select. https://github.com/JedWatson/react-select/issues/532#issuecomment-312641698
+  shouldRejectClick: () => true
+  //document.body.querySelector('.Select-menu-outer') // hack to get around issue with react-select. https://github.com/JedWatson/react-select/issues/532#issuecomment-312641698
 });
 
 const middleware = [thunk];

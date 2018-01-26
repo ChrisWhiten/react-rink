@@ -51,9 +51,12 @@
         display: none; } }
   .date-picker-area .date-picker-text-small {
     display: none; }
-    @media screen and (min-width: 210px) {
+    @media screen and (min-width: 210px) and (max-width: 480px) {
       .date-picker-area .date-picker-text-small {
         display: inline-block; } }
+    @media screen and (max-width: 390px) {
+      .date-picker-area .date-picker-text-small {
+        display: none; } }
 
 .filter-date-picker-icon {
   display: inline-flex;

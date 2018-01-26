@@ -197,7 +197,7 @@ class AvailabilityList extends React.Component {
     );
 
     return (
-      <div className={slotClass} id={slot.id} onTouchTap={this._handleOpen.bind(this, slot, locationName, locationId)}>
+      <div className={slotClass} id={slot.id} onClick={this._handleOpen.bind(this, slot, locationName, locationId)}>
         <div className='slot-details'>
           <span className='slot-time'>
             {moment(slot.availabilitySlot.startTime).format('LT')} - {moment(slot.availabilitySlot.startTime).add(slot.availabilitySlot.duration, 'minutes').format('LT')}
@@ -242,7 +242,7 @@ class AvailabilityList extends React.Component {
               <tr key={`${bookings[0].bookings[idx].id}_id`}>
                 {
                   Object.keys(bookings).map(locationIdx => {
-                    return (<td className='open-spot' key={`open-spot-${locationIdx}-${idx}`} onTouchTap={this.createNewSlotPrompt.bind(this, bookings[locationIdx].locationID, bookings[locationIdx].bookings[idx])}>
+                    return (<td className='open-spot' key={`open-spot-${locationIdx}-${idx}`} onClick={this.createNewSlotPrompt.bind(this, bookings[locationIdx].locationID, bookings[locationIdx].bookings[idx])}>
                       <div className='open-spot-time-label'>
                         <span>{moment(bookings[locationIdx].bookings[idx].time).format('LT')}</span>
                       </div>

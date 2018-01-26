@@ -9,6 +9,7 @@ import EventIcon from 'material-ui/svg-icons/action/event';
 import People from 'material-ui/svg-icons/social/people';
 import RaisedButton from 'material-ui/RaisedButton';
 import Print from 'material-ui/svg-icons/action/print';
+import ComingSoonModal from '../booking/ComingSoonModal';
 import moment from 'moment';
 import {
   Col,
@@ -23,18 +24,32 @@ class BookingCompleted extends React.Component {
     this.state = {
       creating: false,
       created: false,
+      showComingSoonModal: false,
     };
 
     this.loadInvitationForm = this.loadInvitationForm.bind(this);
     this.printDetails = this.printDetails.bind(this);
+    this.hideComingSoonModal = this.hideComingSoonModal.bind(this);
+  }
+
+  hideComingSoonModal() {
+    this.setState({
+      showComingSoonModal: false,
+    });
   }
 
   printDetails() {
     console.log(JSON.stringify(this.props));
+    this.setState({
+      showComingSoonModal: true,
+    });
   }
 
   loadInvitationForm() {
     console.log('load invitation form');
+    this.setState({
+      showComingSoonModal: true,
+    });
   }
 
   renderCurrency(c) {
@@ -110,20 +125,21 @@ class BookingCompleted extends React.Component {
                     label='Invite your friends'
                     backgroundColor='#0088cc'
                     icon={<GroupAdd className='invite-friends-button' />}
-                    onTouchTap={this.loadInvitationForm}
+                    onClick={this.loadInvitationForm}
                   />
                   <RaisedButton
                     labelColor='#fff'
                     label='Print details'
                     backgroundColor='#f54'
                     icon={<Print className='print-details-button' />}
-                    onTouchTap={this.printDetails}
+                    onClick={this.printDetails}
                   />
                 </div>
               </div>
             </div>
           </div>
         </Col>
+        <ComingSoonModal ok={this.hideComingSoonModal} show={this.state.showComingSoonModal} hide={this.hideComingSoonModal} />
       </div>
     );
   }

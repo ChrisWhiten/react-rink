@@ -89,7 +89,7 @@ class EventFilter extends React.Component {
       width: '16px',
       color: '#767676',
     };
-    
+
     if (this.props.inverted) {
       iconStyle.color = '#fff';
     }
@@ -156,7 +156,7 @@ class EventFilter extends React.Component {
       <div className='event-type-filter'>
         <div className='filter'>
           <Paper className={filterClass} style={filterStyles}>
-            <div className='time-range-filter' onTouchTap={this._handleMorningClick.bind(this)}>
+            <div className='time-range-filter' onClick={this._handleMorningClick.bind(this)}>
               <Checkbox
                 checked={this.state.morningChecked}
                 style={checkboxStyle}
@@ -174,7 +174,7 @@ class EventFilter extends React.Component {
               </div>
             </div>
 
-            <div className='time-range-filter' onTouchTap={this._handleAfternoonClick.bind(this)}>
+            <div className='time-range-filter' onClick={this._handleAfternoonClick.bind(this)}>
               <Checkbox
                 checked={this.state.afternoonChecked}
                 style={checkboxStyle}
@@ -192,7 +192,7 @@ class EventFilter extends React.Component {
               </div>
             </div>
 
-            <div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            <div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}
@@ -215,7 +215,7 @@ class EventFilter extends React.Component {
 
 
 
-            <div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            <div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}
@@ -231,7 +231,7 @@ class EventFilter extends React.Component {
               <div className='time-icon'>
                 <EveningIcon className='time-icon-svg' />
               </div>
-            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            </div><div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}
@@ -247,7 +247,7 @@ class EventFilter extends React.Component {
               <div className='time-icon'>
                 <EveningIcon className='time-icon-svg' />
               </div>
-            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            </div><div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}
@@ -263,7 +263,7 @@ class EventFilter extends React.Component {
               <div className='time-icon'>
                 <EveningIcon className='time-icon-svg' />
               </div>
-            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            </div><div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}
@@ -279,7 +279,7 @@ class EventFilter extends React.Component {
               <div className='time-icon'>
                 <EveningIcon className='time-icon-svg' />
               </div>
-            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            </div><div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}
@@ -295,7 +295,7 @@ class EventFilter extends React.Component {
               <div className='time-icon'>
                 <EveningIcon className='time-icon-svg' />
               </div>
-            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            </div><div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}
@@ -311,7 +311,7 @@ class EventFilter extends React.Component {
               <div className='time-icon'>
                 <EveningIcon className='time-icon-svg' />
               </div>
-            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            </div><div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}
@@ -327,7 +327,7 @@ class EventFilter extends React.Component {
               <div className='time-icon'>
                 <EveningIcon className='time-icon-svg' />
               </div>
-            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            </div><div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}
@@ -343,7 +343,7 @@ class EventFilter extends React.Component {
               <div className='time-icon'>
                 <EveningIcon className='time-icon-svg' />
               </div>
-            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            </div><div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}
@@ -359,7 +359,7 @@ class EventFilter extends React.Component {
               <div className='time-icon'>
                 <EveningIcon className='time-icon-svg' />
               </div>
-            </div><div className='time-range-filter' onTouchTap={this._handleEveningClick.bind(this)}>
+            </div><div className='time-range-filter' onClick={this._handleEveningClick.bind(this)}>
               <Checkbox
                 checked={this.state.eveningChecked}
                 style={checkboxStyle}

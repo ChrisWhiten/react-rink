@@ -62,7 +62,7 @@ class DatePicker extends React.Component {
   render() {
     return (
       <span>
-      <div className='search-date-picker' onTouchTap={this._handleDatePickerOpen.bind(this)}>
+      <div className='search-date-picker' onClick={this._handleDatePickerOpen.bind(this)}>
         <div className='date-picker-target'>
           <div className='search-date-picker-icon'>
             <EventIcon className='search-date-picker-svg' />

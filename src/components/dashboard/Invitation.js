@@ -25,10 +25,10 @@ class Invitation extends React.Component {
           {this.props.invite.inviter} has invited you to {this.props.invite.eventTypeName} @ {this.props.invite.venueName}
         </h4>
         <div className='accept-invitation-button'>
-          <RaisedButton primary={true} label={`Accept ($${this.props.invite.price.toFixed(2)})`} onTouchTap={this._acceptInvitation.bind(this)} />
+          <RaisedButton primary={true} label={`Accept ($${this.props.invite.price.toFixed(2)})`} onClick={this._acceptInvitation.bind(this)} />
         </div>
         <div className='decline-invitation-button'>
-          <RaisedButton labelColor='white' backgroundColor='#f56954' label='Decline' onTouchTap={this._declineInvitation.bind(this)} />
+          <RaisedButton labelColor='white' backgroundColor='#f56954' label='Decline' onClick={this._declineInvitation.bind(this)} />
         </div>
       </div>
     );

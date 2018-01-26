@@ -30,9 +30,9 @@ class DatePicker extends React.Component {
     };
 
     return (
-      <div className='date-picker' onTouchTap={this._handleDatePickerOpen.bind(this)}>
+      <div className='date-picker' onClick={this._handleDatePickerOpen.bind(this)}>
         <div className='date-picker-icon'>
-          <EventIcon className='date-picker-svg' onTouchTap={this._handleDatePickerOpen.bind(this)}/>
+          <EventIcon className='date-picker-svg' onClick={this._handleDatePickerOpen.bind(this)}/>
         </div>
         <MaterialDatePicker
           id='calendar-date-picker'

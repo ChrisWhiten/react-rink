@@ -68,7 +68,7 @@ class BookingForm extends React.Component {
           <div className='booking-form-header-title'>
             New Booking
           </div>
-          <div className='booking-form-header-close' onTouchTap={this.props.onRequestClose}>
+          <div className='booking-form-header-close' onClick={this.props.onRequestClose}>
             <Close className='booking-form-close-icon' />
           </div>
         </div>

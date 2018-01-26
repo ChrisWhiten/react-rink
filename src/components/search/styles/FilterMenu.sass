@@ -1,4 +1,5 @@
 $break-very-small: 210px
+$break-smaller: 390px
 $break-small: 480px
 $break-less-medium: 500px
 $break-medium: 660px
@@ -66,8 +67,11 @@ $break-mediumish: 850px
   .date-picker-text-small
     display: none
 
-    @media screen and (min-width: $break-very-small)
+    @media screen and (min-width: $break-very-small) and (max-width: $break-small)
       display: inline-block
+
+    @media screen and (max-width: $break-smaller)
+      display: none
 
 .filter-date-picker-icon
   display: inline-flex

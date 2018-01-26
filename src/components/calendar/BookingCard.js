@@ -113,8 +113,8 @@ class BookingCard extends React.Component {
     );
 
     return (
-      <div className='summary-box existing-booking' key={`booking-${b.id}`} onTouchTap={this.goToBooking}>
-        <Link to={`/booking/${this.props.booking.id}`} className='booking-link' onClick={this.onLinkClick} onTouchTap={this.onLinkClick}>
+      <div className='summary-box existing-booking' key={`booking-${b.id}`} onClick={this.goToBooking}>
+        <Link to={`/booking/${this.props.booking.id}`} className='booking-link' onClick={this.onLinkClick} onClick={this.onLinkClick}>
           <div className={paidSectionClass}>
             {
               b.bookingCost > paidAmount &&

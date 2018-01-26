@@ -76,7 +76,7 @@ class AvailabilityList extends React.Component {
                 );
 
                 return (
-                  <div className={bookingClass} key={`booking-${time}`} onTouchTap={this._handleOpen.bind(this, b)}>
+                  <div className={bookingClass} key={`booking-${time}`} onClick={this._handleOpen.bind(this, b)}>
                     <span className='time' key={`time-${time}`}>
                       {moment(new Date(time)).format('h:mm a')}
                     </span>

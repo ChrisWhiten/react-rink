@@ -90,10 +90,10 @@ class FilterMenu extends React.Component {
           onLocationsSelectedChanged={this.props.onLocationsSelectedChanged}
         />
         <div className='filter-date-picker'>
-          <div className='filter-chevron' onTouchTap={this._backOne.bind(this)}>
+          <div className='filter-chevron' onClick={this._backOne.bind(this)}>
             <ChevronLeft className='filter-chevron-svg' />
           </div>
-          <div className='date-picker-area' onTouchTap={this._handleDatePickerOpen.bind(this)}>
+          <div className='date-picker-area' onClick={this._handleDatePickerOpen.bind(this)}>
             <h5 className='date-picker-text'>
               {moment(this.state.date).format('ddd, MMM Do, YYYY')}
             </h5>
@@ -104,7 +104,7 @@ class FilterMenu extends React.Component {
               <EventIcon className='filter-date-picker-svg' />
             </div>
           </div>
-          <div className='filter-chevron' onTouchTap={this._forwardsOne.bind(this)}>
+          <div className='filter-chevron' onClick={this._forwardsOne.bind(this)}>
             <ChevronRight className='filter-chevron-svg' />
           </div>
         </div>

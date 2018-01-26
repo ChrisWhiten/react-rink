@@ -200,12 +200,12 @@ class CheckoutForm extends React.Component {
           />
           <PersonalInfoSection ref={(personalInfoRef) => this.personalInfoRef = personalInfoRef} />
           <Col sm={12} md={12} xs={12}>
-            <Checkbox>
+            {/* <Checkbox>
               Yes, I have read and agree with the waiver
-            </Checkbox>
+            </Checkbox> */}
             <CardSection />
             <button className='checkout-button' disabled={!this.state.cost}>Confirm order <small>(${this.renderCurrency(this.state.cost)})</small></button>
-            <div className='pay-later-button' onTouchTap={this.payLater}><a>Or confirm now and pay on-site</a></div>
+            <div className='pay-later-button' onClick={this.payLater}><a>Or confirm now and pay on-site</a></div>
           </Col>
         </Col>
 

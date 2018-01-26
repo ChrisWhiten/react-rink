@@ -45,7 +45,7 @@ class CheckIn extends React.Component {
 
     return (
       <div className='check-in-container'>
-        <div className='check-in' onTouchTap={this.toggleCheckin}>
+        <div className='check-in' onClick={this.toggleCheckin}>
           <div className='check-in-icon-container'>
             { checkinIcon }
           </div>
