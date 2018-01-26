@@ -1,5 +1,6 @@
 .booking-form {
-  width: 100%; }
+  width: 100%;
+  overflow-y: scroll; }
   .booking-form .booking-form-content {
     /*width: 80%*/
     width: 100%; }

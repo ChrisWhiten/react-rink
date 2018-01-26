@@ -20,9 +20,12 @@ class NumberOfGuestsSection extends React.Component {
   }
 
   handleNumberOfPlayersChanged(event) {
+    const guestCount = parseInt(event.target.value, 10);
     this.setState({
-      numberOfGuests: parseInt(event.target.value, 10),
+      numberOfGuests: guestCount,
     });
+
+    this.props.onGuestCountChange(guestCount);
   }
 
   reset() {
@@ -48,8 +51,11 @@ class NumberOfGuestsSection extends React.Component {
   render() {
     const style = {};
     if (!this.state.numberOfGuests) {
-      style.color = '#ccc';
+      style.color = '#999';
+    } else {
+      style.color = '#555';
     }
+
     return (
       <div className='number-of-guests-section'>
         <Col md={12} lg={12} sm={12} xs={12}>

@@ -68,7 +68,7 @@ class EditParticipantsModal extends Component {
             <FieldGroup
               autoFocus
               id='participant-count-id'
-              type='text'
+              type='number'
               placeholder='5'
               value={this.state.inputVal}
               onChange={this.handleParticipantChange}

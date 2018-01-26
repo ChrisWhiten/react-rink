@@ -81,7 +81,6 @@ class AvailabilityList extends React.Component {
     });
 
     this.props.createSlot(slot, (createSlot) => {
-      console.error('donezo');
       this.setState({
         showCreateSlotModal: false,
         creatingSlot: false,
@@ -322,8 +321,15 @@ class AvailabilityList extends React.Component {
   }
 
   render() {
-    const { bookings } = this.props;
+    const bookings = Object.assign({}, this.props.bookings);
     const isFetching = bookings.isFetching;
+
+    if (this.props.filteredLocationList.length > 0) {
+      const ids = this.props.filteredLocationList.map(l => l.locationId);
+      bookings.items = bookings.items.filter(location => {
+        return (ids.indexOf(location.locationID) > -1);
+      });
+    }
 
     let foo = {
       padding: 0,
@@ -346,6 +352,12 @@ class AvailabilityList extends React.Component {
       },
     );
 
+    const calendarContainerClass = classNames(
+      'calendar-container', {
+        headless: !!this.props.headless,
+      },
+    );
+
     return (
       <div className='trial-calendar'>
       {
@@ -356,7 +368,7 @@ class AvailabilityList extends React.Component {
       }
       {
         !isFetching &&
-          <div className='calendar-container'>
+          <div className={calendarContainerClass}>
             <div className='times-slider'>
               { this._renderTimesTable() }
             </div>
@@ -379,7 +391,7 @@ class AvailabilityList extends React.Component {
             </div>
             <div className='calendar-section' width={locationsTableWidth}>
               <table className='scrolling-table' width={locationsTableWidth}>
-                { this._renderCalendarItems(this.props.bookings.items) }
+                { this._renderCalendarItems(bookings.items) }
               </table>
             </div>
           </div>

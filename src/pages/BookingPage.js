@@ -18,7 +18,12 @@ class BookingPage extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      filteredLocationList: []
+    }
+
     this.fetch = _.debounce(props.fetchBookings, 300);
+    this.onLocationsSelectedChanged = this.onLocationsSelectedChanged.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +35,13 @@ class BookingPage extends Component {
 
     console.log('fetching bookings', start, end);
     this.fetch(start, end);
+  }
+
+  onLocationsSelectedChanged(locations) {
+    console.error('locations', locations);
+    this.setState({
+      filteredLocationList: locations,
+    });
   }
 
   _onDateChange(startDate) {
@@ -44,9 +56,17 @@ class BookingPage extends Component {
     const isHeadless = this.props.location.query && ('headless' in this.props.location.query) && (this.props.location.query.headless === 'true');
     return (
       <div>
-        <FilterMenu headless={isHeadless} onDateChange={this._onDateChange.bind(this)} />
+        <FilterMenu
+          headless={isHeadless}
+          multiSelect={true}
+          locations={this.props.locations}
+          onDateChange={this._onDateChange.bind(this)}
+          onLocationsSelectedChanged={this.onLocationsSelectedChanged}
+        />
+
         <TrialCalendar
           headless={isHeadless}
+          filteredLocationList={this.state.filteredLocationList}
           createSlot={this.props.createSlot}
           walkins={this.props.walkins}
           updateBooking={this.props.updateBooking}

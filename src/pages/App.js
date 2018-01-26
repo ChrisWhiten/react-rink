@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import {StripeProvider} from 'react-stripe-elements';
+import {StripeProvider} from 'react-stripe-elements';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../components/Header';
 import withWidth from 'material-ui/utils/withWidth';
@@ -12,7 +12,7 @@ class App extends React.Component {
 
     if (this.props.location.query && ('headless' in this.props.location.query) && (this.props.location.query.headless === 'true')) {
       return (
-        // <StripeProvider apiKey='pk_test_4OhTdqQ8MvzOcJLNJjxYLl9C'>
+        <StripeProvider apiKey='pk_test_4OhTdqQ8MvzOcJLNJjxYLl9C'>
           <MuiThemeProvider muiTheme={ThemeDefault}>
             <div>
                 <div className='main-content'>
@@ -20,12 +20,12 @@ class App extends React.Component {
                 </div>
             </div>
           </MuiThemeProvider>
-        // </StripeProvider>
+        </StripeProvider>
       );
     }
 
     return (
-      // <StripeProvider apiKey='pk_test_4OhTdqQ8MvzOcJLNJjxYLl9C'>
+      <StripeProvider apiKey='pk_test_4OhTdqQ8MvzOcJLNJjxYLl9C'>
         <MuiThemeProvider muiTheme={ThemeDefault}>
           <div>
             <Header location={this.props.location} />
@@ -34,7 +34,7 @@ class App extends React.Component {
               </div>
           </div>
         </MuiThemeProvider>
-      // </StripeProvider>
+      </StripeProvider>
     );
   }
 }

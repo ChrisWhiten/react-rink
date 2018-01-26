@@ -20,6 +20,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state) => {
   return {
     bookings: state.bookings,
+    locations: state.locations,
   };
 };
 

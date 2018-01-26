@@ -33,11 +33,21 @@ export default function bookings(state = initialState, action) {
       const newBooking = action.booking;
       const slot = action.slot;
       const newState = Object.assign({}, state);
+      let newBookingTime = moment(newBooking.start);
+      newBookingTime.set({
+        second: 0,
+        millisecond: 0,
+      });
+
       newState.items.forEach(location => {
         if (location.locationID === newBooking.locationId) {
           location.bookings.forEach(s => {
-            if (s.availabilitySlot && s.availabilitySlot.id === slot.id) {
-            // if (s.id === slot.id) {
+            let slotTime = moment(s.time);
+            slotTime.set({
+              second: 0,
+              millisecond: 0,
+            });
+            if (s.availabilitySlot && ((s.availabilitySlot.id === slot.id) || newBookingTime.isSame(slotTime))) {
               if (!s.availabilitySlot.bookings) {
                 s.availabilitySlot.bookings = [];
               }

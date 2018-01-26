@@ -1,21 +1,71 @@
+@media screen and (max-width: 850px) {
+  .only-bigger-than-mediumish {
+    display: none !important; } }
+
 .date-and-time-section {
   border-bottom: 1px solid #aaa;
   overflow: hidden;
   padding: .5em;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   background-color: #fff; }
-  .date-and-time-section .info-section {
-    display: inline-flex;
-    flex-direction: column;
-    margin: 0 3em;
-    align-items: flex-start; }
-    .date-and-time-section .info-section .date-and-time-title {
-      font-size: 1em;
-      font-weight: bold;
-      color: #333;
-      display: block; }
-    .date-and-time-section .info-section .date-and-time-content {
-      font-size: 1.25em;
-      font-weight: 400;
-      color: #333; }
+  @media screen and (max-width: 850px) {
+    .date-and-time-section {
+      justify-content: flex-start; } }
+  .date-and-time-section .location-title-section {
+    padding: .5em 30px 1em 30px;
+    margin: 0;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center; }
+    @media screen and (min-width: 850px) {
+      .date-and-time-section .location-title-section {
+        display: none;
+        padding: 0; } }
+    .date-and-time-section .location-title-section .location-title-place-icon {
+      color: #666 !important;
+      margin-right: .5em; }
+  .date-and-time-section .info-items {
+    margin: none;
+    padding: none;
+    display: flex;
+    justify-content: center; }
+    @media screen and (max-width: 850px) {
+      .date-and-time-section .info-items {
+        justify-content: flex-start; } }
+    .date-and-time-section .info-items .info-section {
+      display: inline-flex;
+      flex-direction: column;
+      margin: 0 3em;
+      align-items: flex-start; }
+      @media screen and (max-width: 850px) {
+        .date-and-time-section .info-items .info-section {
+          margin: 0 30px; } }
+      .date-and-time-section .info-items .info-section .date-and-time-title {
+        font-size: 1em;
+        font-weight: bold;
+        color: #666;
+        display: block; }
+        @media screen and (max-width: 850px) {
+          .date-and-time-section .info-items .info-section .date-and-time-title {
+            font-size: 0.875em; } }
+      .date-and-time-section .info-items .info-section .date-and-time-content {
+        font-size: 1.25em;
+        font-weight: 400;
+        color: #666; }
+      .date-and-time-section .info-items .info-section .date-and-time-content-big {
+        font-size: 1.25em;
+        font-weight: 400;
+        color: #666; }
+        @media screen and (max-width: 850px) {
+          .date-and-time-section .info-items .info-section .date-and-time-content-big {
+            display: none; } }
+      .date-and-time-section .info-items .info-section .date-and-time-content-small {
+        font-size: 1.25em;
+        font-weight: 400;
+        color: #666;
+        display: none; }
+        @media screen and (max-width: 850px) {
+          .date-and-time-section .info-items .info-section .date-and-time-content-small {
+            display: inline-block; } }

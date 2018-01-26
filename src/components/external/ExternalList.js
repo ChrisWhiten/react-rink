@@ -158,8 +158,15 @@ class ExternalList extends React.Component {
   }
 
   render() {
-    const dates = this.props.bookings;
-    console.error('oh no', this.props);
+    const dates = Object.assign({}, this.props.bookings);
+    if (this.props.filteredLocation) {
+      Object.keys(dates).forEach(d => {
+        dates[d] = dates[d].filter(l => {
+          return l.locationID === this.props.filteredLocation.locationId;
+        });
+      });
+    }
+
     const externalListClass = classNames(
       'external-list', {
         headless: !!this.props.headless,
@@ -189,6 +196,7 @@ class ExternalList extends React.Component {
         }
 
         <SlideUp
+          headless={!!this.props.headless}
           screenHeight={this.state.screenHeight}
           active={this.state.showSlideup}
           onCancel={this.slideupCancel.bind(this)} >
@@ -202,6 +210,7 @@ class ExternalList extends React.Component {
         </SlideUp>
 
         <SlideUp
+          headless={!!this.props.headless}
           screenHeight={this.state.screenHeight}
           active={!!this.state.createdBooking}
           onCancel={this.slideupCancel.bind(this)} >

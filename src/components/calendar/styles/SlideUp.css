@@ -4,10 +4,12 @@
   width: 100%;
   bottom: 0;
   /*overflow-y: scroll*/
-  overflow-y: hidden;
+  /*overflow-y: hidden*/
   overflow-x: hidden;
   position: fixed;
   z-index: 6;
   transition-property: all;
   transition-duration: .5s;
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1); }
+  .slide-up.active.headless {
+    top: 0 !important; }

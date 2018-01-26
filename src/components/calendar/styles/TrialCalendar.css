@@ -6,6 +6,8 @@
   position: relative;
   /*user-select: none*/
   margin-top: 150px; }
+  .calendar-container.headless {
+    margin-top: 0; }
 
 .times-slider {
   position: absolute;
@@ -99,7 +101,7 @@
   overflow: hidden;
   overflow-y: scroll !important; }
   .locations-wrapper.headless {
-    top: 0; }
+    top: 70px; }
 
 .locations-table {
   color: #424956;

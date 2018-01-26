@@ -1,5 +1,5 @@
 import axios from 'axios';
-const apiSource = 'http://localhost:3000';
+const apiSource = process.env.NODE_ENV !== 'production' ? 'https://qrd5rbrpj3.execute-api.us-west-2.amazonaws.com/Stage' : 'http://localhost:3000';
 const endpoints = {
   createSlot: (slot) => {
     return axios.post(`${apiSource}/slots`, slot)

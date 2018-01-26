@@ -1,11 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Elements} from 'react-stripe-elements';
+// import PropTypes from 'prop-types';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
-import CircularProgress from 'material-ui/CircularProgress';
+import Info from 'material-ui/svg-icons/action/info';
+// import CircularProgress from 'material-ui/CircularProgress';
 import AttachMoney from 'material-ui/svg-icons/editor/attach-money';
+import GroupAdd from 'material-ui/svg-icons/social/group-add';
 import EventIcon from 'material-ui/svg-icons/action/event';
 import People from 'material-ui/svg-icons/social/people';
+import RaisedButton from 'material-ui/RaisedButton';
+import Print from 'material-ui/svg-icons/action/print';
 import moment from 'moment';
 import {
   Col,
@@ -21,10 +24,17 @@ class BookingCompleted extends React.Component {
       creating: false,
       created: false,
     };
+
+    this.loadInvitationForm = this.loadInvitationForm.bind(this);
+    this.printDetails = this.printDetails.bind(this);
   }
 
-  _onClose() {
-    this.props.onRequestClose();
+  printDetails() {
+    console.log(JSON.stringify(this.props));
+  }
+
+  loadInvitationForm() {
+    console.log('load invitation form');
   }
 
   renderCurrency(c) {
@@ -77,30 +87,38 @@ class BookingCompleted extends React.Component {
                 </div>
               </div>
 
-              <div className='invitation-option section'>
-                <div className='section-title invitation-title'>
+              <div className='info-option section'>
+                <div className='section-title info-title'>
+                  <Info className='things-to-know-info-icon' />
                   <h4 className='section-title-text'>
-                    Invite friends
+                    Things to know
                   </h4>
                 </div>
-                <div className='section-content invitation-content'>
-                  <h5>{b.locationName} is more fun when friends are involved</h5>
-                  <button>Invite via Email</button>
-                  <button>Invite through Facebook</button>
+                <div className='section-content things-to-know-content'>
+                  <ul>
+                    <li><h5>Please arrive 15 minutes early for registration and setup.</h5></li>
+                    <li><h5>There is plenty of free parking on site and washrooms/change rooms.</h5></li>
+                    <li><h5>Please bring athletic footwear and clothing</h5></li>
+                  </ul>
                 </div>
               </div>
 
-              <div className='info-option section'>
-                <div className='section-title info-title'>
-                  <h4 className='section-title-text'>
-                    Info
-                  </h4>
-                </div>
-                <div className='section-content info-content'>
-                  {JSON.stringify(this.props)}
-                  <button>Email details</button>
-                  <button>Print details</button>
-                  <button>Get directions</button>
+              <div className='actions-option section'>
+                <div className='section-content actions-content'>
+                  <RaisedButton
+                    labelColor='#fff'
+                    label='Invite your friends'
+                    backgroundColor='#0088cc'
+                    icon={<GroupAdd className='invite-friends-button' />}
+                    onTouchTap={this.loadInvitationForm}
+                  />
+                  <RaisedButton
+                    labelColor='#fff'
+                    label='Print details'
+                    backgroundColor='#f54'
+                    icon={<Print className='print-details-button' />}
+                    onTouchTap={this.printDetails}
+                  />
                 </div>
               </div>
             </div>

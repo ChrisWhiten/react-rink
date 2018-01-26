@@ -20,9 +20,6 @@ class Header extends React.Component {
   render() {
     return (
       <div className='app-header'>
-        <div className='header-title'>
-          <h1>The Place</h1>
-        </div>
         <div className='header-balance'>
         </div>
         <Tabs location={this.props.location} />

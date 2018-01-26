@@ -10,7 +10,10 @@
   .filter-menu.headless {
     top: 0; }
   .filter-menu .filter-menu-balance {
-    width: 20em; }
+    width: 15em; }
+    @media screen and (max-width: 850px) {
+      .filter-menu .filter-menu-balance {
+        display: none; } }
 
 .filter-list-icon-svg {
   color: white !important;
@@ -32,6 +35,9 @@
   align-self: center;
   align-items: center;
   margin: auto; }
+  @media screen and (max-width: 660px) {
+    .filter-date-picker {
+      margin-right: 1em; } }
 
 .date-picker-area {
   opacity: 0.9; }
@@ -43,9 +49,11 @@
     @media screen and (max-width: 480px) {
       .date-picker-area .date-picker-text {
         display: none; } }
-    @media screen and (max-width: 850px) {
-      .date-picker-area .date-picker-text {
-        display: none; } }
+  .date-picker-area .date-picker-text-small {
+    display: none; }
+    @media screen and (min-width: 210px) {
+      .date-picker-area .date-picker-text-small {
+        display: inline-block; } }
 
 .filter-date-picker-icon {
   display: inline-flex;

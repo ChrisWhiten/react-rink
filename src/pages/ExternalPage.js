@@ -47,12 +47,14 @@ class ExternalPage extends Component {
 
     this.state = {
       bookings: processBookingsByDate(props.bookings ? props.bookings.items : {}),
+      filteredLocation: null,
       start,
       end,
     };
 
     this.onDateChange = this.onDateChange.bind(this);
     this.loadMore = this.loadMore.bind(this);
+    this.onLocationsSelectedChanged = this.onLocationsSelectedChanged.bind(this);
   }
 
   componentDidMount() {
@@ -79,6 +81,13 @@ class ExternalPage extends Component {
         bookings: newBookingObj,
       });
     }
+  }
+
+  onLocationsSelectedChanged(location) {
+    console.error('location', location);
+    this.setState({
+      filteredLocation: location,
+    });
   }
 
   onDateChange(start) {
@@ -124,9 +133,17 @@ class ExternalPage extends Component {
 
     return (
       <div>
-        <FilterMenu headless={isHeadless} onDateChange={this.onDateChange.bind(this)} />
+        <FilterMenu
+          headless={isHeadless}
+          multiSelect={false}
+          locations={this.props.locations}
+          onDateChange={this.onDateChange.bind(this)}
+          onLocationsSelectedChanged={this.onLocationsSelectedChanged}
+        />
         <ExternalList
           headless={isHeadless}
+          locations={this.props.locations}
+          filteredLocation={this.state.filteredLocation}
           loadMore={this.loadMore}
           isFetching={this.props.bookings.isFetching}
           createBooking={this.props.createBooking}

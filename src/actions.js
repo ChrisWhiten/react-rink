@@ -139,6 +139,7 @@ export function fetchLocations() {
 
     return api.getLocations()
       .then(json => {
+        console.log('say what?', json);
         dispatch(receiveLocations(json.data));
       })
       .catch(err => {

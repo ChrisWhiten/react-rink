@@ -1,3 +1,6 @@
+$break-mediumish: 850px
+$break-less-medium: 500px
+
 .timeline-filter
   margin: 1em
   position: fixed
@@ -8,40 +11,58 @@
   margin-top: auto
   margin-bottom: auto
   margin-left: 1em
-  width: 20em
+  width: 15em
 
-  .hello123.is-focused
-    background-color: #0088cc
-    .Select-control
-      background-color: #0088cc !important
-      color: #fff
-  .hello123.is-open
-    background-color: #0088cc
+  @media screen and (max-width: $break-mediumish)
+    width: 10em
+  @media screen and (max-width: $break-less-medium)
+    width: 10em
+
+  .location-picker-select
+    &.is-focused
+      background-color: #0088cc
+      .Select-control
+        background-color: #0088cc !important
+        color: #fff
+    &.is-open
+      background-color: #0088cc
+
+      .Select-control
+        background-color: #0088cc
+        color: #fff
+
+    .Select-value:nth-child(3)
+      font-style: italic
+
+      .Select-value-icon
+        display: none
+
+    .Select-value:nth-child(n+4)
+      display: none
 
     .Select-control
       background-color: #0088cc
       color: #fff
+      border: none
+      &:hover
+        cursor: pointer
 
+      .Select-placeholder
+        color: #fff
 
-  .Select-control
-    background-color: #0088cc
-    color: #fff
-    border: none
-    &:hover
-      cursor: pointer
+      .Select-arrow
+        border-color: #fff transparent transparent
 
-    .Select-placeholder
-      color: #fff
+      .Select-value
+        color: #fff
 
-    .Select-arrow
-      border-color: #fff transparent transparent
+      .Select-clear-zone
+        color: #fff
 
-    .Select-value
-      color: #fff
-
-.Select-value.test
+.Select-value
   .Select-value-label
-    max-width: 5em
+    color: #fff !important
+    max-width: 4.5em
     text-overflow: ellipsis
     overflow-y: hidden
     white-space: nowrap

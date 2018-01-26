@@ -13,7 +13,7 @@ import People from 'material-ui/svg-icons/social/people';
 import Block from 'material-ui/svg-icons/content/block';
 import RaisedButton from 'material-ui/RaisedButton';
 import ContactPhone from 'material-ui/svg-icons/communication/phone';
-import Subheader from 'material-ui/Subheader';
+// import Subheader from 'material-ui/Subheader';
 import EventIcon from 'material-ui/svg-icons/action/event';
 
 import Divider from 'material-ui/Divider';
@@ -253,7 +253,7 @@ class BookingItemPage extends Component {
       <div className='action-bar'>
         <div className='add-payment-button action-bar-button'>
           <RaisedButton
-            onTouchTap={this.showPaymentModal}
+            onClick={this.showPaymentModal}
             labelColor='#fff'
             label="Add payment"
             backgroundColor='#52B266'
@@ -266,7 +266,7 @@ class BookingItemPage extends Component {
             <RaisedButton
               labelColor='#fff'
               backgroundColor='#f54'
-              onTouchTap={this.showCancelBookingModal}
+              onClick={this.showCancelBookingModal}
               label='Cancel booking'
               icon={<Block color='#fff' />}
             />
@@ -278,7 +278,7 @@ class BookingItemPage extends Component {
             <RaisedButton
               labelColor='#f54'
               backgroundColor='#fff'
-              onTouchTap={this.showUncancelBookingModal}
+              onClick={this.showUncancelBookingModal}
               label='Uncancel booking'
               icon={<Block color='#f54' />}
             />
@@ -286,7 +286,7 @@ class BookingItemPage extends Component {
         }
         <div className='edit-participants-button action-bar-button'>
           <RaisedButton
-            onTouchTap={this.showEditParticipantsModal}
+            onClick={this.showEditParticipantsModal}
             labelColor='#fff'
             label="Edit participants"
             backgroundColor='#ffa000'
@@ -336,12 +336,12 @@ class BookingItemPage extends Component {
     );
   }
 
-  // renderHistory(b) {
-  //   // a timeline history of the booking.
-  //   // when it was booked, when participants were checked in (by who), etc
-  //   // this is a rd 2 feature
-  //   return null;
-  // }
+  renderHistory(b) {
+    // a timeline history of the booking.
+    // when it was booked, when participants were checked in (by who), etc
+    // this is a rd 2 feature
+    return null;
+  }
 
   render() {
     if (this.props.booking.isFetching) {
@@ -419,10 +419,14 @@ class BookingItemPage extends Component {
           </div>
         </Col>
         <Col sm={12} md={12} xs={12} className='action-bar-column'>
-              <Divider />
-              {/* <Subheader>Actions</Subheader> */}
-              { this.renderActionBar(b) }
-            </Col>
+          <Divider />
+          { this.renderActionBar(b) }
+        </Col>
+        { this.renderHistory(b) }
+        <AddPaymentModal isUpdating={this.state.isUpdating} onSubmit={this.addPayment} show={this.state.showAddPaymentModal} hide={this.hidePaymentModal} />
+        <EditParticipantsModal booking={this.props.booking} isUpdating={this.state.isUpdating} onSubmit={this.editParticipantCount} show={this.state.showParticipantsModal} hide={this.hideEditParticipantsModal} />
+        <CancelBookingModal isUpdating={this.state.isUpdating} onSubmit={this.cancelBooking} show={this.state.showCancelModal} hide={this.hideCancelBookingModal} />
+        <UncancelBookingModal isUpdating={this.state.isUpdating} onSubmit={this.uncancelBooking} decline={this.hideUncancelBookingModal} show={this.state.showUncancelModal} hide={this.hideUncancelBookingModal} />
       </div>
     );
 

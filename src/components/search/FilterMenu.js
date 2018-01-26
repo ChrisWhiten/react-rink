@@ -83,7 +83,12 @@ class FilterMenu extends React.Component {
 
     return (
       <div className={filterMenuClass}>
-        <TimelineFilter inverted={true} />
+        <TimelineFilter
+          inverted={true}
+          multi={this.props.multiSelect}
+          locations={this.props.locations}
+          onLocationsSelectedChanged={this.props.onLocationsSelectedChanged}
+        />
         <div className='filter-date-picker'>
           <div className='filter-chevron' onTouchTap={this._backOne.bind(this)}>
             <ChevronLeft className='filter-chevron-svg' />
@@ -91,6 +96,9 @@ class FilterMenu extends React.Component {
           <div className='date-picker-area' onTouchTap={this._handleDatePickerOpen.bind(this)}>
             <h5 className='date-picker-text'>
               {moment(this.state.date).format('ddd, MMM Do, YYYY')}
+            </h5>
+            <h5 className='date-picker-text-small'>
+              {moment(this.state.date).format('ddd, MMM Do')}
             </h5>
             <div className='filter-date-picker-icon'>
               <EventIcon className='filter-date-picker-svg' />

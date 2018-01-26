@@ -1,5 +1,5 @@
 import moment from 'moment';
-import PersonPinCirlce from 'material-ui/svg-icons/maps/person-pin-circle';
+import PersonPinCircle from 'material-ui/svg-icons/maps/person-pin-circle';
 import Close from 'material-ui/svg-icons/navigation/close';
 import SlideUp from './SlideUp';
 import CheckinForm from './CheckinForm';
@@ -41,7 +41,7 @@ class CheckIn extends React.Component {
 
   render() {
     const checkinText = this.state.showCheckinSlideup ? 'Close' : 'Walk-in';
-    const checkinIcon = this.state.showCheckinSlideup ? <Close className='check-in-icon' /> : <PersonPinCirlce className='check-in-icon' />;
+    const checkinIcon = this.state.showCheckinSlideup ? <Close className='check-in-icon' /> : <PersonPinCircle className='check-in-icon' />;
 
     return (
       <div className='check-in-container'>

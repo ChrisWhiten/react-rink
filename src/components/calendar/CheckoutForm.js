@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import {injectStripe} from 'react-stripe-elements';
+import {injectStripe} from 'react-stripe-elements';
+import Snackbar from 'material-ui/Snackbar';
 import {
   Form,
   Col,
@@ -8,8 +9,7 @@ import {
 } from 'react-bootstrap';
 
 import PersonalInfoSection from './PersonalInfoSection';
-import Schedule from 'material-ui/svg-icons/action/schedule';
-// import CardSection from './CardSection';
+import CardSection from './CardSection';
 import DateAndTimeSection from './DateAndTimeSection';
 import NumberOfGuestsSection from './NumberOfGuestsSection';
 
@@ -21,13 +21,91 @@ class CheckoutForm extends React.Component {
 
     this.state = {
       active: false,
+      cost: 0,
+      showSnackbar: false,
+      snackbarMessage: '',
     };
 
     this.payLater = this.payLater.bind(this);
+    this.onGuestCountChange = this.onGuestCountChange.bind(this);
+    this.hideSnackbar = this.hideSnackbar.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.personalInfoRef.clear();
+    if (nextProps.booking && this.props.booking && nextProps.booking.id !== this.props.booking.id) {
+      this.personalInfoRef.clear();
+    }
+  }
+
+  onGuestCountChange(guestCount) {
+    this.setState({
+      cost: guestCount * 2400,
+    });
+  }
+
+  renderCurrency(c) {
+    let dollarAmount = c/100;
+
+    if (c % 100 === 0) {
+      return parseInt(dollarAmount, 10).toString();
+    }
+
+    return dollarAmount.toFixed(2);
+  }
+
+  validateForm() {
+    if (!this.personalInfoRef.state.firstName) {
+      this.setState({
+        showSnackbar: true,
+        snackbarMessage: 'Please provide a first name',
+      });
+
+      return false;
+    }
+
+    if (!this.personalInfoRef.state.lastName) {
+      this.setState({
+        showSnackbar: true,
+        snackbarMessage: 'Please provide a last name',
+      });
+
+      return false;
+    }
+
+    if (!this.personalInfoRef.state.email) {
+      this.setState({
+        showSnackbar: true,
+        snackbarMessage: 'Please provide an email',
+      });
+
+      return false;
+    }
+
+    if (!this.personalInfoRef.state.phoneNumber) {
+      this.setState({
+        showSnackbar: true,
+        snackbarMessage: 'Please provide a phone number',
+      });
+
+      return false;
+    }
+
+    if (!this.guestsSection.state.numberOfGuests) {
+      this.setState({
+        showSnackbar: true,
+        snackbarMessage: 'Please select how many guests will join',
+      });
+
+      return false;
+    }
+
+    return true;
+  }
+
+  hideSnackbar() {
+    this.setState({
+      showSnackbar: false,
+    });
   }
 
   payLater() {
@@ -36,6 +114,11 @@ class CheckoutForm extends React.Component {
     console.log(this.personalInfoRef.state);
     console.log(this.guestsSection.state);
     console.warn(this.props.booking);
+
+    if (!this.validateForm()) {
+      return;
+    }
+
     if (this.props.payLater) {
       this.props.payLater({
         leaderFirstName: this.personalInfoRef.state.firstName,
@@ -47,7 +130,6 @@ class CheckoutForm extends React.Component {
         locationId: this.props.location.locationId,
         start: new Date(this.props.booking.availabilitySlot.startTime).getTime(),
         duration: this.props.booking.availabilitySlot.duration,
-        paidAmount: 0,
         bookingCost: defaultCost * this.guestsSection.state.numberOfGuests,
         checkedIn: 0,
       }, (bookingCreated => {
@@ -60,10 +142,35 @@ class CheckoutForm extends React.Component {
     // We don't want to let default form submission happen here, which would refresh the page.
     ev.preventDefault();
 
+    if (!this.validateForm()) {
+      return;
+    }
+
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
     this.props.stripe.createToken({name: 'Jenny Rosen'}).then(({token}) => {
       console.log('Received Stripe token:', token);
+
+      // this isn't the same thing, but hacking it together to get the flow right.
+      // TODO: fix me
+      const defaultCost = 2400;
+      const bookingCost = defaultCost * this.guestsSection.state.numberOfGuests;
+      this.props.createPaidBooking({
+        leaderFirstName: this.personalInfoRef.state.firstName,
+        leaderLastName: this.personalInfoRef.state.lastName,
+        leaderEmail: this.personalInfoRef.state.email,
+        leaderPhoneNumber: this.personalInfoRef.state.phoneNumber,
+        slotCount: this.guestsSection.state.numberOfGuests,
+        locationName: this.props.location.locationName,
+        locationId: this.props.location.locationId,
+        start: new Date(this.props.booking.availabilitySlot.startTime).getTime(),
+        duration: this.props.booking.availabilitySlot.duration,
+        payments: [bookingCost],
+        bookingCost: bookingCost,
+        checkedIn: 0,
+      }, (bookingCreated => {
+        console.log('made it to checkoutform bookingCreated', bookingCreated);
+      }));
     });
 
     // However, this line of code will do the same thing:
@@ -86,17 +193,28 @@ class CheckoutForm extends React.Component {
       <Form onSubmit={this._handleSubmit}>
         <DateAndTimeSection location={this.props.location} booking={this.props.booking} />
         <Col sm={6} md={6} xs={12} smOffset={3} mdOffset={3}>
-          <NumberOfGuestsSection ref={(guestsSection) => this.guestsSection = guestsSection} slotCount={slotCount} />
+          <NumberOfGuestsSection
+            ref={(guestsSection) => this.guestsSection = guestsSection}
+            slotCount={slotCount}
+            onGuestCountChange={this.onGuestCountChange}
+          />
           <PersonalInfoSection ref={(personalInfoRef) => this.personalInfoRef = personalInfoRef} />
           <Col sm={12} md={12} xs={12}>
             <Checkbox>
               Yes, I have read and agree with the waiver
             </Checkbox>
-            {/* <CardSection /> */}
-            <button className='checkout-button'>Confirm order <small>($24)</small></button>
+            <CardSection />
+            <button className='checkout-button' disabled={!this.state.cost}>Confirm order <small>(${this.renderCurrency(this.state.cost)})</small></button>
             <div className='pay-later-button' onTouchTap={this.payLater}><a>Or confirm now and pay on-site</a></div>
           </Col>
         </Col>
+
+        <Snackbar
+          open={this.state.showSnackbar}
+          message={this.state.snackbarMessage}
+          autoHideDuration={4000}
+          onRequestClose={this.hideSnackbar}
+        />
       </Form>
     );
   }
@@ -107,5 +225,5 @@ CheckoutForm.propTypes = {
   screenHeight: PropTypes.number,
 };
 
-// export default injectStripe(CheckoutForm);
-export default CheckoutForm
+export default injectStripe(CheckoutForm);
+// export default CheckoutForm

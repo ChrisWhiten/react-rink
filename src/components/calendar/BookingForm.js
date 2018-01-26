@@ -17,6 +17,13 @@ class BookingForm extends React.Component {
     };
 
     this.payLater = this.payLater.bind(this);
+    this.createPaidBooking = this.createPaidBooking.bind(this);
+  }
+
+  createPaidBooking(booking) {
+    // literally no difference right now.
+    // will there ever be?
+    this.payLater(booking);
   }
 
   payLater(booking) {
@@ -83,10 +90,14 @@ class BookingForm extends React.Component {
         {
           !this.state.creating && !this.state.created &&
           <div>
-            {/* remove the above div once we bring back <Elemnets> */}
-            {/* <Elements> */}
-            <CheckoutForm booking={this.props.slot} location={this.props.location} payLater={this.payLater} />
-            {/* </Elements> */}
+            <Elements>
+              <CheckoutForm
+                booking={this.props.slot}
+                location={this.props.location}
+                payLater={this.payLater}
+                createPaidBooking={this.createPaidBooking}
+              />
+            </Elements>
           </div>
         }
         </div>

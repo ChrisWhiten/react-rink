@@ -31,9 +31,23 @@
       max-width: 720px;
       width: 100%;
       border: 1px solid #aaa;
-      margin: 1em;
       margin-top: 0;
       align-self: center; }
+      .booking-completed-form .booking-completed-content .completed-details .info-option {
+        padding: 1.5em;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff; }
+        .booking-completed-form .booking-completed-content .completed-details .info-option .info-title {
+          display: inline-flex;
+          align-items: center; }
+          .booking-completed-form .booking-completed-content .completed-details .info-option .info-title .section-title-text {
+            margin-left: 1em;
+            font-size: 1.3em;
+            font-weight: 500; }
+      .booking-completed-form .booking-completed-content .completed-details .actions-option .actions-content {
+        display: flex;
+        justify-content: space-between; }
       .booking-completed-form .booking-completed-content .completed-details .summary-details {
         background-color: #f1f2f4;
         display: flex;

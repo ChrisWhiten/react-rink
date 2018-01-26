@@ -2,7 +2,7 @@ import {
   FETCHING_WALKINS,
   FETCHING_WALKINS_SUCCESS,
   FETCHING_WALKINS_ERROR,
-  BOOKING_CREATED,
+  // BOOKING_CREATED,
   SLOT_CREATED,
 } from '../constants/actionTypes';
 import moment from 'moment';

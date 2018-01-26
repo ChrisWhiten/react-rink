@@ -20,11 +20,15 @@ class SlideUp extends React.Component {
       {
         active: this.props.active,
       },
+      {
+        headless: this.props.headless,
+      },
     );
 
+    const tabBarHeight = this.props.headless ? 0 : 80;
     const dynamicStyles = {
       top: this.props.active ? '80px' : `${this.props.screenHeight + 100}px`,
-      height: this.props.screenHeight - 80,
+      height: this.props.screenHeight - tabBarHeight,
       zIndex: this.props.zIndex ? this.props.zIndex : 6,
     };
 

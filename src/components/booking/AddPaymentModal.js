@@ -71,7 +71,7 @@ class AddPaymentModal extends Component {
             <FieldGroup
               autoFocus
               id='payment-id'
-              type='text'
+              type='number'
               placeholder='$12.34'
               onChange={this.handleCurrencyChange}
             />

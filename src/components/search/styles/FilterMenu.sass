@@ -1,4 +1,7 @@
+$break-very-small: 210px
 $break-small: 480px
+$break-less-medium: 500px
+$break-medium: 660px
 $break-mediumish: 850px
 
 .filter-menu
@@ -16,7 +19,9 @@ $break-mediumish: 850px
 
 
   .filter-menu-balance
-    width: 20em
+    width: 15em
+    @media screen and (max-width: $break-mediumish)
+      display: none
 
 
 .filter-list-icon-svg
@@ -42,6 +47,9 @@ $break-mediumish: 850px
   align-items: center
   margin: auto
 
+  @media screen and (max-width: $break-medium)
+    margin-right: 1em
+
 
 .date-picker-area
   opacity: 0.9
@@ -54,8 +62,12 @@ $break-mediumish: 850px
 
     @media screen and (max-width: $break-small)
       display: none
-    @media screen and (max-width: $break-mediumish)
-      display: none
+
+  .date-picker-text-small
+    display: none
+
+    @media screen and (min-width: $break-very-small)
+      display: inline-block
 
 .filter-date-picker-icon
   display: inline-flex
