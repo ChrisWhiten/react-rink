@@ -109,7 +109,7 @@ export function fetchWalkins() {
 
     dispatch(requestWalkins(start));
 
-    return api.getBookings2(start, end)
+    return api.getBookings2(start, end, true)
       .then(json => {
         dispatch(receiveWalkins(json, start));
       })
@@ -139,8 +139,7 @@ export function fetchLocations() {
 
     return api.getLocations()
       .then(json => {
-        console.log('say what?', json);
-        dispatch(receiveLocations(json.data));
+        dispatch(receiveLocations(json.data || []));
       })
       .catch(err => {
         console.error('error getting locations', err);
@@ -539,25 +538,29 @@ function createBookingError(error) {
 
 export function fetchBookings(start, end) {
   return function(dispatch) {
-    dispatch(requestBookings());
+    dispatch(requestBookings(start, end));
 
-    return api.getBookings2(new Date(start).getTime(), new Date(end).getTime())
+    return api.getBookings2(new Date(start).getTime(), new Date(end).getTime(), false)
       .then(json => {
         dispatch(receiveBookings(json));
       })
       .catch(err => {
-        console.error('error getting bookings', err);
-        dispatch(getBookingsError());
+        if (err.message && err.message === 'cancelled') {
+          console.error('cancellation...');
+        } else {
+          console.error('error getting bookings', err);
+          dispatch(getBookingsError());
+        }
       });
   }
 }
 
 function requestBookings(start, end) {
-  return { type: FETCHING_BOOKINGS, start: start, end: end };
+  return { type: FETCHING_BOOKINGS, start, end };
 }
 
 function receiveBookings(bookings) {
-  return { type: FETCHING_BOOKINGS_SUCCESS, bookings: bookings };
+  return { type: FETCHING_BOOKINGS_SUCCESS, bookings };
 }
 
 function getBookingsError() {

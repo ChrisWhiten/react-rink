@@ -5,7 +5,7 @@ import Snackbar from 'material-ui/Snackbar';
 import {
   Form,
   Col,
-  Checkbox,
+  // Checkbox,
 } from 'react-bootstrap';
 
 import PersonalInfoSection from './PersonalInfoSection';
@@ -192,7 +192,7 @@ class CheckoutForm extends React.Component {
     return (
       <Form onSubmit={this._handleSubmit}>
         <DateAndTimeSection location={this.props.location} booking={this.props.booking} />
-        <Col sm={6} md={6} xs={12} smOffset={3} mdOffset={3}>
+        <Col sm={6} md={6} xs={12} smOffset={3} mdOffset={3} className='checkout-form-container'>
           <NumberOfGuestsSection
             ref={(guestsSection) => this.guestsSection = guestsSection}
             slotCount={slotCount}

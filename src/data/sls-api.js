@@ -1,5 +1,7 @@
 import axios from 'axios';
-const apiSource = process.env.NODE_ENV === 'production' ? 'https://qrd5rbrpj3.execute-api.us-west-2.amazonaws.com/Stage' : 'http://localhost:3000';
+const apiSource = process.env.NODE_ENV === 'production' || true ? 'https://qrd5rbrpj3.execute-api.us-west-2.amazonaws.com/Stage' : 'http://localhost:3000';
+const cancellationTokens = [];
+let latestStart;
 const endpoints = {
   createSlot: (slot) => {
     return axios.post(`${apiSource}/slots`, slot)
@@ -62,12 +64,43 @@ const endpoints = {
       });
   },
 
-  getBookings2: (start, end) => {
-    return axios.get(`${apiSource}/slots?start=${start}&end=${end}`).then(res => {
-      return res.data;
+  getBookings2: (start, end, isWalkins) => {
+    console.debug('requesting', new Date(start), isWalkins);
+    // axios cancel is not dependable.  lots of garbage logic here to work around it
+    if (!isWalkins) {
+      latestStart = start;
+      if (cancellationTokens.length > 0) {
+        while (cancellationTokens.length > 0) {
+          const token = cancellationTokens.pop();
+          token('Cancelling booking request');
+        }
+      }
+    }
+
+    const cancellationRequestObj = isWalkins ? {} : {
+      cancelToken: new axios.CancelToken(c => {
+        cancellationTokens.push(c);
+      }),
+    };
+
+    return axios.get(`${apiSource}/slots?start=${start}&end=${end}`, cancellationRequestObj).then(res => {
+      // if another, newer request hasn't showed up since this get returned
+      if (isWalkins || (!isWalkins && start === latestStart)) {
+
+        console.debug('returning', new Date(start));
+        return res.data;
+      } else {
+        console.debug('axios race condition - cancelled', new Date(start));
+        throw new Error('cancelled');
+      }
     }).catch(err => {
-      console.error('error getting slots', err);
-      return [];
+      if (axios.isCancel(err)) {
+        console.debug('Cancelled request', new Date(start), new Date(end));
+        throw new Error('cancelled');
+      } else {
+        console.error('error getting slots', err);
+        return [];
+      }
     });
   },
 
@@ -139,7 +172,7 @@ const endpoints = {
         return res.json();
       })
       .catch(err => {
-        console.error('Error getting bookings');
+        console.error('Error getting bookingsz');
         console.error(err);
         return [];
       });

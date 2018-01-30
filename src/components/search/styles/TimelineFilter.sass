@@ -1,3 +1,5 @@
+@import '../../../styles/variables';
+
 $break-mediumish: 850px
 $break-less-medium: 500px
 
@@ -20,15 +22,15 @@ $break-less-medium: 500px
 
   .location-picker-select
     &.is-focused
-      background-color: #0088cc
+      background-color: $primaryColour
       .Select-control
-        background-color: #0088cc !important
+        background-color: $primaryColour !important
         color: #fff
     &.is-open
-      background-color: #0088cc
+      background-color: $primaryColour
 
       .Select-control
-        background-color: #0088cc
+        background-color: $primaryColour
         color: #fff
 
     .Select-value:nth-child(3)
@@ -41,7 +43,7 @@ $break-less-medium: 500px
       display: none
 
     .Select-control
-      background-color: #0088cc
+      background-color: $primaryColour
       color: #fff
       border: none
       &:hover

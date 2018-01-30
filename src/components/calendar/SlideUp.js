@@ -28,7 +28,7 @@ class SlideUp extends React.Component {
     const tabBarHeight = this.props.headless ? 0 : 80;
     const dynamicStyles = {
       top: this.props.active ? '80px' : `${this.props.screenHeight + 100}px`,
-      height: this.props.screenHeight - tabBarHeight,
+      height: this.props.screenHeight - tabBarHeight, // don't subtract so we get a buffer
       zIndex: this.props.zIndex ? this.props.zIndex : 6,
     };
 

@@ -358,6 +358,13 @@ class AvailabilityList extends React.Component {
       },
     );
 
+    const slideupActive = this.state.showBookingSlideup || this.state.showSlotSlideup || (this.refs.checkIn && this.refs.checkIn.state.showCheckinSlideup);
+    const tableClass = classNames(
+      'scrolling-table', {
+        'slideup-active': slideupActive,
+      },
+    );
+
     return (
       <div className='trial-calendar'>
       {
@@ -390,7 +397,7 @@ class AvailabilityList extends React.Component {
               </table>
             </div>
             <div className='calendar-section' width={locationsTableWidth}>
-              <table className='scrolling-table' width={locationsTableWidth}>
+              <table className={tableClass} width={locationsTableWidth}>
                 { this._renderCalendarItems(bookings.items) }
               </table>
             </div>
@@ -438,6 +445,7 @@ class AvailabilityList extends React.Component {
           />
         </SlideUp>
         <CheckIn
+          ref='checkIn'
           screenHeight={this.state.screenHeight}
           walkins={this.props.walkins}
           updateBooking={this.props.updateBooking}

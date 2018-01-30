@@ -1,14 +1,16 @@
+@import '../../../styles/variables';
+
 .checkin-form
   width: 100%
   height: 100%
   overflow-y: scroll
 
   .loading-walkins
-    display: flex
     align-items: center
     padding-left: 1em
     position: absolute
     bottom: -5em
+    display: none
     width: 100%
     background: #1e88e5
     color: #fff
@@ -19,6 +21,7 @@
 
     &.active
       bottom: 0
+      display: flex
 
     .loading-text
       margin-left: 1em
@@ -60,8 +63,8 @@
           transform: scale(2)
 
         &.stage-1
-          background-color: rgba(82,178,102, 0.2)
-          border: 1px solid #52B266
+          background-color: #f1f2f4
+          border: 1px solid $primaryColour
           cursor: auto
           &:hover
             box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 2px 32px rgba(0, 0, 0, 0.16) !important
@@ -81,7 +84,7 @@
 
 
   .checkin-form-header
-    background-color: #0088cc
+    background-color: $primaryColour
     width: 100%
     display: flex
     align-items: center

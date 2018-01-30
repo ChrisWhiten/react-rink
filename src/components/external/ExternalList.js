@@ -4,6 +4,7 @@ import People from 'material-ui/svg-icons/social/people';
 import CircularProgress from 'material-ui/CircularProgress';
 import moment from 'moment';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 import SlideUp from '../calendar/SlideUp';
 import BookingForm from '../calendar/BookingForm';
@@ -12,8 +13,8 @@ import BookingCompleted from './BookingCompleted';
 import './ExternalList.css';
 
 class ExternalList extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       open: false,
@@ -25,6 +26,7 @@ class ExternalList extends React.Component {
       createdBooking: undefined,
     };
 
+    this.loadMoreDebounced =  _.debounce(props.loadMore, 100);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.onScroll = this.onScroll.bind(this);
     this.checkout = this.checkout.bind(this);
@@ -43,8 +45,9 @@ class ExternalList extends React.Component {
   }
 
   onScroll() {
-    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) && !this.props.isFetching) {
-      this.props.loadMore();
+    const isLoaded = Object.keys(this.props.bookings).length > 0;
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) && !this.props.isFetching && isLoaded) {
+      this.loadMoreDebounced();
     }
   }
 
@@ -60,8 +63,6 @@ class ExternalList extends React.Component {
       showSlideup: false,
       createdBooking: booking,
     });
-
-    console.error('here i should jump to a new congrats page')
 
     // force a new date to fetch fresh bookings
     // this.props.onDateChange(booking.start);
@@ -170,6 +171,13 @@ class ExternalList extends React.Component {
     const externalListClass = classNames(
       'external-list', {
         headless: !!this.props.headless,
+        'slideup-open': this.state.showSlideup || this.state.createdBooking,
+      },
+    );
+
+    const externalListDateContainerClass = classNames(
+      'external-list-date-container', {
+        'slideup-open': this.state.showSlideup,
       },
     );
 
@@ -177,7 +185,7 @@ class ExternalList extends React.Component {
       <div className={externalListClass}>
         {
           Object.keys(dates).map(d => {
-            return <div className='external-list-date-container' key={`date-container-${d}`}>
+            return <div className={externalListDateContainerClass} key={`date-container-${d}`}>
               <div className='container external-date'>
                 <h4>{ moment(d).format('dddd, MMMM Do, YYYY') }</h4>
               </div>

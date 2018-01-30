@@ -1,3 +1,5 @@
+.checkout-form-container
+  margin-bottom: 10em
 .StripeElement
   /*border: 1px solid transparent*/
   border: 1px solid #ccc
@@ -8,6 +10,9 @@
   box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px, rgba(0, 0, 0, 0.0196078) 0px 1px 0px
   border-radius: 4px
   background: white
+
+  @media screen and (max-width: 768px)
+    margin-top: 1em
 
 
 .StripeElement--focus
@@ -27,7 +32,7 @@
   margin-left: 1em
   &:hover
     cursor: pointer
-    
+
 .checkout-button
   white-space: nowrap
   border: 0

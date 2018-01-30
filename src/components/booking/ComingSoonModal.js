@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
-import ThumbsDown from 'material-ui/svg-icons/action/thumb-down';
 import RaisedButton from 'material-ui/RaisedButton';
 import {
   Modal,
 } from 'react-bootstrap';
 
 import './styles/UncancelBookingModal.css';
-import CircularProgress from 'material-ui/CircularProgress/CircularProgress';
 
 class ComingSoonModal extends Component {
   constructor(props) {

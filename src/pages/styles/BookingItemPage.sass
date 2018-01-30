@@ -34,7 +34,7 @@
         font-weight: 500
 
     .section
-      max-width: 720px
+      /*max-width: 720px*/
       width: 100%
       border: 1px solid #aaa
       margin: 1em
@@ -121,9 +121,12 @@
   .action-bar
     display: flex
     flex-direction: row
+    flex-wrap: wrap
+    justify-content: center
 
     .action-bar-button
       margin: .5em
+      min-width: 200px
 
 .booking-item-summary
   .booking-item

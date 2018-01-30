@@ -17,7 +17,8 @@
       display: inline-flex;
       align-items: center;
       padding: 1em;
-      border-radius: 5px 5px 0 0; }
+      border-radius: 5px 5px 0 0;
+      /*max-width: 720px*/ }
       .booking-completed-form .booking-completed-content .completed-announcement .booking-confirmed-check {
         color: #fff !important;
         height: 48px !important;
@@ -28,7 +29,7 @@
         font-size: 1.5em;
         font-weight: 500; }
     .booking-completed-form .booking-completed-content .completed-details {
-      max-width: 720px;
+      /*max-width: 720px*/
       width: 100%;
       border: 1px solid #aaa;
       margin-top: 0;
@@ -47,7 +48,8 @@
             font-weight: 500; }
       .booking-completed-form .booking-completed-content .completed-details .actions-option .actions-content {
         display: flex;
-        justify-content: space-between; }
+        justify-content: space-between;
+        flex-wrap: wrap; }
       .booking-completed-form .booking-completed-content .completed-details .summary-details {
         background-color: #f1f2f4;
         display: flex;

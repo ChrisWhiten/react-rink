@@ -29,10 +29,14 @@ if (process.env.NODE_ENV !== 'production') {
 const store = createStore(reducer, applyMiddleware(...middleware));
 
 store.dispatch(fetchLocations());
-// TODO: do not use this set timeout in prod.  problem with aws-sam-local concurrency
-setTimeout(() => {
+// do not use this set timeout in prod.  problem with aws-sam-local concurrency
+if (process.env.NODE_ENV === 'production') {
   store.dispatch(fetchWalkins());
-}, 10000);
+} else {
+  setTimeout(() => {
+    store.dispatch(fetchWalkins());
+  }, 10000);
+}
 // store.dispatch(fetchInvitations());
 // store.dispatch(fetchUpcomingOrganized());
 // store.dispatch(fetchUpcomingParticipations());

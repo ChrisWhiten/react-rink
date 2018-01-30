@@ -7,6 +7,7 @@ import _ from 'lodash';
 import './styles/ExternalPage.css';
 
 function processBookingsByDate(bookings) {
+  console.error('bookings', bookings);
   // console.error('bookings processing...', bookings);
   // the root object should be an object
   // date -> location array.
@@ -46,24 +47,29 @@ class ExternalPage extends Component {
     end = new Date(moment(end).add(3, 'days'));
 
     this.state = {
-      bookings: processBookingsByDate(props.bookings ? props.bookings.items : {}),
+      bookings: processBookingsByDate([]),
       filteredLocation: null,
       start,
       end,
     };
 
+    this.fetch = _.debounce(props.fetchBookings, 300);
     this.onDateChange = this.onDateChange.bind(this);
     this.loadMore = this.loadMore.bind(this);
     this.onLocationsSelectedChanged = this.onLocationsSelectedChanged.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchBookings(this.state.start, this.state.end);
+    this.fetch(this.state.start, this.state.end);
   }
 
   componentWillReceiveProps(nextProps) {
     // if new data has come in...
-    if (this.props.bookings && !nextProps.bookings.isFetching && this.props.bookings.isFetching) {
+    if (!this.props.bookings) return;
+
+    const doneFetching = (!nextProps.bookings.isFetching && this.props.bookings.isFetching);
+    if (doneFetching || (
+      nextProps.bookings.items.length > 0 && this.props.bookings.items.length > 0 && nextProps.bookings.items[0].bookings[0].time !== this.props.bookings.items[0].bookings[0].time)) {
       const newBookingObj = Object.assign({}, this.state.bookings);
       const newDates = processBookingsByDate(nextProps.bookings.items);
       const dates = Object.keys(newDates);
@@ -77,14 +83,16 @@ class ExternalPage extends Component {
         }
       });
 
+      const newEnd = new Date(dates[dates.length - 1]);
+
       this.setState({
         bookings: newBookingObj,
+        end: newEnd,
       });
     }
   }
 
   onLocationsSelectedChanged(location) {
-    console.error('location', location);
     this.setState({
       filteredLocation: location,
     });
@@ -97,7 +105,8 @@ class ExternalPage extends Component {
     let endDate = new Date(startDate);
     endDate.setHours(23, 59, 59, 999);
     endDate = new Date(moment(endDate).add(3, 'days'));
-    this.props.fetchBookings(startDate, endDate);
+    this.fetch(startDate, endDate);
+    console.error('on date changing', startDate, endDate);
     this.setState({
       bookings: {},
       start: startDate,
@@ -120,12 +129,11 @@ class ExternalPage extends Component {
     newStart = new Date(newStart);
     newEnd = new Date(newEnd);
 
-    this.setState({
-      start: newStart,
-      end: newEnd,
-    });
+    // this.setState({
+    //   end: newEnd,
+    // });
 
-    this.props.fetchBookings(newStart, newEnd);
+    this.fetch(newStart, newEnd);
   }
 
   render() {

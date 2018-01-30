@@ -3,11 +3,11 @@
   height: 100%;
   overflow-y: scroll; }
   .checkin-form .loading-walkins {
-    display: flex;
     align-items: center;
     padding-left: 1em;
     position: absolute;
     bottom: -5em;
+    display: none;
     width: 100%;
     background: #1e88e5;
     color: #fff;
@@ -16,7 +16,8 @@
     transition-duration: 1s;
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1); }
     .checkin-form .loading-walkins.active {
-      bottom: 0; }
+      bottom: 0;
+      display: flex; }
     .checkin-form .loading-walkins .loading-text {
       margin-left: 1em; }
   .checkin-form .summary-content {
@@ -50,8 +51,8 @@
           bottom: 125px;
           transform: scale(2); }
         .checkin-form .summary-content .summary-box.new-booking.stage-1 {
-          background-color: rgba(82, 178, 102, 0.2);
-          border: 1px solid #52B266;
+          background-color: #f1f2f4;
+          border: 1px solid #0088cc;
           cursor: auto; }
           .checkin-form .summary-content .summary-box.new-booking.stage-1:hover {
             box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 2px 32px rgba(0, 0, 0, 0.16) !important;

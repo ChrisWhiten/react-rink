@@ -1,6 +1,6 @@
 import React from 'react';
 // import EventFilter from './EventFilter';
-import locale from '../../localization/locale';
+import getLocale from '../../localization/locale';
 import './styles/TimelineFilter.css';
 
 
@@ -18,7 +18,7 @@ class TimelineFilter extends React.Component {
       selectedLocations: props.multi ? [] : null,
     };
 
-    this.locale = locale.getLocale();
+    this.locale = getLocale();
     this.handleSelectedLocationsChange = this.handleSelectedLocationsChange.bind(this);
     this.renderSelectValue = this.renderSelectValue.bind(this);
   }
@@ -49,7 +49,6 @@ class TimelineFilter extends React.Component {
 
   render() {
     let locationList = this.props.locations ? this.props.locations.items : [];
-    console.log('huh', locationList, this.props.locations);
     const options = locationList.map(l => {
       return {locationId: l.id, locationName: l.locationName};
     });

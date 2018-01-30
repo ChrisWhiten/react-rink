@@ -8,14 +8,8 @@ import {
   Tooltip,
   OverlayTrigger,
 } from 'react-bootstrap';
-import _ from 'lodash';
 
 import './styles/CheckinCounter.css';
-
-function preventLinking(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
 
 class CheckinCounter extends React.Component {
   constructor(props) {
@@ -32,6 +26,7 @@ class CheckinCounter extends React.Component {
 
   add(e) {
     e.preventDefault();
+    e.stopPropagation();
 
     if (this.state.count === this.state.max) return;
 
@@ -45,6 +40,7 @@ class CheckinCounter extends React.Component {
 
   remove(e) {
     e.preventDefault();
+    e.stopPropagation();
 
     if (this.state.count === 0) return;
 
@@ -78,7 +74,7 @@ class CheckinCounter extends React.Component {
     return (
       <div className='checkin-counter'>
         <OverlayTrigger placement='bottom' overlay={<Tooltip id='remove-tooltip'>Remove person</Tooltip>}>
-          <div className={removeClass} onClick={preventLinking} onClick={this.remove}>
+          <div className={removeClass} onClick={this.remove}>
             <Remove className='remove-icon' />
           </div>
         </OverlayTrigger>
@@ -88,7 +84,7 @@ class CheckinCounter extends React.Component {
         </div>
 
         <OverlayTrigger placement='bottom' overlay={<Tooltip id='add-tooltip'>Add person</Tooltip>}>
-          <div className={addClass} onClick={preventLinking} onClick={this.add}>
+          <div className={addClass} onClick={this.add}>
             <Add className='add-icon' />
           </div>
         </OverlayTrigger>

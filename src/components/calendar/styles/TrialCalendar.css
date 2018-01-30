@@ -99,7 +99,7 @@
   top: 150px;
   right: 0;
   overflow: hidden;
-  overflow-y: scroll !important; }
+  overflow-y: hidden; }
   .locations-wrapper.headless {
     top: 70px; }
 
@@ -119,12 +119,14 @@
   border-right: 1px solid #eaecf1;
   border-bottom: 1px solid #ccc;
   text-align: center !important;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  overflow: hidden; }
 
 .location-title {
   margin: 0;
   text-align: center !important;
-  color: #555; }
+  color: #555;
+  overflow: hidden; }
 
 .calendar-section {
   /* height seems to auto-adjust too */
@@ -141,6 +143,8 @@
   font-size: 13px;
   color: #424956;
   border-spacing: 0; }
+  .scrolling-table.slideup-active {
+    position: fixed; }
   .scrolling-table .filler-slot {
     height: 0;
     padding: 0;

@@ -100,7 +100,7 @@
   top: 150px
   right: 0
   overflow: hidden
-  overflow-y: scroll !important
+  overflow-y: hidden
 
   &.headless
     top: 70px
@@ -122,11 +122,13 @@
   border-bottom: 1px solid #ccc
   text-align: center !important
   box-sizing: border-box
+  overflow: hidden
 
 .location-title
   margin: 0
   text-align: center !important
   color: #555
+  overflow: hidden
 
 .calendar-section
   /* height seems to auto-adjust too */
@@ -143,6 +145,9 @@
   font-size: 13px
   color: #424956
   border-spacing: 0
+
+  &.slideup-active
+    position: fixed
 
   .filler-slot
     height: 0

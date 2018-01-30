@@ -5,6 +5,8 @@
     padding-top: 0; }
   .external-list .external-list-date-container {
     margin: 0 .5em; }
+    .external-list .external-list-date-container.slideup-open {
+      position: fixed; }
 
 .location-bookings {
   display: flex;

@@ -72,9 +72,8 @@ const endpoints = {
       });
   },
 
-  getBookings2: (start, end) => {
-    const calendar = generateCalendar(start, end);
-    return api.getBookings2(start, end, calendar)
+  getBookings2: (start, end, isWalkins) => {
+    return api.getBookings2(start, end, isWalkins)
       .then(bookings => {
         bookings.forEach(location => {
           const updatedBookings = generateCalendar(start, end);

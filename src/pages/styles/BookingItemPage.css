@@ -29,7 +29,7 @@
         font-size: 1.5em;
         font-weight: 500; }
     .booking-item-page .booking-item-content .section {
-      max-width: 720px;
+      /*max-width: 720px*/
       width: 100%;
       border: 1px solid #aaa;
       margin: 1em;
@@ -101,9 +101,12 @@
   padding: .5em; }
   .action-bar-column .action-bar {
     display: flex;
-    flex-direction: row; }
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center; }
     .action-bar-column .action-bar .action-bar-button {
-      margin: .5em; }
+      margin: .5em;
+      min-width: 200px; }
 
 .booking-item-summary .booking-item {
   display: flex;

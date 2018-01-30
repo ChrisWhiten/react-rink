@@ -6,7 +6,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import {Link} from 'react-router';
-import locale from '../localization/locale';
+import getLocale from '../localization/locale';
 import Tabs from './tabs/Tabs';
 
 import './styles/Header.css';
@@ -14,7 +14,7 @@ import './styles/Header.css';
 class Header extends React.Component {
   constructor() {
     super();
-    this.locale = locale.getLocale();
+    this.locale = getLocale();
   }
 
   render() {

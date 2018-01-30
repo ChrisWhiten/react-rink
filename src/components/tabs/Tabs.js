@@ -6,14 +6,14 @@ import {Tabs as MaterialTabs, Tab} from 'material-ui/Tabs';
 import EventIcon from 'material-ui/svg-icons/action/event';
 import Schedule from 'material-ui/svg-icons/action/schedule';
 import EventSeat from 'material-ui/svg-icons/action/event-seat';
-import locale from '../../localization/locale';
+import getLocale from '../../localization/locale';
 
 import './styles/Tabs.css';
 
 class Tabs extends React.Component {
   constructor(props) {
     super(props);
-    this.locale = locale.getLocale();
+    this.locale = getLocale();
   }
 
   render() {

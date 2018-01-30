@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import _ from 'lodash';
 import CircularProgress from 'material-ui/CircularProgress';
 import AddPaymentModal from '../components/booking/AddPaymentModal';
 import CancelBookingModal from '../components/booking/CancelBookingModal';
@@ -328,7 +327,7 @@ class BookingItemPage extends Component {
               <ContactPhone />
             </div>
             <div className='phone-content'>
-              { b.leaderPhone || 'Not available' }
+              { b.leaderPhoneNumber || 'Not available' }
             </div>
           </div>
         </div>
@@ -412,7 +411,7 @@ class BookingItemPage extends Component {
 
                 <div className='summary-detail'>
                   <ContactPhone className='summary-detail-icon' />
-                  <h5>{b.leaderPhone || 'Not available'}</h5>
+                  <h5>{b.leaderPhoneNumber || 'Not available'}</h5>
                 </div>
               </div>
             </div>

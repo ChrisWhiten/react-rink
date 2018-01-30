@@ -5,6 +5,9 @@ import SlideUp from './SlideUp';
 import CheckinForm from './CheckinForm';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Modal,
+} from 'react-bootstrap';
 import './styles/CheckIn.css';
 
 class CheckIn extends React.Component {
@@ -69,21 +72,6 @@ class CheckIn extends React.Component {
             locations={this.props.locations}
           />
         </SlideUp>
-        {/* <SlideUp
-          screenHeight={this.props.screenHeight}
-          active={this.state.showSlotSlideup}
-          onCancel={this._slideupCancel.bind(this)}
-        > */}
-          {/* <BookingSummaryForm
-            updateBooking={this.props.updateBooking}
-            location={this.state.selectedLocation}
-            booking={this.state.selectedSlot}
-            onRequestClose={this.summarySlideupCancel}
-            router={this.props.router}
-            requestNewBooking={this.openNewBookingForm}
-            createBooking={this.props.createBooking}
-          /> */}
-        {/* </SlideUp> */}
       </div>
     );
   }

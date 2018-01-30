@@ -1,6 +1,6 @@
 import {
   FETCHING_SCHEDULE,
-  GET_SCHEDULE_ERROR,
+  GET_SCHEDULES_ERROR,
   FETCH_SCHEDULE_SUCCESS,
 } from '../constants/actionTypes';
 
@@ -15,7 +15,7 @@ export default function schedule(state = initialState, action) {
       return Object.assign({}, state, {
         isFetching: true,
       });
-    case GET_SCHEDULE_ERROR:
+    case GET_SCHEDULES_ERROR:
       console.log('no error handling right now...');
       return Object.assign({}, state, {
         isFetching: false,
