@@ -11,6 +11,27 @@
     flex-wrap: wrap
     justify-content: center
 
+    .summary-form-notes-section
+      width: 100%
+      padding: 0 2em
+
+      .summary-form-item-notes
+        .notes-name-header
+          background-color: #eee
+          padding: .5em
+          color: #333
+
+    .summary-form-actions-section
+      display: flex
+      border-top: 1px solid #aaa
+      justify-content: flex-end
+      width: 100%
+      padding: .5em
+
+      .summary-action-button
+        padding: 0 .5em
+
+
     .summary-box
       width: 300px
       height: 250px
@@ -27,18 +48,25 @@
         transform: translateY(-1px)
         cursor: pointer
 
+        &.block-card
+          transform: none
+          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 2px 32px rgba(0, 0, 0, 0.16) !important
+          cursor: default
+
+      &.block-off
+        background-color: #f54
       &.new-booking
         background-color: #52B266
 
-        .new-booking-text
-          color: #fff
-          margin-top: 1em
+      .new-booking-text
+        color: #fff
+        margin-top: 1em
 
-        .new-booking-icon
-          color: #fff !important
-          position: absolute
-          bottom: 125px
-          transform: scale(2)
+      .new-booking-icon
+        color: #fff !important
+        position: absolute
+        bottom: 125px
+        transform: scale(2)
 
 
 

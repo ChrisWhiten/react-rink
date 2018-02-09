@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
   store.dispatch(fetchWalkins());
 } else {
   setTimeout(() => {
-    store.dispatch(fetchWalkins());
+    // store.dispatch(fetchWalkins());
   }, 10000);
 }
 // store.dispatch(fetchInvitations());

@@ -46,6 +46,11 @@
         flex-direction: column;
         border-bottom: 1px solid rgba(0, 0, 0, 0.12);
         padding: 1.5em; }
+        .booking-item-page .booking-item-content .section .summary-details .summary-header {
+          display: flex;
+          margin-bottom: 1em; }
+          .booking-item-page .booking-item-content .section .summary-details .summary-header .add-payment-button {
+            margin-left: auto; }
         .booking-item-page .booking-item-content .section .summary-details .summary-detail {
           display: inline-flex;
           flex-direction: row;
@@ -54,6 +59,11 @@
             margin-right: 1em;
             margin-left: .5em;
             color: #a4a4a4 !important; }
+        .booking-item-page .booking-item-content .section .summary-details .notes-section {
+          /*padding-bottom: 1em*/
+          background-color: #fff;
+          border: 1px solid #aaa;
+          border-radius: 4px; }
 
 .booking-item-header .title-section {
   text-transform: capitalize;

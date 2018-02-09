@@ -4,7 +4,6 @@ import Close from 'material-ui/svg-icons/navigation/close';
 import NoteAdd from 'material-ui/svg-icons/content/add-box';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
-import SlideUp from './SlideUp';
 import BookingForm from './BookingForm';
 import classNames from 'classnames';
 import moment from 'moment';
@@ -45,6 +44,7 @@ class CheckInForm extends React.Component {
   }
 
   onBookingCreated() {
+    console.error('booking created!!!');
     this.setState({
       showBookingSlideup: false,
       stage: 0,
@@ -52,7 +52,6 @@ class CheckInForm extends React.Component {
   }
 
   createNewBooking(newBooking, slot, cb) {
-
     this.props.createSlot(slot.availabilitySlot, (err, newSlot) => {
 
       this.props.createBooking(newBooking, newSlot, (createBookingError, createdBooking) => {
@@ -60,9 +59,8 @@ class CheckInForm extends React.Component {
         if (createBookingError) {
           console.error('but an error was thrown!', createBookingError);
         }
-        cb(createdBooking);
 
-        this.props.onRequestClose();
+        cb(createdBooking);
       });
     });
   }
@@ -253,6 +251,18 @@ class CheckInForm extends React.Component {
       },
     );
 
+    if (this.state.showBookingSlideup) {
+      return (
+        <BookingForm
+          location={locationObj}
+          slot={this.state.newBookingTimeslot}
+          onRequestClose={this.summarySlideupCancel}
+          onBookingCreated={this.summarySlideupCancel}
+          createBooking={this.createNewBooking}
+        />
+      );
+    }
+
     return (
       <div className='checkin-form'>
         <div className='checkin-form-header'>
@@ -278,20 +288,6 @@ class CheckInForm extends React.Component {
           <CircularProgress size={20} thickness={1.75} color='white' />
           <h5 className='loading-text'>Fetching nearby bookings...</h5>
         </div>
-
-        <SlideUp
-          screenHeight={this.props.screenHeight}
-          active={this.state.showBookingSlideup}
-          onCancel={this.cancelBookingSlideup.bind(this)}
-        >
-          <BookingForm
-            location={locationObj}
-            slot={this.state.newBookingTimeslot}
-            onRequestClose={this.summarySlideupCancel}
-            onBookingCreated={this.onBookingCreated}
-            createBooking={this.createNewBooking}
-          />
-        </SlideUp>
       </div>
     );
   }

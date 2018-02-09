@@ -3,6 +3,7 @@ import BookingItemPage from '../pages/BookingItemPage';
 import {
   fetchBooking,
   updateBooking,
+  addNoteToBooking,
 } from '../actions';
 
 
@@ -20,6 +21,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     updateBooking: (booking, cb) => {
       dispatch(updateBooking(booking, cb));
     },
+    addNote: (id, note, cb) => {
+      dispatch(addNoteToBooking(id, note, cb));
+    }
   }
 };
 

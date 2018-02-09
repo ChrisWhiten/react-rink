@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import CircularProgress from 'material-ui/CircularProgress';
 import AddPaymentModal from '../components/booking/AddPaymentModal';
+import AddNoteModal from '../components/booking/AddNoteModal';
+import Note from '../components/booking/Note';
 import CancelBookingModal from '../components/booking/CancelBookingModal';
 import DateAndTimeSection from '../components/calendar/DateAndTimeSection';
 import UncancelBookingModal from '../components/booking/UncancelBookingModal';
@@ -10,9 +12,9 @@ import ContactMail from 'material-ui/svg-icons/communication/email';
 import AttachMoney from 'material-ui/svg-icons/editor/attach-money';
 import People from 'material-ui/svg-icons/social/people';
 import Block from 'material-ui/svg-icons/content/block';
+import Pencil from 'material-ui/svg-icons/editor/mode-edit';
 import RaisedButton from 'material-ui/RaisedButton';
 import ContactPhone from 'material-ui/svg-icons/communication/phone';
-// import Subheader from 'material-ui/Subheader';
 import EventIcon from 'material-ui/svg-icons/action/event';
 
 import Divider from 'material-ui/Divider';
@@ -32,8 +34,13 @@ class BookingItemPage extends Component {
       isUpdating: false,
       showCancelModal: false,
       showUncancelModal: false,
+      showAddNoteModal: false,
     };
 
+    this.deleteNote = this.deleteNote.bind(this);
+    this.showAddNoteModal = this.showAddNoteModal.bind(this);
+    this.hideAddNoteModal = this.hideAddNoteModal.bind(this);
+    this.addNote = this.addNote.bind(this);
     this.showPaymentModal = this.showPaymentModal.bind(this);
     this.hidePaymentModal = this.hidePaymentModal.bind(this);
     this.addPayment = this.addPayment.bind(this);
@@ -82,6 +89,18 @@ class BookingItemPage extends Component {
     });
   }
 
+  showAddNoteModal() {
+    this.setState({
+      showAddNoteModal: true,
+    });
+  }
+
+  hideAddNoteModal() {
+    this.setState({
+      showAddNoteModal: false,
+    });
+  }
+
   showEditParticipantsModal() {
     this.setState({
       showParticipantsModal: true,
@@ -98,6 +117,10 @@ class BookingItemPage extends Component {
     this.setState({
       showAddPaymentModal: false,
     });
+  }
+
+  deleteNote() {
+    console.error('should delete note');
   }
 
   uncancelBooking() {
@@ -154,6 +177,19 @@ class BookingItemPage extends Component {
     }, (updatedBooking) => {
       this.setState({
         showParticipantsModal: false,
+        isUpdating: false,
+      });
+    });
+  }
+
+  addNote(note) {
+    this.setState({
+      isUpdating: true,
+    });
+
+    this.props.addNote(this.props.booking.item.id, note, (updatedBooking) => {
+      this.setState({
+        showAddNoteModal: false,
         isUpdating: false,
       });
     });
@@ -296,6 +332,28 @@ class BookingItemPage extends Component {
     );
   }
 
+  renderNotes(b) {
+    if (!b.notes || b.notes.length === 0) {
+      return (
+        <div className='notes-section'>
+          <div className='no-notes'>
+            No notes
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className='notes-section'>
+        {
+          b.notes.map(n => {
+            return <Note deleteNote={this.deleteNote} note={n} key={`note-${n.noteId}`}/>
+          })
+        }
+      </div>
+    );
+  }
+
   renderContactInfo(b) {
     // email, phone number
     return (
@@ -353,6 +411,9 @@ class BookingItemPage extends Component {
       return null;
     }
 
+
+    console.error('render', b);
+
     const l = {
       locationName: b.locationName,
     };
@@ -368,7 +429,7 @@ class BookingItemPage extends Component {
 
     return (
       <div className='booking-item-page'>
-        <DateAndTimeSection location={l} booking={b} />
+        <DateAndTimeSection location={l} time={b.start} slotCount={b.slotCount} />
         <Col sm={6} md={6} xs={12} smOffset={3} mdOffset={3}>
           <div className='booking-item-content'>
             <div className='item-title'>
@@ -415,13 +476,33 @@ class BookingItemPage extends Component {
                 </div>
               </div>
             </div>
+
+            <div className='notes section'>
+              <div className='summary-details'>
+                <div className='summary-header'>
+                  <h4>Notes</h4>
+                  <div className='add-payment-button action-bar-button'>
+                    <RaisedButton
+                      onClick={this.showAddNoteModal}
+                      labelColor='#fff'
+                      label="Add Note"
+                      backgroundColor='#0088cc'
+                      icon={<Pencil color='#fff' />}
+                    />
+                  </div>
+                </div>
+                { this.renderNotes(b) }
+              </div>
+            </div>
           </div>
         </Col>
         <Col sm={12} md={12} xs={12} className='action-bar-column'>
           <Divider />
           { this.renderActionBar(b) }
         </Col>
+
         { this.renderHistory(b) }
+        <AddNoteModal isUpdating={this.state.isUpdating} onSubmit={this.addNote} show={this.state.showAddNoteModal} hide={this.hideAddNoteModal} />
         <AddPaymentModal isUpdating={this.state.isUpdating} onSubmit={this.addPayment} show={this.state.showAddPaymentModal} hide={this.hidePaymentModal} />
         <EditParticipantsModal booking={this.props.booking} isUpdating={this.state.isUpdating} onSubmit={this.editParticipantCount} show={this.state.showParticipantsModal} hide={this.hideEditParticipantsModal} />
         <CancelBookingModal isUpdating={this.state.isUpdating} onSubmit={this.cancelBooking} show={this.state.showCancelModal} hide={this.hideCancelBookingModal} />

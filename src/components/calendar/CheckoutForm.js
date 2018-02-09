@@ -15,6 +15,23 @@ import NumberOfGuestsSection from './NumberOfGuestsSection';
 
 import './styles/CheckoutForm.css';
 
+function getAvailableSlotCount(slot) {
+  let availableSlotCount = slot.availabilitySlot.totalSlots;
+    if (slot.availabilitySlot.bookings) {
+      slot.availabilitySlot.bookings.forEach(b => {
+        availableSlotCount -= b.slotCount;
+      });
+    }
+
+    if (slot.availabilitySlot.blocks) {
+      slot.availabilitySlot.blocks.forEach(b => {
+        availableSlotCount -= b.slotCount;
+      });
+    }
+
+    return availableSlotCount;
+}
+
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +39,7 @@ class CheckoutForm extends React.Component {
     this.state = {
       active: false,
       cost: 0,
+      guestCount: 0,
       showSnackbar: false,
       snackbarMessage: '',
     };
@@ -40,6 +58,7 @@ class CheckoutForm extends React.Component {
   onGuestCountChange(guestCount) {
     this.setState({
       cost: guestCount * 2400,
+      guestCount,
     });
   }
 
@@ -146,9 +165,14 @@ class CheckoutForm extends React.Component {
       return;
     }
 
+    // TODO: use rules instead
+    const forcePrePay = this.state.guestCount > 10;
+
+    const func = forcePrePay ? this.props.stripe.createToken : () => Promise.resolve('fake token');
+
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
-    this.props.stripe.createToken({name: 'Jenny Rosen'}).then(({token}) => {
+    func({name: 'Jenny Rosen'}).then(({token}) => {
       console.log('Received Stripe token:', token);
 
       // this isn't the same thing, but hacking it together to get the flow right.
@@ -179,19 +203,19 @@ class CheckoutForm extends React.Component {
 
   render() {
     let slotCount = 0;
-    if (this.props.booking && this.props.booking.availabilitySlot) {
-      slotCount = this.props.booking.availabilitySlot.totalSlots;
 
-      if (this.props.booking.availabilitySlot.bookings) {
-        this.props.booking.availabilitySlot.bookings.forEach(b => {
-          slotCount -= b.slotCount;
-        });
-      }
+    if (this.props.booking && this.props.booking.availabilitySlot) {
+      slotCount = getAvailableSlotCount(this.props.booking);
     }
 
+    // TODO: use rules instead
+    const forcePrePay = this.state.guestCount > 10;
+
+    const proposedTime = this.props.booking ? this.props.booking.time : '';
+    const proposedSlotCount = this.props.booking ? this.props.booking.slotCount : 0;
     return (
       <Form onSubmit={this._handleSubmit}>
-        <DateAndTimeSection location={this.props.location} booking={this.props.booking} />
+        <DateAndTimeSection location={this.props.location} time={proposedTime} slotCount={proposedSlotCount} />
         <Col sm={6} md={6} xs={12} smOffset={3} mdOffset={3} className='checkout-form-container'>
           <NumberOfGuestsSection
             ref={(guestsSection) => this.guestsSection = guestsSection}
@@ -203,9 +227,11 @@ class CheckoutForm extends React.Component {
             {/* <Checkbox>
               Yes, I have read and agree with the waiver
             </Checkbox> */}
-            <CardSection />
-            <button className='checkout-button' disabled={!this.state.cost}>Confirm order <small>(${this.renderCurrency(this.state.cost)})</small></button>
-            <div className='pay-later-button' onClick={this.payLater}><a>Or confirm now and pay on-site</a></div>
+            {
+              forcePrePay &&
+              <CardSection />
+            }
+            <button className='checkout-button' disabled={!this.state.cost}>Confirm order {forcePrePay && <small>(${this.renderCurrency(this.state.cost)})</small>}</button>
           </Col>
         </Col>
 

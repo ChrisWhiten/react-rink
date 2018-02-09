@@ -7,6 +7,21 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center; }
+    .booking-form .summary-content .summary-form-notes-section {
+      width: 100%;
+      padding: 0 2em; }
+      .booking-form .summary-content .summary-form-notes-section .summary-form-item-notes .notes-name-header {
+        background-color: #eee;
+        padding: .5em;
+        color: #333; }
+    .booking-form .summary-content .summary-form-actions-section {
+      display: flex;
+      border-top: 1px solid #aaa;
+      justify-content: flex-end;
+      width: 100%;
+      padding: .5em; }
+      .booking-form .summary-content .summary-form-actions-section .summary-action-button {
+        padding: 0 .5em; }
     .booking-form .summary-content .summary-box {
       width: 300px;
       height: 250px;
@@ -21,16 +36,22 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09), 0 4px 40px rgba(0, 0, 0, 0.24) !important;
         transform: translateY(-1px);
         cursor: pointer; }
+        .booking-form .summary-content .summary-box:hover.block-card {
+          transform: none;
+          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 2px 32px rgba(0, 0, 0, 0.16) !important;
+          cursor: default; }
+      .booking-form .summary-content .summary-box.block-off {
+        background-color: #f54; }
       .booking-form .summary-content .summary-box.new-booking {
         background-color: #52B266; }
-        .booking-form .summary-content .summary-box.new-booking .new-booking-text {
-          color: #fff;
-          margin-top: 1em; }
-        .booking-form .summary-content .summary-box.new-booking .new-booking-icon {
-          color: #fff !important;
-          position: absolute;
-          bottom: 125px;
-          transform: scale(2); }
+      .booking-form .summary-content .summary-box .new-booking-text {
+        color: #fff;
+        margin-top: 1em; }
+      .booking-form .summary-content .summary-box .new-booking-icon {
+        color: #fff !important;
+        position: absolute;
+        bottom: 125px;
+        transform: scale(2); }
   .booking-form .booking-form-header {
     background-color: #0088cc;
     width: 100%;

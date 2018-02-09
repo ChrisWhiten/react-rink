@@ -1,0 +1,20 @@
+.summary-box.block-card .title-section {
+  text-transform: capitalize;
+  text-align: center;
+  margin-top: 1.5em; }
+  .summary-box.block-card .title-section .title {
+    color: #f54; }
+
+.summary-box.block-card .img-section {
+  width: 100%; }
+  .summary-box.block-card .img-section .blocked-slot-avatar {
+    display: block !important;
+    margin: auto;
+    width: 48px !important;
+    height: 48px !important;
+    color: black; }
+
+.summary-box.block-card .delete-section {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 0.5em; }

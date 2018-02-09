@@ -7,13 +7,13 @@ import './styles/DateAndTimeSection.css';
 class DateAndTimeSection extends React.Component {
   render() {
     const where = this.props.location ? this.props.location.locationName : '';
-    const date = this.props.booking ? moment(this.props.booking.time || this.props.booking.start).format('dddd, MMM Do, YYYY') : '';
-    const smallerDate = this.props.booking ? moment(this.props.booking.time || this.props.booking.start).format('MMM Do') : '';
-    const time = this.props.booking ? moment(this.props.booking.time || this.props.booking.start).format('LT') : '';
+    const date = this.props.time ? moment(this.props.time).format('dddd, MMM Do, YYYY') : '';
+    const smallerDate = this.props.time ? moment(this.props.time).format('MMM Do') : '';
+    const time = this.props.time ? moment(this.props.time).format('LT') : '';
     const showGuestsSection = !!this.props.showGuestsSection;
     let guestsText = '';
-    if (this.props.booking) {
-      guestsText = this.props.booking.slotCount === 1 ? '1 person' : `${this.props.booking.slotCount} people`;
+    if (this.props.slotCount) {
+      guestsText = this.props.slotCount === 1 ? '1 person' : `${this.props.slotCount} people`;
     }
 
     return (

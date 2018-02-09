@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import moment from 'moment';
 import BookingPanel from './BookingPanel';
-import SlideUp from './SlideUp';
-import BookingForm from './BookingForm';
 import BookingSummaryForm from './BookingSummaryForm';
 import CheckIn from './CheckIn';
 import NewSlotModal from './NewSlotModal';
 import CircularProgress from 'material-ui/CircularProgress';
 import People from 'material-ui/svg-icons/social/people';
 import classNames from 'classnames';
+import {
+  Modal,
+} from 'react-bootstrap';
 import './styles/TrialCalendar.css';
 
 class AvailabilityList extends React.Component {
@@ -154,11 +155,12 @@ class AvailabilityList extends React.Component {
       },
     };
 
-    if (slot.availabilitySlot.bookings && slot.availabilitySlot.bookings.length > 0) {
-      newState.showSlotSlideup = true;
-    } else {
-      newState.showBookingSlideup = true;
-    }
+    // if (slot.availabilitySlot.bookings && slot.availabilitySlot.bookings.length > 0) {
+    //   newState.showSlotSlideup = true;
+    // } else {
+    //   newState.showBookingSlideup = true;
+    // }
+    newState.showSlotSlideup = true;
 
     this.setState(newState);
   }
@@ -171,6 +173,7 @@ class AvailabilityList extends React.Component {
 
   _renderAvailabilitySlot(slot, locationName, locationId) {
     const bookings = slot.availabilitySlot.bookings ? slot.availabilitySlot.bookings.filter(b => !b.isCancelled) : [];
+    const blocks = slot.availabilitySlot.blocks ? slot.availabilitySlot.blocks : [];
     bookings.sort((a, b) => {
       return b.slotCount - a.slotCount;
     });
@@ -178,6 +181,11 @@ class AvailabilityList extends React.Component {
     let availableCount = slot.availabilitySlot.totalSlots;
     let totalBookingCount = 0;
     bookings.forEach(b => {
+      availableCount -= b.slotCount;
+      totalBookingCount += b.slotCount;
+    });
+
+    blocks.forEach(b => {
       availableCount -= b.slotCount;
       totalBookingCount += b.slotCount;
     });
@@ -358,7 +366,8 @@ class AvailabilityList extends React.Component {
       },
     );
 
-    const slideupActive = this.state.showBookingSlideup || this.state.showSlotSlideup || (this.refs.checkIn && this.refs.checkIn.state.showCheckinSlideup);
+    // TODO: this is probably only useful if we don't use a modal...
+    const slideupActive = false;//this.state.showBookingSlideup || this.state.showSlotSlideup || (this.refs.checkIn && this.refs.checkIn.state.showCheckinSlideup);
     const tableClass = classNames(
       'scrolling-table', {
         'slideup-active': slideupActive,
@@ -414,36 +423,23 @@ class AvailabilityList extends React.Component {
         >
           <BookingPanel booking={this.state.selectedSlot} onRequestClose={this._handleClose.bind(this)} />
         </Dialog>
-
-        <SlideUp
-          screenHeight={this.state.screenHeight}
-          active={this.state.showBookingSlideup}
-          onCancel={this._slideupCancel.bind(this)}
-          zIndex={7}
-        >
-          <BookingForm
-            location={this.state.selectedLocation}
-            slot={this.state.selectedSlot}
-            onRequestClose={this._slideupCancel.bind(this)}
-            onBookingCreated={this.onBookingCreated}
-            createBooking={this.props.createBooking}
-          />
-        </SlideUp>
-        <SlideUp
-          screenHeight={this.state.screenHeight}
-          active={this.state.showSlotSlideup}
-          onCancel={this._slideupCancel.bind(this)}
+        <Modal
+          dialogClassName='booking-summary-modal'
+          show={this.state.showSlotSlideup}
+          onHide={this._slideupCancel.bind(this)}
         >
           <BookingSummaryForm
             updateBooking={this.props.updateBooking}
             location={this.state.selectedLocation}
+            locations={this.props.locations}
             booking={this.state.selectedSlot}
             onRequestClose={this.summarySlideupCancel}
             router={this.props.router}
             requestNewBooking={this.openNewBookingForm}
             createBooking={this.props.createBooking}
+            createBlock={this.props.createBlock}
           />
-        </SlideUp>
+        </Modal>
         <CheckIn
           ref='checkIn'
           screenHeight={this.state.screenHeight}

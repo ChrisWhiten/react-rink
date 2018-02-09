@@ -252,3 +252,6 @@
 
 table tr:nth-child(4n) td.time-container {
   border-bottom: 1px solid #EAECF1; }
+
+.booking-summary-modal {
+  width: 90vw; }

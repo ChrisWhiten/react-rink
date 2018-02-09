@@ -6,6 +6,7 @@ import {
   updateBooking,
   createSlot,
   fetchWalkins,
+  createBlock,
 } from '../actions';
 
 
@@ -25,6 +26,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     fetchWalkins: () => {
       dispatch(fetchWalkins());
+    },
+    createBlock: (block, slot, cb) => {
+      dispatch(createBlock(block, slot, cb));
     },
   };
 };

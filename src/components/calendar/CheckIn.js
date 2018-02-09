@@ -1,7 +1,6 @@
 import moment from 'moment';
 import PersonPinCircle from 'material-ui/svg-icons/maps/person-pin-circle';
 import Close from 'material-ui/svg-icons/navigation/close';
-import SlideUp from './SlideUp';
 import CheckinForm from './CheckinForm';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -54,11 +53,10 @@ class CheckIn extends React.Component {
           </div>
           <div className='check-in-text'>{checkinText}</div>
         </div>
-        <SlideUp
-          screenHeight={this.props.screenHeight}
-          active={this.state.showCheckinSlideup}
-          onCancel={this.cancelCheckinSlideup}
-          zIndex={7}
+        <Modal
+          show={this.state.showCheckinSlideup}
+          onHide={this.cancelCheckinSlideup}
+          dialogClassName='checkin-form-modal'
         >
           <CheckinForm
             screenHeight={this.props.screenHeight}
@@ -66,12 +64,12 @@ class CheckIn extends React.Component {
             router={this.props.router}
             updateBooking={this.props.updateBooking}
             onRequestClose={this.toggleCheckin}
-            onBookingCreated={this.onBookingCreated}
+            // onBookingCreated={this.onBookingCreated}
             createBooking={this.props.createBooking}
             createSlot={this.props.createSlot}
             locations={this.props.locations}
           />
-        </SlideUp>
+        </Modal>
       </div>
     );
   }

@@ -1,0 +1,77 @@
+@import '../../../styles/variables';
+
+.block-off-form-container
+  margin-top: 1em
+  display: flex
+  flex-direction: column
+
+  .confirm-block-button
+    display: flex
+    justify-content: flex-end
+    margin-bottom: 2em
+    margin-right: 1em
+
+.block-off-form
+  width: 100%
+  height: 100%
+  overflow-y: scroll
+
+  .block-off-form-content
+    /*width: 80%*/
+    width: 100%
+
+    .payment-button
+      background: blue
+      color: white
+      margin: .5em
+
+  .block-off-form-header
+    background-color: $primaryColour
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+    .block-off-form-header-title
+      color: #fff
+      margin: .5em
+      font-size: 1.5em
+
+    .block-off-form-header-close
+      margin-left: auto
+      border: 1px solid #fff
+      display: flex
+      border-radius: 100%
+      margin-right: .5em
+      opacity: 0.9
+
+      &:hover
+        cursor: pointer
+        opacity: 1
+
+      &.invisible
+        visibility: hidden
+        cursor: default
+
+      .block-off-form-close-icon
+        color: #fff !important
+        height: 32px !important
+        width: 32px !important
+
+.creation-container
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  .creation-text
+    margin-top: 2em
+
+  .creation-status
+    margin-top: 2em
+    display: flex
+    justify-content: center
+
+    .block-off-completed-checkmark
+      color: #52B266 !important
+      height: 96px !important
+      width: 96px !important

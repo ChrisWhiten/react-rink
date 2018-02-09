@@ -49,6 +49,10 @@ import {
   CREATING_SLOT_ERROR,
   SLOT_CREATED,
   CREATING_SLOT,
+  ADDING_NOTE_TO_BOOKING,
+  TRY_CREATE_BLOCK,
+  BLOCK_CREATED,
+  CREATE_BLOCK_ERROR,
 } from './constants/actionTypes';
 import moment from 'moment';
 
@@ -473,6 +477,29 @@ function fetchBookingError(id, err) {
   return { type: FETCH_BOOKING_ERROR, id, err };
 }
 
+export function addNoteToBooking(id, note, cb) {
+  return function(dispatch) {
+    dispatch(tryAddNoteToBooking(id, note));
+
+    return api.addNoteToBooking(id, note)
+      .then(json => {
+        console.log('got json', json);
+        dispatch(bookingUpdated(json));
+        if (cb) {
+          cb(json);
+        }
+      })
+      .catch(err => {
+        console.error('Error adding note to booking', err);
+        dispatch(updateBooking({id}, err));
+      })
+  }
+}
+
+function tryAddNoteToBooking(id, note) {
+  return { type: ADDING_NOTE_TO_BOOKING, id, note};
+}
+
 export function updateBooking(booking, cb) {
   return function(dispatch) {
     dispatch(tryUpdateBooking(booking));
@@ -487,7 +514,7 @@ export function updateBooking(booking, cb) {
       })
       .catch(err => {
         console.error('Error updating booking', err);
-        dispatch(updateBookingError(booking));
+        dispatch(updateBookingError(booking, err));
       });
   };
 }
@@ -496,12 +523,44 @@ function tryUpdateBooking(booking) {
   return { type: BOOKING_UPDATING, booking };
 }
 
-function updateBookingError(booking) {
-  return { type: BOOKING_UPDATE_ERROR, booking };
+function updateBookingError(booking, error) {
+  return { type: BOOKING_UPDATE_ERROR, booking, error };
 }
 
 function bookingUpdated(booking) {
   return { type: BOOKING_UPDATED, booking };
+}
+
+export function createBlock(block, slot, cb) {
+  return function(dispatch) {
+    dispatch(tryCreateBlock());
+
+    return api.createBlock(block)
+      .then(json => {
+        dispatch(blockCreated(block, slot));
+
+        if (cb) {
+          cb(null, json);
+        }
+      })
+      .catch(err => {
+        console.error('error creating block', err);
+        dispatch(createBlockError(err));
+        cb(err, null);
+      });
+  }
+}
+
+function tryCreateBlock(block) {
+  return { type: TRY_CREATE_BLOCK, block };
+}
+
+function blockCreated(block, slot) {
+  return { type: BLOCK_CREATED, block, slot };
+}
+
+function createBlockError(error) {
+  return { type: CREATE_BLOCK_ERROR, error };
 }
 
 export function createBooking(booking, slot, cb) {

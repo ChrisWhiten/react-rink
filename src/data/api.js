@@ -50,13 +50,18 @@ function createBookingsList(start, end, events, timestep) {
 }
 
 const endpoints = {
+  addNoteToBooking: (id, note) => {
+    return api.addNoteToBooking(id, note);
+  },
   createSlot: (slot) => {
     return api.createSlot(slot);
   },
   fetchBooking: (id) => {
     return api.fetchBooking(id);
   },
-
+  createBlock: (block) => {
+    return api.createBlock(block);
+  },
   createBooking: (booking) => {
     return api.createBooking(booking);
   },

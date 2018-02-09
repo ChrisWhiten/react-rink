@@ -18,7 +18,7 @@ class CardSection extends React.Component {
     const style = {
       base: {
         color: '#32325d',
-        lineHeight: '18px',
+        // lineHeight: '18px',
         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
         fontSmoothing: 'antialiased',
         fontSize: '16px',

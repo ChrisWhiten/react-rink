@@ -1,0 +1,35 @@
+.booking-note {
+  padding: .5em;
+  border-bottom: 1px solid #aaa; }
+  .booking-note:hover .booking-header .delete-note {
+    display: block; }
+  .booking-note:last-child {
+    border-bottom: none; }
+  .booking-note .note-details {
+    margin-left: .5em;
+    font-size: 1.2em; }
+  .booking-note .booking-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; }
+    .booking-note .booking-header .note-author {
+      font-weight: bold;
+      display: inline-block;
+      font-size: 12px; }
+    .booking-note .booking-header .note-wrote {
+      font-weight: normal;
+      display: inline-block;
+      font-size: 11px;
+      /* TODO: make this look better later */
+      /*display: none*/
+      color: #aaa;
+      margin-left: 1em; }
+    .booking-note .booking-header .delete-note {
+      display: none; }
+      .booking-note .booking-header .delete-note:hover {
+        cursor: pointer; }
+      .booking-note .booking-header .delete-note .delete-note-icon {
+        color: #a4a4a4 !important; }
+        .booking-note .booking-header .delete-note .delete-note-icon:hover {
+          color: #666 !important; }

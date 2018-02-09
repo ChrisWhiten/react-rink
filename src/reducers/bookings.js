@@ -5,6 +5,7 @@ import {
   BOOKING_CREATED,
   CREATE_BOOKING_ERROR,
   SLOT_CREATED,
+  BLOCK_CREATED,
 } from '../constants/actionTypes';
 import moment from 'moment';
 
@@ -29,9 +30,41 @@ export default function bookings(state = initialState, action) {
         isFetching: false,
       });
 
+    case BLOCK_CREATED:
+      // TODO this is almost identical to BOOKING_CREATED. refactor opportunity
+      const newBlock = action.block;
+      const stateWithNewBlock = Object.assign({}, state);
+      let newBlockTime = moment(newBlock.start);
+      newBlockTime.set({
+        second: 0,
+        millisecond: 0,
+      });
+
+      stateWithNewBlock.items.forEach(location => {
+        if (location.locationID === newBlock.locationId) {
+          location.bookings.forEach(s => {
+            let slotTime = moment(s.time);
+            slotTime.set({
+              second: 0,
+              millisecond: 0,
+            });
+            if (s.availabilitySlot && ((s.availabilitySlot.id === action.slot.id) || newBlockTime.isSame(slotTime))) {
+              if (!s.availabilitySlot.blocks) {
+                s.availabilitySlot.blocks = [];
+              }
+
+              s.availabilitySlot.blocks.push(newBlock);
+            }
+          });
+        }
+      });
+
+      stateWithNewBlock.error = null;
+
+      return stateWithNewBlock;
+
     case BOOKING_CREATED:
       const newBooking = action.booking;
-      const slot = action.slot;
       const newState = Object.assign({}, state);
       let newBookingTime = moment(newBooking.start);
       newBookingTime.set({
@@ -47,7 +80,7 @@ export default function bookings(state = initialState, action) {
               second: 0,
               millisecond: 0,
             });
-            if (s.availabilitySlot && ((s.availabilitySlot.id === slot.id) || newBookingTime.isSame(slotTime))) {
+            if (s.availabilitySlot && ((s.availabilitySlot.id === action.slot.id) || newBookingTime.isSame(slotTime))) {
               if (!s.availabilitySlot.bookings) {
                 s.availabilitySlot.bookings = [];
               }

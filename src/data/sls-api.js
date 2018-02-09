@@ -1,8 +1,20 @@
 import axios from 'axios';
-const apiSource = process.env.NODE_ENV === 'production' || true ? 'https://qrd5rbrpj3.execute-api.us-west-2.amazonaws.com/Stage' : 'http://localhost:3000';
+const apiSource = process.env.NODE_ENV === 'production' /*|| true*/ ? 'https://qrd5rbrpj3.execute-api.us-west-2.amazonaws.com/Stage' : 'http://localhost:3000';
 const cancellationTokens = [];
 let latestStart;
 const endpoints = {
+  addNoteToBooking: (id, note) => {
+    return axios.post(`${apiSource}/bookings/${id}/notes`, { note })
+      .then(res => {
+        console.error('note added?', res);
+        return res.data.Attributes;
+      })
+      .catch(err => {
+        console.error('error adding note', err);
+        throw err;
+      });
+  },
+
   createSlot: (slot) => {
     return axios.post(`${apiSource}/slots`, slot)
       .then(res => {
@@ -37,6 +49,18 @@ const endpoints = {
       })
       .catch(err => {
         console.error('error updating booking', err);
+        throw err;
+      });
+  },
+
+  createBlock: (block) => {
+    return axios.post(`${apiSource}/blocks`, block)
+      .then(res => {
+        console.log('created block', res);
+        return res.data;
+      })
+      .catch(err => {
+        console.error('error creating block', err);
         throw err;
       });
   },

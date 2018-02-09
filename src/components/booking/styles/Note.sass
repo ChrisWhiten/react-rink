@@ -1,0 +1,43 @@
+.booking-note
+  padding: .5em
+  border-bottom: 1px solid #aaa
+
+  &:hover
+    .booking-header
+      .delete-note
+        display: block
+
+  &:last-child
+    border-bottom: none
+
+  .note-details
+    margin-left: .5em
+    font-size: 1.2em
+  .booking-header
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+
+    .note-author
+      font-weight: bold
+      display: inline-block
+      font-size: 12px
+    .note-wrote
+      font-weight: normal
+      display: inline-block
+      font-size: 11px
+      /* TODO: make this look better later */
+      /*display: none*/
+      color: #aaa
+      margin-left: 1em
+
+    .delete-note
+      display: none
+      &:hover
+        cursor: pointer
+
+      .delete-note-icon
+        color: #a4a4a4 !important
+        &:hover
+          color: #666 !important
