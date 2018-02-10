@@ -15,6 +15,30 @@
     color: black; }
 
 .summary-box.block-card .delete-section {
+  top: 0;
+  right: 0;
   position: absolute;
-  bottom: 0;
-  margin-bottom: 0.5em; }
+  padding: .2em;
+  margin: .5em;
+  color: #333; }
+  .summary-box.block-card .delete-section:hover {
+    cursor: pointer; }
+
+.summary-box.block-card .confirm-delete-block-msg {
+  margin-top: 5em; }
+
+.summary-box.block-card .deleting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .summary-box.block-card .deleting-container .deleting-text {
+    margin-top: 2em; }
+  .summary-box.block-card .deleting-container .deleting-status {
+    margin-top: 2em;
+    display: flex;
+    justify-content: center; }
+
+.summary-box.block-card .confirm-delete-action-section {
+  display: flex; }
+  .summary-box.block-card .confirm-delete-action-section .confirm-delete-action-button {
+    margin: 0.5em; }

@@ -76,6 +76,7 @@ class BookingPage extends Component {
           locations={this.props.locations}
           fetchWalkins={this.props.fetchWalkins}
           createBlock={this.props.createBlock}
+          deleteBlock={this.props.deleteBlock}
         />
       </div>
     );

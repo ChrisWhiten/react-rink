@@ -19,6 +19,34 @@
         color: black
 
     .delete-section
+      top: 0
+      right: 0
       position: absolute
-      bottom: 0
-      margin-bottom: 0.5em
+      padding: .2em
+      margin: .5em
+      color: #333
+
+      &:hover
+        cursor: pointer
+
+    .confirm-delete-block-msg
+      margin-top: 5em
+
+    .deleting-container
+      display: flex
+      flex-direction: column
+      align-items: center
+
+      .deleting-text
+        margin-top: 2em
+
+      .deleting-status
+        margin-top: 2em
+        display: flex
+        justify-content: center
+
+    .confirm-delete-action-section
+      display: flex
+
+      .confirm-delete-action-button
+        margin: 0.5em

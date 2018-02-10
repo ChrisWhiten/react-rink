@@ -59,6 +59,9 @@ const endpoints = {
   fetchBooking: (id) => {
     return api.fetchBooking(id);
   },
+  deleteBlock: (blockId) => {
+    return api.deleteBlock(blockId);
+  },
   createBlock: (block) => {
     return api.createBlock(block);
   },

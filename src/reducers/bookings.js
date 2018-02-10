@@ -6,6 +6,7 @@ import {
   CREATE_BOOKING_ERROR,
   SLOT_CREATED,
   BLOCK_CREATED,
+  BLOCK_DELETED,
 } from '../constants/actionTypes';
 import moment from 'moment';
 
@@ -29,6 +30,25 @@ export default function bookings(state = initialState, action) {
       return Object.assign({}, state, {
         isFetching: false,
       });
+
+    case BLOCK_DELETED:
+      const block = action.block;
+      const slot = action.slot;
+      console.log('hmmm', action);
+      const stateWithBlockDeleted = Object.assign({}, state);
+
+      stateWithBlockDeleted.items.forEach(location => {
+        if (location.locationID === block.locationId) {
+          location.bookings.forEach(s => {
+            console.log('oh?', s);
+            if (s.id === slot.id) {
+              s.availabilitySlot.blocks = s.availabilitySlot.blocks.filter(b => b.id !== block.id);
+            }
+          });
+        }
+      });
+
+      return stateWithBlockDeleted;
 
     case BLOCK_CREATED:
       // TODO this is almost identical to BOOKING_CREATED. refactor opportunity

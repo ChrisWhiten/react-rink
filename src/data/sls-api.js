@@ -53,6 +53,18 @@ const endpoints = {
       });
   },
 
+  deleteBlock: (blockId) => {
+    return axios.delete(`${apiSource}/blocks/${blockId}`)
+      .then(res => {
+        console.log('block deleted', res);
+        return res.data;
+      })
+      .catch(err => {
+        console.error('error deleting block', err);
+        throw err;
+      });
+  },
+
   createBlock: (block) => {
     return axios.post(`${apiSource}/blocks`, block)
       .then(res => {

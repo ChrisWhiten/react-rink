@@ -438,6 +438,7 @@ class AvailabilityList extends React.Component {
             requestNewBooking={this.openNewBookingForm}
             createBooking={this.props.createBooking}
             createBlock={this.props.createBlock}
+            deleteBlock={this.props.deleteBlock}
           />
         </Modal>
         <CheckIn

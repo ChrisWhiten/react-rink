@@ -7,6 +7,7 @@ import {
   createSlot,
   fetchWalkins,
   createBlock,
+  deleteBlock,
 } from '../actions';
 
 
@@ -30,6 +31,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     createBlock: (block, slot, cb) => {
       dispatch(createBlock(block, slot, cb));
     },
+    deleteBlock: (block, slot, cb) => {
+      dispatch(deleteBlock(block, slot, cb));
+    }
   };
 };
 

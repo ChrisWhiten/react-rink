@@ -53,6 +53,9 @@ import {
   TRY_CREATE_BLOCK,
   BLOCK_CREATED,
   CREATE_BLOCK_ERROR,
+  TRY_DELETE_BLOCK,
+  BLOCK_DELETED,
+  DELETE_BLOCK_ERROR,
 } from './constants/actionTypes';
 import moment from 'moment';
 
@@ -529,6 +532,38 @@ function updateBookingError(booking, error) {
 
 function bookingUpdated(booking) {
   return { type: BOOKING_UPDATED, booking };
+}
+
+export function deleteBlock(block, slot, cb) {
+  return function(dispatch) {
+    dispatch(tryDeleteBlock());
+
+    return api.deleteBlock(block.id)
+      .then(json => {
+        dispatch(blockDeleted(block, slot));
+
+        if (cb) {
+          cb(null);
+        }
+      })
+      .catch(err => {
+        console.error('error deleting block', err);
+        dispatch(deleteBlockError(err));
+        cb(err);
+      });
+  }
+}
+
+function tryDeleteBlock(block) {
+  return { type: TRY_DELETE_BLOCK, block };
+}
+
+function blockDeleted(block, slot) {
+  return { type: BLOCK_DELETED, block, slot };
+}
+
+function deleteBlockError(error) {
+  return { type: DELETE_BLOCK_ERROR, error };
 }
 
 export function createBlock(block, slot, cb) {

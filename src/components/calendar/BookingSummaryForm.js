@@ -181,7 +181,7 @@ class BookingSummaryForm extends React.Component {
           }
           {
             blocks.map(b => {
-              return <BlockCard key={b.id} block={b} deleteBlock={this.props.deleteBlock} />;
+              return <BlockCard slot={this.props.booking} key={b.id} block={b} deleteBlock={this.props.deleteBlock} />;
             })
           }
           { this.renderActionsSection() }
