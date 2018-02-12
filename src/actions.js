@@ -56,6 +56,9 @@ import {
   TRY_DELETE_BLOCK,
   BLOCK_DELETED,
   DELETE_BLOCK_ERROR,
+  CHANGE_DATE_INTERVAL,
+  CHANGE_SELECTED_LOCATIONS,
+  LOAD_PAGE,
 } from './constants/actionTypes';
 import moment from 'moment';
 
@@ -63,6 +66,39 @@ import api from './data/api';
 
 // action creators
 ////////////////////
+
+// load a new page
+export function loadPage(pageName) {
+  return (dispatch) => {
+    dispatch(loadingPage(pageName));
+  };
+}
+
+function loadingPage(pageName) {
+  return { type: LOAD_PAGE, pageName }
+}
+
+// selected locations
+export function changeSelectedLocations(locations) {
+  return (dispatch) => {
+    dispatch(changingSelectedLocations(locations));
+  };
+}
+
+function changingSelectedLocations(locations) {
+  return { type: CHANGE_SELECTED_LOCATIONS, locations };
+}
+
+// date interval
+export function changeDateInterval(interval) {
+  return (dispatch) => {
+    dispatch(changingDateInterval(interval));
+  };
+}
+
+function changingDateInterval(dateInterval) {
+  return { type: CHANGE_DATE_INTERVAL, dateInterval }
+}
 
 // slots
 export function createSlot(slot, cb) {

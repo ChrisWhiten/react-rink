@@ -56,7 +56,7 @@ class ExternalPage extends Component {
     this.fetch = _.debounce(props.fetchBookings, 300);
     this.onDateChange = this.onDateChange.bind(this);
     this.loadMore = this.loadMore.bind(this);
-    this.onLocationsSelectedChanged = this.onLocationsSelectedChanged.bind(this);
+    props.loadPage('external');
   }
 
   componentDidMount() {
@@ -90,12 +90,6 @@ class ExternalPage extends Component {
         end: newEnd,
       });
     }
-  }
-
-  onLocationsSelectedChanged(location) {
-    this.setState({
-      filteredLocation: location,
-    });
   }
 
   onDateChange(start) {
@@ -146,12 +140,14 @@ class ExternalPage extends Component {
           multiSelect={false}
           locations={this.props.locations}
           onDateChange={this.onDateChange.bind(this)}
-          onLocationsSelectedChanged={this.onLocationsSelectedChanged}
+          changeSelectedLocations={this.props.changeSelectedLocations}
+          changeDateInterval={this.props.changeDateInterval}
+          filterOptions={this.props.filterOptions}
         />
         <ExternalList
           headless={isHeadless}
           locations={this.props.locations}
-          filteredLocation={this.state.filteredLocation}
+          filteredLocation={this.props.locations.selectedLocations}
           loadMore={this.loadMore}
           isFetching={this.props.bookings.isFetching}
           createBooking={this.props.createBooking}

@@ -1,0 +1,7 @@
+.notes-name-header {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #ffa000;
+  background-color: #ddd; }
+  .notes-name-header .notes-name {
+    color: #666; }

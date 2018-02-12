@@ -15,7 +15,6 @@ class TimelineFilter extends React.Component {
 
     this.state = {
       selected: null,
-      selectedLocations: props.multi ? [] : null,
     };
 
     this.locale = getLocale();
@@ -31,8 +30,7 @@ class TimelineFilter extends React.Component {
   }
 
   handleSelectedLocationsChange = (selectedLocations) => {
-    this.setState({ selectedLocations });
-    this.props.onLocationsSelectedChanged(selectedLocations);
+    this.props.changeSelectedLocations(selectedLocations);
   }
 
   renderSelectValue = (option) => {
@@ -40,11 +38,16 @@ class TimelineFilter extends React.Component {
       return option.locationName;
     }
 
-    if (this.state.selectedLocations.indexOf(option) < 2) {
+    if (!Array.isArray(this.props.locations.selectedLocations)) {
+      // haven't updated the value yet, should render empty
+      return null;
+    }
+
+    if (this.props.locations.selectedLocations.indexOf(option) < 2) {
       return option.locationName;
     }
 
-    return <span>{this.state.selectedLocations.length - 2} more</span>
+    return <span>{this.props.locations.length - 2} more</span>
   }
 
   render() {
@@ -85,7 +88,7 @@ class TimelineFilter extends React.Component {
           className='location-picker-select'
           valueKey='locationId'
           labelKey='locationName'
-          value={this.state.selectedLocations}
+          value={this.props.locations.selectedLocations}
           placeholder='Select a location'
           onChange={this.handleSelectedLocationsChange}
           options={options}

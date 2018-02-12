@@ -8,6 +8,9 @@ import {
   fetchWalkins,
   createBlock,
   deleteBlock,
+  changeDateInterval,
+  changeSelectedLocations,
+  loadPage,
 } from '../actions';
 
 
@@ -33,7 +36,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     deleteBlock: (block, slot, cb) => {
       dispatch(deleteBlock(block, slot, cb));
-    }
+    },
+    changeDateInterval: (interval) => {
+      dispatch(changeDateInterval(interval));
+    },
+    changeSelectedLocations: (locations) => {
+      dispatch(changeSelectedLocations(locations));
+    },
+    loadPage: (pageName) => {
+      dispatch(loadPage(pageName));
+    },
   };
 };
 
@@ -42,6 +54,7 @@ const mapStateToProps = (state) => {
     bookings: state.bookings,
     walkins: state.walkins,
     locations: state.locations,
+    filterOptions: state.filterOptions,
   };
 };
 

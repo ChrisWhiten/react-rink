@@ -335,10 +335,10 @@ class BookingItemPage extends Component {
   renderNotes(b) {
     if (!b.notes || b.notes.length === 0) {
       return (
-        <div className='notes-section'>
-          <div className='no-notes'>
-            No notes
-          </div>
+        <div className='no-notes-section'>
+          <h5 className='no-notes'>
+            This booking has no notes
+          </h5>
         </div>
       );
     }

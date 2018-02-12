@@ -9,11 +9,84 @@
   justify-content: space-between; }
   .filter-menu.headless {
     top: 0; }
+  .filter-menu .arrow-box {
+    display: flex;
+    background: #005b9b;
+    border: 2px solid #5cb8ff; }
+    .filter-menu .arrow-box:before {
+      bottom: calc(100% - 2px);
+      left: 85%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: rgba(92, 184, 255, 0);
+      border-bottom-color: #5cb8ff;
+      border-width: 33px;
+      margin-left: -33px; }
+    .filter-menu .arrow-box:after {
+      bottom: calc(100% - 2px);
+      left: 85%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: rgba(0, 91, 155, 0);
+      border-bottom-color: #005b9b;
+      border-width: 30px;
+      margin-left: -30px; }
+  .filter-menu .date-interval-options {
+    display: flex;
+    position: absolute;
+    top: 70px;
+    right: 0px;
+    flex-direction: row;
+    background-color: #005b9b; }
+    .filter-menu .date-interval-options .date-interval-option {
+      display: flex;
+      flex-direction: column;
+      width: 5em;
+      align-items: center;
+      justify-content: center; }
+      .filter-menu .date-interval-options .date-interval-option:hover {
+        background-color: #0088cc;
+        cursor: pointer; }
+    .filter-menu .date-interval-options .date-count {
+      font-size: 2em;
+      color: #fff; }
+    .filter-menu .date-interval-options .date-text {
+      font-size: 1em;
+      color: #fff; }
+    .filter-menu .date-interval-options.hidden {
+      display: none; }
   .filter-menu .filter-menu-balance {
+    display: flex;
+    justify-content: flex-end;
     width: 15em; }
     @media screen and (max-width: 850px) {
       .filter-menu .filter-menu-balance {
         display: none; } }
+    .filter-menu .filter-menu-balance .date-interval-picker {
+      display: flex;
+      flex-direction: column;
+      width: 5em;
+      align-items: center;
+      justify-content: center; }
+      .filter-menu .filter-menu-balance .date-interval-picker:hover {
+        cursor: pointer;
+        background-color: #005b9b; }
+      .filter-menu .filter-menu-balance .date-interval-picker.hidden {
+        display: none; }
+      .filter-menu .filter-menu-balance .date-interval-picker .date-count {
+        font-size: 2em;
+        color: #fff; }
+      .filter-menu .filter-menu-balance .date-interval-picker .date-text {
+        font-size: 1em;
+        color: #fff; }
 
 .filter-list-icon-svg {
   color: white !important;

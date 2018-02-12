@@ -3,6 +3,9 @@ import ExternalPage from '../pages/ExternalPage';
 import {
   fetchBookings,
   createBooking,
+  changeDateInterval,
+  changeSelectedLocations,
+  loadPage,
 } from '../actions';
 
 
@@ -14,6 +17,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     createBooking: (booking, slot, cb) => {
       dispatch(createBooking(booking, slot, cb));
     },
+    changeDateInterval: (interval) => {
+      dispatch(changeDateInterval(interval));
+    },
+    changeSelectedLocations: (locations) => {
+      dispatch(changeSelectedLocations(locations));
+    },
+    loadPage: (pageName) => {
+      dispatch(loadPage(pageName));
+    },
   }
 };
 
@@ -21,6 +33,7 @@ const mapStateToProps = (state) => {
   return {
     bookings: state.bookings,
     locations: state.locations,
+    filterOptions: state.filterOptions,
   };
 };
 

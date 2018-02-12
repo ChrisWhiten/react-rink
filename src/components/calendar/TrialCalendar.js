@@ -187,7 +187,6 @@ class AvailabilityList extends React.Component {
 
     blocks.forEach(b => {
       availableCount -= b.slotCount;
-      totalBookingCount += b.slotCount;
     });
 
     const slotClass = classNames(
@@ -332,7 +331,7 @@ class AvailabilityList extends React.Component {
     const bookings = Object.assign({}, this.props.bookings);
     const isFetching = bookings.isFetching;
 
-    if (this.props.filteredLocationList.length > 0) {
+    if (Array.isArray(this.props.filteredLocationList) && this.props.filteredLocationList.length > 0) {
       const ids = this.props.filteredLocationList.map(l => l.locationId);
       bookings.items = bookings.items.filter(location => {
         return (ids.indexOf(location.locationID) > -1);

@@ -7,6 +7,7 @@ import walkins from './walkins';
 import schedules from './schedules';
 import schedule from './schedule';
 import locations from './locations.js';
+import filterOptions from './filterOptions.js';
 
 const rootReducer = combineReducers({
 	invitations,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 	locations,
 	booking,
 	walkins,
+	filterOptions,
 });
 
 export default rootReducer;

@@ -19,7 +19,40 @@ class FilterMenu extends React.Component {
     this.state = {
       date: new Date(),
       drawerOpen: false,
+      showDateIntervalOptions: false,
     };
+
+    this.toggleDateIntervalOptions = this.toggleDateIntervalOptions.bind(this);
+    this.pickOneDay = this.pickOneDay.bind(this);
+    this.pickThreeDays = this.pickThreeDays.bind(this);
+    this.pickSevenDays = this.pickSevenDays.bind(this);
+  }
+
+  pickOneDay() {
+    this.props.changeDateInterval(1);
+    this.setState({
+      showDateIntervalOptions: false,
+    });
+  }
+
+  pickThreeDays() {
+    this.props.changeDateInterval(3);
+    this.setState({
+      showDateIntervalOptions: false,
+    });
+  }
+
+  pickSevenDays() {
+    this.props.changeDateInterval(7);
+    this.setState({
+      showDateIntervalOptions: false,
+    });
+  }
+
+  toggleDateIntervalOptions() {
+    this.setState({
+      showDateIntervalOptions: !this.state.showDateIntervalOptions,
+    });
   }
 
   _handleDatePickerOpen() {
@@ -81,13 +114,25 @@ class FilterMenu extends React.Component {
       },
     );
 
+    const dateIntevalOptionsClass = classNames(
+      'date-interval-options', {
+        hidden: !this.state.showDateIntervalOptions,
+      },
+    );
+
+    const dateIntervalPickerClass = classNames(
+      'date-interval-picker', {
+        hidden: !this.props.multiSelect,
+      },
+    );
+
     return (
       <div className={filterMenuClass}>
         <TimelineFilter
           inverted={true}
           multi={this.props.multiSelect}
           locations={this.props.locations}
-          onLocationsSelectedChanged={this.props.onLocationsSelectedChanged}
+          changeSelectedLocations={this.props.changeSelectedLocations}
         />
         <div className='filter-date-picker'>
           <div className='filter-chevron' onClick={this._backOne.bind(this)}>
@@ -109,7 +154,44 @@ class FilterMenu extends React.Component {
           </div>
         </div>
 
-        <div className='filter-menu-balance' />
+        <div className='filter-menu-balance'>
+          <div className={dateIntervalPickerClass} onClick={this.toggleDateIntervalOptions}>
+            <div className='date-count'>
+              {this.props.filterOptions.dateInterval}
+            </div>
+            <div className='date-text'>
+              {this.props.filterOptions.dateInterval === 1 ? 'day' : 'days'}
+            </div>
+          </div>
+        </div>
+        <div className={dateIntevalOptionsClass}>
+          <div className='arrow-box'>
+            <div className='one-day date-interval-option' onClick={this.pickOneDay}>
+              <div className='date-count'>
+                1
+              </div>
+              <div className='date-text'>
+                day
+              </div>
+            </div>
+            <div className='three-days date-interval-option' onClick={this.pickThreeDays}>
+              <div className='date-count'>
+                3
+              </div>
+              <div className='date-text'>
+                days
+              </div>
+            </div>
+            <div className='seven-days date-interval-option' onClick={this.pickSevenDays}>
+              <div className='date-count'>
+                7
+              </div>
+              <div className='date-text'>
+                days
+              </div>
+            </div>
+          </div>
+        </div>
         <MaterialDatePicker
           id='booking-date-picker'
           style={{display: 'none'}}

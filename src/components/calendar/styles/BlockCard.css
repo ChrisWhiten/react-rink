@@ -14,6 +14,10 @@
     height: 48px !important;
     color: black; }
 
+.summary-box.block-card .reason-section {
+  margin-top: .5em;
+  width: calc(100% - 2em); }
+
 .summary-box.block-card .delete-section {
   top: 0;
   right: 0;

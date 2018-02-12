@@ -4,7 +4,7 @@ import BookingForm from './BookingForm';
 import BlockOff from './BlockOff';
 import BookingCard from './BookingCard';
 import BlockCard from './BlockCard';
-import Note from '../booking/Note';
+import Notes from './Notes';
 import Close from 'material-ui/svg-icons/navigation/close';
 import NoteAdd from 'material-ui/svg-icons/content/add-box';
 import Block from 'material-ui/svg-icons/content/block';
@@ -19,12 +19,28 @@ class BookingSummaryForm extends React.Component {
 
     this.state = {
       newBooking: false,
+      blockOff: false,
+      notesMode: false,
     };
 
     this.newBooking = this.newBooking.bind(this);
     this.cancelNewBooking = this.cancelNewBooking.bind(this);
     this.blockOff = this.blockOff.bind(this);
     this.cancelBlockOff = this.cancelBlockOff.bind(this);
+    this.showNotes = this.showNotes.bind(this);
+    this.hideNotes = this.hideNotes.bind(this);
+  }
+
+  showNotes() {
+    this.setState({
+      notesMode: true,
+    });
+  }
+
+  hideNotes() {
+    this.setState({
+      notesMode: false,
+    });
   }
 
   blockOff() {
@@ -66,7 +82,13 @@ class BookingSummaryForm extends React.Component {
     </div>
   }
 
-  renderActionsSection() {
+  renderActionsSection(bookings) {
+    const noteCount = bookings.reduce((count, booking) => {
+      return count + booking.notes.length;
+    }, 0);
+
+    const noteLabel = noteCount > 0 ? `Notes (${noteCount})` : 'Notes';
+
     return <div className='summary-form-actions-section'>
       <div className='summary-action-button'>
         <RaisedButton
@@ -79,51 +101,14 @@ class BookingSummaryForm extends React.Component {
       </div>
       <div className='summary-action-button'>
         <RaisedButton
-          // onClick={this.showAddNoteModal}
+          onClick={this.showNotes}
           labelColor='#fff'
-          label="Add Note"
+          label={noteLabel}
           backgroundColor='#0088cc'
           icon={<Pencil color='#fff' />}
         />
       </div>
     </div>
-  }
-
-  renderNotesSection(bookings) {
-    let notes = {};
-
-    bookings.map(b => {
-      if (b.notes && b.notes.length > 0) {
-        const name = `${b.leaderFirstName} ${b.leaderLastName}`;
-        notes[name] = b.notes;
-      }
-      return null;
-    });
-
-    if (Object.keys(notes).length === 0) {
-      return null;
-    }
-
-    return (
-      <div className='summary-form-notes-section'>
-        {Object.keys(notes).map(name => {
-          return (
-            <div className='summary-form-item-notes' key={`summary-form-item-notes-${name}`}>
-              <div className='notes-name-header' key={`notes-name-header-${name}`}>
-                <h4 className='notes-name'>
-                  {name} Notes
-                </h4>
-              </div>
-              <div className='notes-list' key={`notes-list-${name}`}>
-                {notes[name].map(note => {
-                  return <Note note={note} key={note.noteId} />
-                })}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
   }
 
   render() {
@@ -143,7 +128,7 @@ class BookingSummaryForm extends React.Component {
           onBookingCreated={this.cancelNewBooking}
           createBooking={this.props.createBooking}
         />
-      )
+      );
     }
 
     if (this.state.blockOff) {
@@ -155,7 +140,18 @@ class BookingSummaryForm extends React.Component {
           onRequestClose={this.cancelBlockOff}
           createBlock={this.props.createBlock}
         />
-      )
+      );
+    }
+
+    if (this.state.notesMode) {
+      return (
+        <Notes
+          bookings={bookings}
+          onRequestClose={this.hideNotes}
+          location={this.props.location}
+          slot={this.props.booking}
+        />
+      );
     }
 
     return (
@@ -184,8 +180,7 @@ class BookingSummaryForm extends React.Component {
               return <BlockCard slot={this.props.booking} key={b.id} block={b} deleteBlock={this.props.deleteBlock} />;
             })
           }
-          { this.renderActionsSection() }
-          { this.renderNotesSection(bookings) }
+          { this.renderActionsSection(bookings) }
         </div>
       </div>
     );

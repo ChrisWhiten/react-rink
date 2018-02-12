@@ -23,7 +23,7 @@ class BookingPage extends Component {
     }
 
     this.fetch = _.debounce(props.fetchBookings, 300);
-    this.onLocationsSelectedChanged = this.onLocationsSelectedChanged.bind(this);
+    props.loadPage('booking');
   }
 
   componentDidMount() {
@@ -37,13 +37,6 @@ class BookingPage extends Component {
     this.fetch(start, end);
   }
 
-  onLocationsSelectedChanged(locations) {
-    console.error('locations', locations);
-    this.setState({
-      filteredLocationList: locations,
-    });
-  }
-
   _onDateChange(startDate) {
     startDate.setHours(0, 0, 0, 0);
     let endDate = new Date(startDate);
@@ -54,6 +47,7 @@ class BookingPage extends Component {
 
   render() {
     const isHeadless = this.props.location.query && ('headless' in this.props.location.query) && (this.props.location.query.headless === 'true');
+    console.log('right...', this.props.locations.selectedLocations);
     return (
       <div>
         <FilterMenu
@@ -61,12 +55,14 @@ class BookingPage extends Component {
           multiSelect={true}
           locations={this.props.locations}
           onDateChange={this._onDateChange.bind(this)}
-          onLocationsSelectedChanged={this.onLocationsSelectedChanged}
+          changeSelectedLocations={this.props.changeSelectedLocations}
+          changeDateInterval={this.props.changeDateInterval}
+          filterOptions={this.props.filterOptions}
         />
 
         <TrialCalendar
           headless={isHeadless}
-          filteredLocationList={this.state.filteredLocationList}
+          filteredLocationList={this.props.locations.selectedLocations}
           createSlot={this.props.createSlot}
           walkins={this.props.walkins}
           updateBooking={this.props.updateBooking}
