@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog from 'material-ui/Dialog';
 import moment from 'moment';
-import BookingPanel from './BookingPanel';
 import BookingSummaryForm from './BookingSummaryForm';
 import CheckIn from './CheckIn';
 import NewSlotModal from './NewSlotModal';
@@ -338,16 +336,6 @@ class AvailabilityList extends React.Component {
       });
     }
 
-    let foo = {
-      padding: 0,
-      margin: 0,
-      maxWidth: '450px',
-    };
-
-    let baz = {
-      maxWidth: '450px',
-    };
-
     const locationCount = bookings.items.length || 1; // don't divide by 0
     this.itemWidth = `${100/locationCount}%`;
 
@@ -411,17 +399,6 @@ class AvailabilityList extends React.Component {
             </div>
           </div>
       }
-
-        <Dialog
-          className='booking-dialog'
-          bodyStyle={foo}
-          contentStyle={baz}
-          modal={true}
-          open={this.state.open}
-          onRequestClose={this._handleClose.bind(this)}
-        >
-          <BookingPanel booking={this.state.selectedSlot} onRequestClose={this._handleClose.bind(this)} />
-        </Dialog>
         <Modal
           dialogClassName='booking-summary-modal'
           show={this.state.showSlotSlideup}

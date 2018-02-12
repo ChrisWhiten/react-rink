@@ -47,12 +47,13 @@ class BookingPage extends Component {
 
   render() {
     const isHeadless = this.props.location.query && ('headless' in this.props.location.query) && (this.props.location.query.headless === 'true');
-    console.log('right...', this.props.locations.selectedLocations);
+    console.log('selected locations', this.props.locations.selectedLocations);
+
     return (
       <div>
         <FilterMenu
           headless={isHeadless}
-          multiSelect={true}
+          multiSelect={this.props.filterOptions.dateInterval === 1}
           locations={this.props.locations}
           onDateChange={this._onDateChange.bind(this)}
           changeSelectedLocations={this.props.changeSelectedLocations}

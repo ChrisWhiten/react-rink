@@ -9,7 +9,7 @@ import moment from 'moment';
 import {
   FormGroup,
   FormControl,
-  ControlLabel,
+  // ControlLabel,
   OverlayTrigger,
   Tooltip,
 } from 'react-bootstrap';
