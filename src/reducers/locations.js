@@ -49,8 +49,11 @@ export default function locations(state = initialState, action) {
             // pick the first from the list, since we will only render 1 location
             changedSelectedLocation = state.selectedLocations[0];
           } else {
-            // we need null for the location picker
-            changedSelectedLocation = null;
+            // we need a value for the location picker
+            changedSelectedLocation = {
+              locationId: state.items[0].id,
+              locationName: state.items[0].locationName,
+            };
           }
         }
       } else {

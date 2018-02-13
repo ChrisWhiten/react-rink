@@ -8,7 +8,6 @@ import './styles/ExternalPage.css';
 
 function processBookingsByDate(bookings) {
   console.error('bookings', bookings);
-  // console.error('bookings processing...', bookings);
   // the root object should be an object
   // date -> location array.
   // each location array item should be a list of bookings + locationname + locationid,
@@ -33,6 +32,7 @@ function processBookingsByDate(bookings) {
     });
   });
 
+  console.error('processed', processed);
   return processed;
 }
 
@@ -138,6 +138,7 @@ class ExternalPage extends Component {
         <FilterMenu
           headless={isHeadless}
           multiSelect={false}
+          showDateIntervalPicker={false}
           locations={this.props.locations}
           onDateChange={this.onDateChange.bind(this)}
           changeSelectedLocations={this.props.changeSelectedLocations}

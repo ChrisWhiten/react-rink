@@ -142,7 +142,9 @@
   background-color: #f9f9fb;
   font-size: 13px;
   color: #424956;
-  border-spacing: 0; }
+  border-spacing: 0;
+  /* this hidden overflow is needed to events overlapping midnight to throw off table alignment */
+  overflow: hidden; }
   .scrolling-table.slideup-active {
     position: fixed; }
   .scrolling-table .filler-slot {

@@ -22,6 +22,7 @@ class BookingPage extends Component {
       filteredLocationList: []
     }
 
+    this.dateIntervalChange = this.dateIntervalChange.bind(this);
     this.fetch = _.debounce(props.fetchBookings, 300);
     props.loadPage('booking');
   }
@@ -33,6 +34,8 @@ class BookingPage extends Component {
     let end = new Date();
     end.setHours(23, 59, 59, 999); // end of day
 
+    end.setDate(end.getDate() + this.props.filterOptions.dateInterval - 1); // fetch N days out???
+
     console.log('fetching bookings', start, end);
     this.fetch(start, end);
   }
@@ -42,7 +45,19 @@ class BookingPage extends Component {
     let endDate = new Date(startDate);
     console.log('fetching bookings', startDate, endDate);
     endDate.setHours(23, 59, 59, 999);
+    endDate.setDate(endDate.getDate() + this.props.filterOptions.dateInterval - 1); // fetch N days out???
     this.fetch(startDate, endDate);
+  }
+
+  dateIntervalChange(dateInterval, startDate) {
+    this.props.changeDateInterval(dateInterval);
+    if (dateInterval !== this.props.filterOptions.dateInterval) {
+      startDate.setHours(0, 0, 0, 0);
+      let endDate = new Date(startDate);
+      endDate.setHours(23, 59, 59, 999);
+      endDate.setDate(endDate.getDate() + dateInterval - 1);
+      this.fetch(startDate, endDate);
+    }
   }
 
   render() {
@@ -54,10 +69,11 @@ class BookingPage extends Component {
         <FilterMenu
           headless={isHeadless}
           multiSelect={this.props.filterOptions.dateInterval === 1}
+          showDateIntervalPicker={true}
           locations={this.props.locations}
           onDateChange={this._onDateChange.bind(this)}
           changeSelectedLocations={this.props.changeSelectedLocations}
-          changeDateInterval={this.props.changeDateInterval}
+          changeDateInterval={this.dateIntervalChange}
           filterOptions={this.props.filterOptions}
         />
 

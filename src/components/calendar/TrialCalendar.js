@@ -10,7 +10,30 @@ import classNames from 'classnames';
 import {
   Modal,
 } from 'react-bootstrap';
+import _ from 'lodash';
 import './styles/TrialCalendar.css';
+
+function groupByDate(slots, locationId, locationName) {
+  let processed = {};
+  const grouped = _.groupBy(slots.bookings, booking => {
+    return moment(booking.time).startOf('day').format();
+  });
+
+  Object.keys(grouped).forEach(date => {
+    processed[date] = grouped[date];
+    // if (!(date in processed)) {
+    //   processed[date] = [];
+    // }
+
+    // processed[date].push({
+    //   locationName: locationName,
+    //   locationID: locationId,
+    //   bookings: grouped[date],
+    // });
+  });
+
+  return processed;
+}
 
 class AvailabilityList extends React.Component {
   constructor() {
@@ -65,11 +88,15 @@ class AvailabilityList extends React.Component {
 
       if (earliestId) {
         const slot = document.getElementById(earliestId);
-        slot.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'nearest',
-        });
+        if (slot) {
+          slot.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest',
+          });
+        } else {
+          console.error('dont forget that scrollintoview is broken');
+        }
       }
     }
   }
@@ -229,7 +256,9 @@ class AvailabilityList extends React.Component {
 
   // this nesting structure is a bit un-intuitive,
   // fix up later
-  _renderCalendarItems(bookings) {
+  _renderCalendarItemsByLocation(bookings) {
+    console.log('calendar items...', bookings);
+
     if (bookings.length < 1) return null;
     return (
       <tbody>
@@ -255,6 +284,50 @@ class AvailabilityList extends React.Component {
                       {
                         bookings[locationIdx].bookings[idx].availabilitySlot &&
                         this._renderAvailabilitySlot(bookings[locationIdx].bookings[idx], bookings[locationIdx].locationName, bookings[locationIdx].locationID)
+                      }
+                  </td>)
+                  })
+                }
+              </tr>
+            )
+          })
+        }
+      </tbody>
+    );
+  }
+
+  _renderCalenderItemsByDate(slots, locationName, locationId) {
+    console.log('slots by date...', slots);
+
+    if (Object.keys(slots).length < 1) return null;
+    let firstDayKey;
+    return (
+      <tbody>
+        <tr>
+          {
+            Object.keys(slots).map(day => {
+              if (!firstDayKey) {
+                firstDayKey = day;
+              }
+              return (<th className='filler-slot' width={this.itemWidth} key={`filler-slot-${day}`}>
+              </th>)
+            })
+          }
+        </tr>
+        {
+          Object.keys(slots[firstDayKey]).map(idx => {
+            return (
+              <tr key={`${slots[firstDayKey][idx].id}_id`}>
+                {
+                  Object.keys(slots).map(dayIdx => {
+                    return (<td className='open-spot' key={`open-spot-${dayIdx}-${idx}`} onClick={this.createNewSlotPrompt.bind(this, locationId, slots[dayIdx][idx])}>
+                      <div className='open-spot-time-label'>
+                        <span>{moment(slots[dayIdx][idx].time).format('LT')}</span>
+                      </div>
+
+                      {
+                        slots[dayIdx][idx].availabilitySlot &&
+                        this._renderAvailabilitySlot(slots[dayIdx][idx], locationName, locationId)
                       }
                   </td>)
                   })
@@ -329,15 +402,38 @@ class AvailabilityList extends React.Component {
     const bookings = Object.assign({}, this.props.bookings);
     const isFetching = bookings.isFetching;
 
-    if (Array.isArray(this.props.filteredLocationList) && this.props.filteredLocationList.length > 0) {
-      const ids = this.props.filteredLocationList.map(l => l.locationId);
+    let grouped;
+    let columnCount = 1;
+    let locationName;
+    let locationId;
+    const showByLocation = Array.isArray(this.props.filteredLocationList);
+    if (showByLocation) {
+      if (this.props.filteredLocationList.length > 0) {
+        const ids = this.props.filteredLocationList.map(l => l.locationId);
+        bookings.items = bookings.items.filter(location => {
+          return (ids.indexOf(location.locationID) > -1);
+        });
+      }
+
+      // # columns = # locations
+      columnCount = bookings.items.length || 1; // don't divide by 0
+    } else if (!showByLocation && this.props.filteredLocationList) {
+      const id = this.props.filteredLocationList.locationId;
+
       bookings.items = bookings.items.filter(location => {
-        return (ids.indexOf(location.locationID) > -1);
+        return id === location.locationID;
       });
+
+      locationName = bookings.items[0].locationName;
+      locationId = bookings.items[0].locationID;
+      grouped = groupByDate(bookings.items[0], locationId, locationName)
+      console.log('made it?', grouped);
+
+      // # columns = # days
+      columnCount = Object.keys(grouped).length || 1; // don't divide by 0
     }
 
-    const locationCount = bookings.items.length || 1; // don't divide by 0
-    this.itemWidth = `${100/locationCount}%`;
+    this.itemWidth = `${100/columnCount}%`;
 
     const locationsTableWidth = `${this.state.screenWidth - 72}px`;
 
@@ -380,10 +476,19 @@ class AvailabilityList extends React.Component {
                 <thead>
                   <tr>
                     {
-                      bookings.items.map(location => {
+                      showByLocation && bookings.items.map(location => {
                         return (
                           <th key={`location-header-${location.locationName}`} className='location-header' width={this.itemWidth}>
                             <h3 className='location-title'>{location.locationName}</h3>
+                          </th>
+                        )
+                      })
+                    }
+                    {
+                      !showByLocation && Object.keys(grouped).map(day => {
+                        return (
+                          <th key={`day-header-${day}`} className='location-header' width={this.itemWidth}>
+                            <h3 className='location-title'>{moment(day).format('ddd, MMM D')}</h3>
                           </th>
                         )
                       })
@@ -394,7 +499,8 @@ class AvailabilityList extends React.Component {
             </div>
             <div className='calendar-section' width={locationsTableWidth}>
               <table className={tableClass} width={locationsTableWidth}>
-                { this._renderCalendarItems(bookings.items) }
+                { showByLocation && this._renderCalendarItemsByLocation(bookings.items) }
+                { !showByLocation && this._renderCalenderItemsByDate(grouped, locationName, locationId)}
               </table>
             </div>
           </div>

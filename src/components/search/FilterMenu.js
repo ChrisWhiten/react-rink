@@ -29,21 +29,21 @@ class FilterMenu extends React.Component {
   }
 
   pickOneDay() {
-    this.props.changeDateInterval(1);
+    this.props.changeDateInterval(1, this.state.date);
     this.setState({
       showDateIntervalOptions: false,
     });
   }
 
   pickThreeDays() {
-    this.props.changeDateInterval(3);
+    this.props.changeDateInterval(3, this.state.date);
     this.setState({
       showDateIntervalOptions: false,
     });
   }
 
   pickSevenDays() {
-    this.props.changeDateInterval(7);
+    this.props.changeDateInterval(7, this.state.date);
     this.setState({
       showDateIntervalOptions: false,
     });
@@ -122,7 +122,7 @@ class FilterMenu extends React.Component {
 
     const dateIntervalPickerClass = classNames(
       'date-interval-picker', {
-        hidden: !this.props.multiSelect,
+        hidden: !this.props.showDateIntervalPicker,
       },
     );
 
