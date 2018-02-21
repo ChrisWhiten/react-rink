@@ -10,10 +10,8 @@ import reducer from './reducers';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-import {
-  fetchLocations,
-  fetchWalkins,
-} from './actions';
+import { fetchLocations, fetchWalkins } from './actions';
+import 'normalize.css';
 import './styles/style.css';
 
 injectTapEventPlugin({
@@ -43,7 +41,7 @@ if (process.env.NODE_ENV === 'production') {
 
 render(
   <Provider store={store}>
-      <Router routes={routes} history={browserHistory} />
+    <Router routes={routes} history={browserHistory} />
   </Provider>,
   document.getElementById('root')
 );
