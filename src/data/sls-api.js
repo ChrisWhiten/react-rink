@@ -1,10 +1,27 @@
 import axios from 'axios';
-const apiSource = process.env.NODE_ENV === 'production' /*|| true*/ ? 'https://qrd5rbrpj3.execute-api.us-west-2.amazonaws.com/Stage' : 'http://localhost:3000';
+const apiSource =
+  process.env.NODE_ENV === 'production' /*|| true*/
+    ? 'https://qrd5rbrpj3.execute-api.us-west-2.amazonaws.com/Stage'
+    : 'http://localhost:3000';
 const cancellationTokens = [];
 let latestStart;
 const endpoints = {
+  addPaymentToBooking: (id, payment) => {
+    return axios
+      .post(`${apiSource}/bookings/${id}/payments`, { payment })
+      .then(res => {
+        console.error('payment added?', res);
+        return res.data.Attributes;
+      })
+      .catch(err => {
+        console.error('error adding payment....', err);
+        throw err;
+      });
+  },
+
   addNoteToBooking: (id, note) => {
-    return axios.post(`${apiSource}/bookings/${id}/notes`, { note })
+    return axios
+      .post(`${apiSource}/bookings/${id}/notes`, { note })
       .then(res => {
         console.error('note added?', res);
         return res.data.Attributes;
@@ -15,8 +32,9 @@ const endpoints = {
       });
   },
 
-  createSlot: (slot) => {
-    return axios.post(`${apiSource}/slots`, slot)
+  createSlot: slot => {
+    return axios
+      .post(`${apiSource}/slots`, slot)
       .then(res => {
         console.error('slot created?', res);
         return res.data;
@@ -27,14 +45,13 @@ const endpoints = {
       });
   },
 
-  fetchBooking: (id) => {
-    return axios.get(`${apiSource}/bookings/${id}`)
-      .then(res => {
-        return res.data;
-      });
+  fetchBooking: id => {
+    return axios.get(`${apiSource}/bookings/${id}`).then(res => {
+      return res.data;
+    });
   },
 
-  updateBooking: (booking) => {
+  updateBooking: booking => {
     // these are unused...consider whitelisting, but not sure that we need to here.
     // console.error('update params...????', booking);
     // const bookingParams = {
@@ -42,7 +59,8 @@ const endpoints = {
     //   checkedIn: booking.checkedIn,
     // };
 
-    return axios.put(`${apiSource}/bookings/${booking.id}`, booking)//bookingParams)
+    return axios
+      .put(`${apiSource}/bookings/${booking.id}`, booking) //bookingParams)
       .then(res => {
         console.log('updated booking', res);
         return res.data.Attributes;
@@ -53,8 +71,9 @@ const endpoints = {
       });
   },
 
-  deleteBlock: (blockId) => {
-    return axios.delete(`${apiSource}/blocks/${blockId}`)
+  deleteBlock: blockId => {
+    return axios
+      .delete(`${apiSource}/blocks/${blockId}`)
       .then(res => {
         console.log('block deleted', res);
         return res.data;
@@ -65,8 +84,9 @@ const endpoints = {
       });
   },
 
-  createBlock: (block) => {
-    return axios.post(`${apiSource}/blocks`, block)
+  createBlock: block => {
+    return axios
+      .post(`${apiSource}/blocks`, block)
       .then(res => {
         console.log('created block', res);
         return res.data;
@@ -77,8 +97,9 @@ const endpoints = {
       });
   },
 
-  createBooking: (booking) => {
-    return axios.post(`${apiSource}/bookings`, booking)
+  createBooking: booking => {
+    return axios
+      .post(`${apiSource}/bookings`, booking)
       .then(res => {
         console.log('created booking', res);
         return res.data;
@@ -90,7 +111,8 @@ const endpoints = {
   },
 
   getLocations: () => {
-    return axios.get(`${apiSource}/locations`)
+    return axios
+      .get(`${apiSource}/locations`)
       .then(res => {
         return res;
       })
@@ -113,37 +135,46 @@ const endpoints = {
       }
     }
 
-    const cancellationRequestObj = isWalkins ? {} : {
-      cancelToken: new axios.CancelToken(c => {
-        cancellationTokens.push(c);
-      }),
-    };
+    const cancellationRequestObj = isWalkins
+      ? {}
+      : {
+          cancelToken: new axios.CancelToken(c => {
+            cancellationTokens.push(c);
+          })
+        };
 
-    return axios.get(`${apiSource}/slots?start=${start}&end=${end}`, cancellationRequestObj).then(res => {
-      // if another, newer request hasn't showed up since this get returned
-      if (isWalkins || (!isWalkins && start === latestStart)) {
-
-        console.debug('returning', new Date(start));
-        return res.data;
-      } else {
-        console.debug('axios race condition - cancelled', new Date(start));
-        throw new Error('cancelled');
-      }
-    }).catch(err => {
-      if (axios.isCancel(err)) {
-        console.debug('Cancelled request', new Date(start), new Date(end));
-        throw new Error('cancelled');
-      } else {
-        console.error('error getting slots', err);
-        return [];
-      }
-    });
+    return axios
+      .get(
+        `${apiSource}/slots?start=${start}&end=${end}`,
+        cancellationRequestObj
+      )
+      .then(res => {
+        // if another, newer request hasn't showed up since this get returned
+        if (isWalkins || (!isWalkins && start === latestStart)) {
+          console.debug('returning', new Date(start));
+          return res.data;
+        } else {
+          console.debug('axios race condition - cancelled', new Date(start));
+          throw new Error('cancelled');
+        }
+      })
+      .catch(err => {
+        if (axios.isCancel(err)) {
+          console.debug('Cancelled request', new Date(start), new Date(end));
+          throw new Error('cancelled');
+        } else {
+          console.error('error getting slots', err);
+          return [];
+        }
+      });
   },
 
   getSchedules: (start, end) => {
     const startTimestamp = start.getTime();
     const endTimestamp = end.getTime();
-    return fetch(`${apiSource}/schedules?start=${startTimestamp}&end=${endTimestamp}`)
+    return fetch(
+      `${apiSource}/schedules?start=${startTimestamp}&end=${endTimestamp}`
+    )
       .then(res => {
         console.log('returning schedules', res);
         return res.json();
@@ -154,9 +185,10 @@ const endpoints = {
       });
   },
 
-  createSchedule: (schedule) => {
+  createSchedule: schedule => {
     console.log('creating schedule:', schedule);
-    return axios.post(`${apiSource}/schedules`, schedule)
+    return axios
+      .post(`${apiSource}/schedules`, schedule)
       .then(response => {
         console.log('schedule created', response);
         return response;
@@ -167,8 +199,9 @@ const endpoints = {
       });
   },
 
-  updateSchedule: (schedule) => {
-    return axios.put(`${apiSource}/schedules/${schedule.id}`, schedule)
+  updateSchedule: schedule => {
+    return axios
+      .put(`${apiSource}/schedules/${schedule.id}`, schedule)
       .then(response => {
         console.log('schedule updated', response);
         return response;
@@ -179,15 +212,14 @@ const endpoints = {
       });
   },
 
-  deleteSchedule: (id) => {
-    return axios.delete(`${apiSource}/schedules/${id}`)
-      .then(res => {
-        console.log('schedule deleted', res);
-        return res;
-      });
+  deleteSchedule: id => {
+    return axios.delete(`${apiSource}/schedules/${id}`).then(res => {
+      console.log('schedule deleted', res);
+      return res;
+    });
   },
 
-  getSchedule: (id) => {
+  getSchedule: id => {
     return fetch(`${apiSource}/schedules/${id}`)
       .then(res => {
         console.log('returning schedule', res);
@@ -202,7 +234,9 @@ const endpoints = {
   getBookings: (start, end) => {
     let startTimestamp = start.getTime();
     let endTimestamp = end.getTime();
-    return fetch(`${apiSource}/bookings?start=${startTimestamp}&end=${endTimestamp}&type=calendar`)
+    return fetch(
+      `${apiSource}/bookings?start=${startTimestamp}&end=${endTimestamp}&type=calendar`
+    )
       .then(res => {
         console.log('returning?', res);
         return res.json();
@@ -241,7 +275,9 @@ const endpoints = {
   },
 
   getAvailableEvents: (start, end) => {
-    return fetch(`${apiSource}/bookings?type=calendar&start=${start}&end=${end}`)
+    return fetch(
+      `${apiSource}/bookings?type=calendar&start=${start}&end=${end}`
+    )
       .then(res => {
         console.log('returning?', res);
         return res.json();
@@ -266,7 +302,7 @@ const endpoints = {
       });
   },
 
-  getBooking: (id) => {
+  getBooking: id => {
     return null;
   }
 };

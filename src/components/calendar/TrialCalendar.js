@@ -7,16 +7,16 @@ import NewSlotModal from './NewSlotModal';
 import CircularProgress from 'material-ui/CircularProgress';
 import People from 'material-ui/svg-icons/social/people';
 import classNames from 'classnames';
-import {
-  Modal,
-} from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import _ from 'lodash';
 import './styles/TrialCalendar.css';
 
 function groupByDate(slots, locationId, locationName) {
   let processed = {};
   const grouped = _.groupBy(slots.bookings, booking => {
-    return moment(booking.time).startOf('day').format();
+    return moment(booking.time)
+      .startOf('day')
+      .format();
   });
 
   Object.keys(grouped).forEach(date => {
@@ -47,7 +47,7 @@ class AvailabilityList extends React.Component {
       showBookingSlideup: false,
       showSlotSlideup: false,
       creatingSlot: false,
-      showCreateSlotModal: false,
+      showCreateSlotModal: false
     };
 
     this.itemWidth = '100%';
@@ -71,7 +71,11 @@ class AvailabilityList extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     // scroll the earliest slot into view on data load
-    if (prevProps.bookings && prevProps.bookings.isFetching && !this.props.bookings.isFetching) {
+    if (
+      prevProps.bookings &&
+      prevProps.bookings.isFetching &&
+      !this.props.bookings.isFetching
+    ) {
       let earliest = new Date(2100, 0, 0);
       let earliestId;
       this.props.bookings.items.forEach(location => {
@@ -92,7 +96,7 @@ class AvailabilityList extends React.Component {
           slot.scrollIntoView({
             behavior: 'smooth',
             block: 'center',
-            inline: 'nearest',
+            inline: 'nearest'
           });
         } else {
           console.error('dont forget that scrollintoview is broken');
@@ -103,20 +107,20 @@ class AvailabilityList extends React.Component {
 
   createNewSlot(slot) {
     this.setState({
-      creatingSlot: true,
+      creatingSlot: true
     });
 
-    this.props.createSlot(slot, (createSlot) => {
+    this.props.createSlot(slot, createSlot => {
       this.setState({
         showCreateSlotModal: false,
-        creatingSlot: false,
+        creatingSlot: false
       });
     });
   }
 
   hideCreateSlotModal() {
     this.setState({
-      showCreateSlotModal: false,
+      showCreateSlotModal: false
     });
   }
 
@@ -126,21 +130,21 @@ class AvailabilityList extends React.Component {
     this.setState({
       showCreateSlotModal: true,
       createSlotCandidate: slot,
-      createSlotLocationId: locationId,
+      createSlotLocationId: locationId
     });
   }
 
   updateWindowDimensions() {
     this.setState({
       screenWidth: window.innerWidth,
-      screenHeight: window.innerHeight,
+      screenHeight: window.innerHeight
     });
   }
 
   onBookingCreated(newBooking, slot) {
     this.setState({
       showBookingSlideup: false,
-      showSlotSlideup: false,
+      showSlotSlideup: false
       // selectedLocation: {
       //   locationName: newBooking.locationName,
       //   locationId: newBooking.locationId,
@@ -150,13 +154,13 @@ class AvailabilityList extends React.Component {
 
   summarySlideupCancel() {
     this.setState({
-      showSlotSlideup: false,
+      showSlotSlideup: false
     });
   }
 
   _slideupCancel() {
     this.setState({
-      showBookingSlideup: false,
+      showBookingSlideup: false
     });
   }
 
@@ -165,9 +169,9 @@ class AvailabilityList extends React.Component {
       selectedSlot: slot,
       selectedLocation: {
         locationName,
-        locationId,
+        locationId
       },
-      showBookingSlideup: true,
+      showBookingSlideup: true
     });
   }
 
@@ -176,8 +180,8 @@ class AvailabilityList extends React.Component {
       selectedSlot: slot,
       selectedLocation: {
         locationName,
-        locationId,
-      },
+        locationId
+      }
     };
 
     // if (slot.availabilitySlot.bookings && slot.availabilitySlot.bookings.length > 0) {
@@ -192,13 +196,17 @@ class AvailabilityList extends React.Component {
 
   _handleClose() {
     this.setState({
-      open: false,
+      open: false
     });
   }
 
   _renderAvailabilitySlot(slot, locationName, locationId) {
-    const bookings = slot.availabilitySlot.bookings ? slot.availabilitySlot.bookings.filter(b => !b.isCancelled) : [];
-    const blocks = slot.availabilitySlot.blocks ? slot.availabilitySlot.blocks : [];
+    const bookings = slot.availabilitySlot.bookings
+      ? slot.availabilitySlot.bookings.filter(b => !b.isCancelled)
+      : [];
+    const blocks = slot.availabilitySlot.blocks
+      ? slot.availabilitySlot.blocks
+      : [];
     bookings.sort((a, b) => {
       return b.slotCount - a.slotCount;
     });
@@ -218,36 +226,47 @@ class AvailabilityList extends React.Component {
       'booking-slot',
       'sixty-mins',
       {
-        unbooked: totalBookingCount === 0,
+        unbooked: totalBookingCount === 0
       },
       {
-        booked: totalBookingCount !== 0 && totalBookingCount < slot.availabilitySlot.totalSlots,
+        booked:
+          totalBookingCount !== 0 &&
+          totalBookingCount < slot.availabilitySlot.totalSlots
       },
       {
-        full: totalBookingCount >= slot.availabilitySlot.totalSlots,
+        full: availableCount <= 0
       }
     );
 
     return (
-      <div className={slotClass} id={slot.id} onClick={this._handleOpen.bind(this, slot, locationName, locationId)}>
-        <div className='slot-details'>
-          <span className='slot-time'>
-            {moment(slot.availabilitySlot.startTime).format('LT')} - {moment(slot.availabilitySlot.startTime).add(slot.availabilitySlot.duration, 'minutes').format('LT')}
+      <div
+        className={slotClass}
+        id={slot.id}
+        onClick={this._handleOpen.bind(this, slot, locationName, locationId)}
+      >
+        <div className="slot-details">
+          <span className="slot-time">
+            {moment(slot.availabilitySlot.startTime).format('LT')} -{' '}
+            {moment(slot.availabilitySlot.startTime)
+              .add(slot.availabilitySlot.duration, 'minutes')
+              .format('LT')}
           </span>
-          <h3>{ availableCount } Available</h3>
-          <div className='slot-booking-list'>
-          {
-            bookings.length === 1 &&
-            <div className='slot-booker'>
-              {bookings[0].leaderFirstName} {bookings[0].leaderLastName} ({bookings[0].slotCount} <People className='slot-booker-icon' />)
-            </div>
-          }
-          {
-            bookings.length > 1 &&
-            <div className='slot-booker'>
-              {bookings.length} bookings ({totalBookingCount} <People className='slot-booker-icon' />)
-            </div>
-          }
+          <h3>{availableCount} Available</h3>
+          <div className="slot-booking-list">
+            {bookings.length === 1 && (
+              <div className="slot-booker">
+                {bookings[0].leaderFirstName} {bookings[0].leaderLastName} ({
+                  bookings[0].slotCount
+                }{' '}
+                <People className="slot-booker-icon" />)
+              </div>
+            )}
+            {bookings.length > 1 && (
+              <div className="slot-booker">
+                {bookings.length} bookings ({totalBookingCount}{' '}
+                <People className="slot-booker-icon" />)
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -257,85 +276,109 @@ class AvailabilityList extends React.Component {
   // this nesting structure is a bit un-intuitive,
   // fix up later
   _renderCalendarItemsByLocation(bookings) {
-    console.log('calendar items...', bookings);
-
     if (bookings.length < 1) return null;
     return (
       <tbody>
         <tr>
-          {
-            Object.keys(bookings).map(locationId => {
-              return (<th className='filler-slot' width={this.itemWidth} key={`filler-slot-${locationId}`}>
-              </th>)
-            })
-          }
-        </tr>
-        {
-          Object.keys(bookings[0].bookings).map(idx => {
+          {Object.keys(bookings).map(locationId => {
             return (
-              <tr key={`${bookings[0].bookings[idx].id}_id`}>
-                {
-                  Object.keys(bookings).map(locationIdx => {
-                    return (<td className='open-spot' key={`open-spot-${locationIdx}-${idx}`} onClick={this.createNewSlotPrompt.bind(this, bookings[locationIdx].locationID, bookings[locationIdx].bookings[idx])}>
-                      <div className='open-spot-time-label'>
-                        <span>{moment(bookings[locationIdx].bookings[idx].time).format('LT')}</span>
-                      </div>
+              <th
+                className="filler-slot"
+                width={this.itemWidth}
+                key={`filler-slot-${locationId}`}
+              />
+            );
+          })}
+        </tr>
+        {Object.keys(bookings[0].bookings).map(idx => {
+          return (
+            <tr key={`${bookings[0].bookings[idx].id}_id`}>
+              {Object.keys(bookings).map(locationIdx => {
+                return (
+                  <td
+                    className="open-spot"
+                    key={`open-spot-${locationIdx}-${idx}`}
+                    onClick={this.createNewSlotPrompt.bind(
+                      this,
+                      bookings[locationIdx].locationID,
+                      bookings[locationIdx].bookings[idx]
+                    )}
+                  >
+                    <div className="open-spot-time-label">
+                      <span>
+                        {moment(
+                          bookings[locationIdx].bookings[idx].time
+                        ).format('LT')}
+                      </span>
+                    </div>
 
-                      {
-                        bookings[locationIdx].bookings[idx].availabilitySlot &&
-                        this._renderAvailabilitySlot(bookings[locationIdx].bookings[idx], bookings[locationIdx].locationName, bookings[locationIdx].locationID)
-                      }
-                  </td>)
-                  })
-                }
-              </tr>
-            )
-          })
-        }
+                    {bookings[locationIdx].bookings[idx].availabilitySlot &&
+                      this._renderAvailabilitySlot(
+                        bookings[locationIdx].bookings[idx],
+                        bookings[locationIdx].locationName,
+                        bookings[locationIdx].locationID
+                      )}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
       </tbody>
     );
   }
 
   _renderCalenderItemsByDate(slots, locationName, locationId) {
-    console.log('slots by date...', slots);
-
     if (Object.keys(slots).length < 1) return null;
     let firstDayKey;
     return (
       <tbody>
         <tr>
-          {
-            Object.keys(slots).map(day => {
-              if (!firstDayKey) {
-                firstDayKey = day;
-              }
-              return (<th className='filler-slot' width={this.itemWidth} key={`filler-slot-${day}`}>
-              </th>)
-            })
-          }
-        </tr>
-        {
-          Object.keys(slots[firstDayKey]).map(idx => {
+          {Object.keys(slots).map(day => {
+            if (!firstDayKey) {
+              firstDayKey = day;
+            }
             return (
-              <tr key={`${slots[firstDayKey][idx].id}_id`}>
-                {
-                  Object.keys(slots).map(dayIdx => {
-                    return (<td className='open-spot' key={`open-spot-${dayIdx}-${idx}`} onClick={this.createNewSlotPrompt.bind(this, locationId, slots[dayIdx][idx])}>
-                      <div className='open-spot-time-label'>
-                        <span>{moment(slots[dayIdx][idx].time).format('LT')}</span>
-                      </div>
+              <th
+                className="filler-slot"
+                width={this.itemWidth}
+                key={`filler-slot-${day}`}
+              />
+            );
+          })}
+        </tr>
+        {Object.keys(slots[firstDayKey]).map(idx => {
+          return (
+            <tr key={`${slots[firstDayKey][idx].id}_id`}>
+              {Object.keys(slots).map(dayIdx => {
+                return (
+                  <td
+                    className="open-spot"
+                    key={`open-spot-${dayIdx}-${idx}`}
+                    onClick={this.createNewSlotPrompt.bind(
+                      this,
+                      locationId,
+                      slots[dayIdx][idx]
+                    )}
+                  >
+                    <div className="open-spot-time-label">
+                      <span>
+                        {moment(slots[dayIdx][idx].time).format('LT')}
+                      </span>
+                    </div>
 
-                      {
-                        slots[dayIdx][idx].availabilitySlot &&
-                        this._renderAvailabilitySlot(slots[dayIdx][idx], locationName, locationId)
-                      }
-                  </td>)
-                  })
-                }
-              </tr>
-            )
-          })
-        }
+                    {slots[dayIdx][idx].availabilitySlot &&
+                      this._renderAvailabilitySlot(
+                        slots[dayIdx][idx],
+                        locationName,
+                        locationId
+                      )}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
       </tbody>
     );
   }
@@ -343,16 +386,15 @@ class AvailabilityList extends React.Component {
   _renderTimeRow(hour, meridian, minutes) {
     return (
       <tr key={`tr-${hour}-${minutes}-${meridian}`}>
-        <td className='time-container'>
-          {
-            minutes === '00' &&
-            <div className='time-hour'>
-              <span className='hour-text'>{hour}</span>
-              <span className='ampm-text'>{meridian}</span>
+        <td className="time-container">
+          {minutes === '00' && (
+            <div className="time-hour">
+              <span className="hour-text">{hour}</span>
+              <span className="ampm-text">{meridian}</span>
             </div>
-          }
+          )}
 
-          <div className='time-minutes'>{minutes}</div>
+          <div className="time-minutes">{minutes}</div>
         </td>
       </tr>
     );
@@ -369,7 +411,7 @@ class AvailabilityList extends React.Component {
         slots.push({
           hour: h,
           minutes: p,
-          meridian: 'am',
+          meridian: 'am'
         });
       });
     });
@@ -380,19 +422,17 @@ class AvailabilityList extends React.Component {
         slots.push({
           hour: h,
           minutes: p,
-          meridian: 'pm',
+          meridian: 'pm'
         });
       });
     });
 
     return (
-      <table className='times-table'>
+      <table className="times-table">
         <tbody>
-          {
-            slots.map(s => {
-              return this._renderTimeRow(s.hour, s.meridian, s.minutes);
-            })
-          }
+          {slots.map(s => {
+            return this._renderTimeRow(s.hour, s.meridian, s.minutes);
+          })}
         </tbody>
       </table>
     );
@@ -411,7 +451,7 @@ class AvailabilityList extends React.Component {
       if (this.props.filteredLocationList.length > 0) {
         const ids = this.props.filteredLocationList.map(l => l.locationId);
         bookings.items = bookings.items.filter(location => {
-          return (ids.indexOf(location.locationID) > -1);
+          return ids.indexOf(location.locationID) > -1;
         });
       }
 
@@ -426,87 +466,97 @@ class AvailabilityList extends React.Component {
 
       locationName = bookings.items[0].locationName;
       locationId = bookings.items[0].locationID;
-      grouped = groupByDate(bookings.items[0], locationId, locationName)
+      grouped = groupByDate(bookings.items[0], locationId, locationName);
       console.log('made it?', grouped);
 
       // # columns = # days
       columnCount = Object.keys(grouped).length || 1; // don't divide by 0
     }
 
-    this.itemWidth = `${100/columnCount}%`;
+    this.itemWidth = `${100 / columnCount}%`;
 
     const locationsTableWidth = `${this.state.screenWidth - 72}px`;
 
-    const locationsWrapperClass = classNames(
-      'locations-wrapper', {
-        headless: !!this.props.headless,
-      },
-    );
+    const locationsWrapperClass = classNames('locations-wrapper', {
+      headless: !!this.props.headless
+    });
 
-    const calendarContainerClass = classNames(
-      'calendar-container', {
-        headless: !!this.props.headless,
-      },
-    );
+    const calendarContainerClass = classNames('calendar-container', {
+      headless: !!this.props.headless
+    });
 
     // TODO: this is probably only useful if we don't use a modal...
-    const slideupActive = false;//this.state.showBookingSlideup || this.state.showSlotSlideup || (this.refs.checkIn && this.refs.checkIn.state.showCheckinSlideup);
-    const tableClass = classNames(
-      'scrolling-table', {
-        'slideup-active': slideupActive,
-      },
-    );
+    const slideupActive = false; //this.state.showBookingSlideup || this.state.showSlotSlideup || (this.refs.checkIn && this.refs.checkIn.state.showCheckinSlideup);
+    const tableClass = classNames('scrolling-table', {
+      'slideup-active': slideupActive
+    });
 
     return (
-      <div className='trial-calendar'>
-      {
-        isFetching &&
-        <div style={{position: 'relative', width: '100%', marginTop: '13em'}}>
-          <CircularProgress style={{marginLeft: '50%', position: 'relative'}} />
-        </div>
-      }
-      {
-        !isFetching &&
+      <div className="trial-calendar">
+        {isFetching && (
+          <div
+            style={{ position: 'relative', width: '100%', marginTop: '13em' }}
+          >
+            <CircularProgress
+              style={{ marginLeft: '50%', position: 'relative' }}
+            />
+          </div>
+        )}
+        {!isFetching && (
           <div className={calendarContainerClass}>
-            <div className='times-slider'>
-              { this._renderTimesTable() }
-            </div>
+            <div className="times-slider">{this._renderTimesTable()}</div>
             <div className={locationsWrapperClass} width={locationsTableWidth}>
-              <table className='locations-table' width={locationsTableWidth}>
+              <table className="locations-table" width={locationsTableWidth}>
                 <thead>
                   <tr>
-                    {
-                      showByLocation && bookings.items.map(location => {
+                    {showByLocation &&
+                      bookings.items.map(location => {
                         return (
-                          <th key={`location-header-${location.locationName}`} className='location-header' width={this.itemWidth}>
-                            <h3 className='location-title'>{location.locationName}</h3>
+                          <th
+                            key={`location-header-${location.locationName}`}
+                            className="location-header"
+                            width={this.itemWidth}
+                          >
+                            <h3 className="location-title">
+                              {location.locationName}
+                            </h3>
                           </th>
-                        )
-                      })
-                    }
-                    {
-                      !showByLocation && Object.keys(grouped).map(day => {
+                        );
+                      })}
+                    {!showByLocation &&
+                      Object.keys(grouped).map(day => {
                         return (
-                          <th key={`day-header-${day}`} className='location-header' width={this.itemWidth}>
-                            <h3 className='location-title'>{moment(day).format('ddd, MMM D')}</h3>
+                          <th
+                            key={`day-header-${day}`}
+                            className="location-header"
+                            width={this.itemWidth}
+                          >
+                            <h3 className="location-title">
+                              {moment(day).format('ddd, MMM D')}
+                            </h3>
                           </th>
-                        )
-                      })
-                    }
+                        );
+                      })}
                   </tr>
                 </thead>
               </table>
             </div>
-            <div className='calendar-section' width={locationsTableWidth}>
+            <div className="calendar-section" width={locationsTableWidth}>
               <table className={tableClass} width={locationsTableWidth}>
-                { showByLocation && this._renderCalendarItemsByLocation(bookings.items) }
-                { !showByLocation && this._renderCalenderItemsByDate(grouped, locationName, locationId)}
+                {showByLocation &&
+                  this._renderCalendarItemsByLocation(bookings.items)}
+                {!showByLocation &&
+                  this._renderCalenderItemsByDate(
+                    grouped,
+                    locationName,
+                    locationId
+                  )}
               </table>
             </div>
           </div>
-      }
+        )}
         <Modal
-          dialogClassName='booking-summary-modal'
+          dialogClassName="booking-summary-modal"
           show={this.state.showSlotSlideup}
           onHide={this._slideupCancel.bind(this)}
         >
@@ -524,7 +574,7 @@ class AvailabilityList extends React.Component {
           />
         </Modal>
         <CheckIn
-          ref='checkIn'
+          ref="checkIn"
           screenHeight={this.state.screenHeight}
           walkins={this.props.walkins}
           updateBooking={this.props.updateBooking}
@@ -549,7 +599,7 @@ class AvailabilityList extends React.Component {
 }
 
 AvailabilityList.propTypes = {
-  bookings: PropTypes.object,
+  bookings: PropTypes.object
 };
 
 export default AvailabilityList;

@@ -1,0 +1,12 @@
+.prepay-discount {
+  display: flex;
+  font-size: 1.1em;
+  font-weight: 400;
+  margin-bottom: .5em; }
+  .prepay-discount .old-price {
+    color: #ff5544;
+    text-decoration: line-through;
+    text-decoration: #1E2B33 line-through;
+    margin-right: .5em; }
+  .prepay-discount .discounted-price {
+    color: #52B266; }

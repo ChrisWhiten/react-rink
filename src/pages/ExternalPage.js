@@ -7,7 +7,6 @@ import _ from 'lodash';
 import './styles/ExternalPage.css';
 
 function processBookingsByDate(bookings) {
-  console.error('bookings', bookings);
   // the root object should be an object
   // date -> location array.
   // each location array item should be a list of bookings + locationname + locationid,
@@ -16,7 +15,9 @@ function processBookingsByDate(bookings) {
   let processed = {};
   bookings.forEach(location => {
     const grouped = _.groupBy(location.bookings, booking => {
-      return moment(booking.time).startOf('day').format();
+      return moment(booking.time)
+        .startOf('day')
+        .format();
     });
 
     Object.keys(grouped).forEach(date => {
@@ -27,12 +28,11 @@ function processBookingsByDate(bookings) {
       processed[date].push({
         locationName: location.locationName,
         locationID: location.locationID,
-        bookings: grouped[date],
+        bookings: grouped[date]
       });
     });
   });
 
-  console.error('processed', processed);
   return processed;
 }
 
@@ -50,7 +50,7 @@ class ExternalPage extends Component {
       bookings: processBookingsByDate([]),
       filteredLocation: null,
       start,
-      end,
+      end
     };
 
     this.fetch = _.debounce(props.fetchBookings, 300);
@@ -67,9 +67,15 @@ class ExternalPage extends Component {
     // if new data has come in...
     if (!this.props.bookings) return;
 
-    const doneFetching = (!nextProps.bookings.isFetching && this.props.bookings.isFetching);
-    if (doneFetching || (
-      nextProps.bookings.items.length > 0 && this.props.bookings.items.length > 0 && nextProps.bookings.items[0].bookings[0].time !== this.props.bookings.items[0].bookings[0].time)) {
+    const doneFetching =
+      !nextProps.bookings.isFetching && this.props.bookings.isFetching;
+    if (
+      doneFetching ||
+      (nextProps.bookings.items.length > 0 &&
+        this.props.bookings.items.length > 0 &&
+        nextProps.bookings.items[0].bookings[0].time !==
+          this.props.bookings.items[0].bookings[0].time)
+    ) {
       const newBookingObj = Object.assign({}, this.state.bookings);
       const newDates = processBookingsByDate(nextProps.bookings.items);
       const dates = Object.keys(newDates);
@@ -87,7 +93,7 @@ class ExternalPage extends Component {
 
       this.setState({
         bookings: newBookingObj,
-        end: newEnd,
+        end: newEnd
       });
     }
   }
@@ -104,7 +110,7 @@ class ExternalPage extends Component {
     this.setState({
       bookings: {},
       start: startDate,
-      end: endDate,
+      end: endDate
     });
   }
 
@@ -117,7 +123,7 @@ class ExternalPage extends Component {
       hour: 0,
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
 
     newStart = new Date(newStart);
@@ -131,12 +137,16 @@ class ExternalPage extends Component {
   }
 
   render() {
-    const isHeadless = this.props.location.query && ('headless' in this.props.location.query) && (this.props.location.query.headless === 'true');
+    const isHeadless =
+      this.props.location.query &&
+      'headless' in this.props.location.query &&
+      this.props.location.query.headless === 'true';
 
     return (
       <div>
         <FilterMenu
           headless={isHeadless}
+          isBookingPage={false}
           multiSelect={false}
           showDateIntervalPicker={false}
           locations={this.props.locations}
@@ -153,11 +163,12 @@ class ExternalPage extends Component {
           isFetching={this.props.bookings.isFetching}
           createBooking={this.props.createBooking}
           bookings={this.state.bookings}
+          paymentProcessed={this.props.paymentProcessed}
           onDateChange={this.onDateChange}
         />
       </div>
     );
   }
-};
+}
 
 export default ExternalPage;

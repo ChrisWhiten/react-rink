@@ -6,8 +6,8 @@ import {
   changeDateInterval,
   changeSelectedLocations,
   loadPage,
+  processPayment
 } from '../actions';
-
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -17,29 +17,31 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     createBooking: (booking, slot, cb) => {
       dispatch(createBooking(booking, slot, cb));
     },
-    changeDateInterval: (interval) => {
+    changeDateInterval: interval => {
       dispatch(changeDateInterval(interval));
     },
-    changeSelectedLocations: (locations) => {
+    changeSelectedLocations: locations => {
       dispatch(changeSelectedLocations(locations));
     },
-    loadPage: (pageName) => {
+    loadPage: pageName => {
       dispatch(loadPage(pageName));
     },
-  }
-};
-
-const mapStateToProps = (state) => {
-  return {
-    bookings: state.bookings,
-    locations: state.locations,
-    filterOptions: state.filterOptions,
+    paymentProcessed: (updatedBooking, paymentAmount, cb) => {
+      dispatch(processPayment(updatedBooking, paymentAmount, cb));
+    }
   };
 };
 
-const ExternalContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ExternalPage);
+const mapStateToProps = state => {
+  return {
+    bookings: state.bookings,
+    locations: state.locations,
+    filterOptions: state.filterOptions
+  };
+};
+
+const ExternalContainer = connect(mapStateToProps, mapDispatchToProps)(
+  ExternalPage
+);
 
 export default ExternalContainer;

@@ -1,19 +1,22 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
+import { Elements } from 'react-stripe-elements';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import Info from 'material-ui/svg-icons/action/info';
 // import CircularProgress from 'material-ui/CircularProgress';
 import AttachMoney from 'material-ui/svg-icons/editor/attach-money';
 import GroupAdd from 'material-ui/svg-icons/social/group-add';
 import EventIcon from 'material-ui/svg-icons/action/event';
+import Error from 'material-ui/svg-icons/alert/error';
 import People from 'material-ui/svg-icons/social/people';
 import RaisedButton from 'material-ui/RaisedButton';
 import Print from 'material-ui/svg-icons/action/print';
 import ComingSoonModal from '../booking/ComingSoonModal';
 import moment from 'moment';
-import {
-  Col,
-} from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+
+import PrepayForm from './PrepayForm';
+import PrepayDiscount from './PrepayDiscount';
 
 import './BookingCompleted.css';
 
@@ -24,36 +27,48 @@ class BookingCompleted extends React.Component {
     this.state = {
       creating: false,
       created: false,
-      showComingSoonModal: false,
+      showComingSoonModal: false
     };
 
     this.loadInvitationForm = this.loadInvitationForm.bind(this);
     this.printDetails = this.printDetails.bind(this);
     this.hideComingSoonModal = this.hideComingSoonModal.bind(this);
+    this.paymentProcessed = this.paymentProcessed.bind(this);
+  }
+
+  paymentProcessed(updatedBooking, paymentAmount) {
+    this.props.paymentProcessed(
+      updatedBooking,
+      paymentAmount,
+      (err, result) => {
+        console.log('no...', err);
+        console.log('yeah!', result);
+      }
+    );
   }
 
   hideComingSoonModal() {
     this.setState({
-      showComingSoonModal: false,
+      showComingSoonModal: false
     });
   }
 
   printDetails() {
     console.log(JSON.stringify(this.props));
     this.setState({
-      showComingSoonModal: true,
+      showComingSoonModal: true
     });
   }
 
   loadInvitationForm() {
     console.log('load invitation form');
     this.setState({
-      showComingSoonModal: true,
+      showComingSoonModal: true
     });
   }
 
   renderCurrency(c) {
-    let dollarAmount = c/100;
+    let dollarAmount = c / 100;
 
     if (c % 100 === 0) {
       return parseInt(dollarAmount, 10).toString();
@@ -66,72 +81,114 @@ class BookingCompleted extends React.Component {
     const b = this.props.booking;
     if (!b) return null;
 
+    console.log('hmmmm', b);
+
     const peopleText = b.slotCount === 1 ? '1 person' : `${b.slotCount} people`;
 
-    const paidAmount = b.payments ? b.payments.reduce((a, b) => { return a + b; }, 0) : 0;
-    let moneyText = 'Booking pre-paid in full'
+    const paidAmount = b.payments
+      ? b.payments.reduce((a, b) => {
+          return a + b;
+        }, 0)
+      : 0;
+    let moneyText = 'Booking pre-paid in full';
     if (paidAmount < b.bookingCost) {
-      moneyText = `$${(this.renderCurrency(b.bookingCost - paidAmount))} to be paid on-site`;
+      moneyText = `$${this.renderCurrency(
+        b.bookingCost - paidAmount
+      )} to be paid on-site`;
     }
 
     return (
-      <div className='booking-completed-form'>
+      <div className="booking-completed-form">
         <Col sm={6} md={6} xs={12} smOffset={3} mdOffset={3}>
-          <div className='booking-completed-content'>
-            <div className='completed-announcement'>
-              <CheckCircle className='booking-confirmed-check' />
-              <h3 className='announcement-text'>Thanks {b.leaderFirstName}, you're all set!</h3>
+          <div className="booking-completed-content">
+            <div className="completed-announcement">
+              <CheckCircle className="booking-confirmed-check" />
+              <h3 className="announcement-text">
+                Thanks {b.leaderFirstName}, you're all set!
+              </h3>
             </div>
 
-            <div className='completed-details section'>
-              <div className='summary-details'>
+            <div className="completed-details section">
+              <div className="prepay-details">
+                <div className="section-title prepay-title">
+                  <Error className="prepay-icon" />
+                  <h4 className="section-title-text">Pay now and save</h4>
+                </div>
+                <div className="section-content prepay-content">
+                  <div className="prepay-text">
+                    Pay for your booking now to save 10%!
+                  </div>
+                  <PrepayDiscount booking={this.props.booking} />
+
+                  <div className="prepay-form">
+                    <Elements>
+                      <PrepayForm
+                        booking={this.props.booking}
+                        paymentProcessed={this.paymentProcessed}
+                      />
+                    </Elements>
+                  </div>
+                </div>
+              </div>
+
+              <div className="summary-details">
                 <h4>{b.locationName}</h4>
-                <div className='summary-detail'>
-                  <EventIcon className='summary-detail-event-icon' />
+                <div className="summary-detail">
+                  <EventIcon className="summary-detail-event-icon" />
                   <h5>{moment(b.start).format('dddd, MMM Do @ LT')}</h5>
                 </div>
 
-                <div className='summary-detail'>
-                  <People className='summary-detail-people-icon' />
+                <div className="summary-detail">
+                  <People className="summary-detail-people-icon" />
                   <h5>{peopleText}</h5>
                 </div>
 
-                <div className='summary-detail'>
-                  <AttachMoney className='summary-detail-money-icon' />
+                <div className="summary-detail">
+                  <AttachMoney className="summary-detail-money-icon" />
                   <h5>{moneyText}</h5>
                 </div>
               </div>
 
-              <div className='info-option section'>
-                <div className='section-title info-title'>
-                  <Info className='things-to-know-info-icon' />
-                  <h4 className='section-title-text'>
-                    Things to know
-                  </h4>
+              <div className="info-option section">
+                <div className="section-title info-title">
+                  <Info className="things-to-know-info-icon" />
+                  <h4 className="section-title-text">Things to know</h4>
                 </div>
-                <div className='section-content things-to-know-content'>
+                <div className="section-content things-to-know-content">
                   <ul>
-                    <li><h5>Please arrive 15 minutes early for registration and setup.</h5></li>
-                    <li><h5>There is plenty of free parking on site and washrooms/change rooms.</h5></li>
-                    <li><h5>Please bring athletic footwear and clothing</h5></li>
+                    <li>
+                      <h5>
+                        Please arrive 15 minutes early for registration and
+                        setup.
+                      </h5>
+                    </li>
+                    <li>
+                      <h5>
+                        There is plenty of free parking on site and
+                        washrooms/change rooms.
+                      </h5>
+                    </li>
+                    <li>
+                      <h5>Please bring athletic footwear and clothing</h5>
+                    </li>
                   </ul>
                 </div>
               </div>
 
-              <div className='actions-option section'>
-                <div className='section-content actions-content'>
+              <div className="actions-option section">
+                <div className="section-content actions-content">
                   <RaisedButton
-                    labelColor='#fff'
-                    label='Invite your friends'
-                    backgroundColor='#0088cc'
-                    icon={<GroupAdd className='invite-friends-button' />}
+                    labelColor="#fff"
+                    label="Invite your friends"
+                    backgroundColor="#0088cc"
+                    icon={<GroupAdd className="invite-friends-button" />}
                     onClick={this.loadInvitationForm}
                   />
                   <RaisedButton
-                    labelColor='#fff'
-                    label='Print details'
-                    backgroundColor='#f54'
-                    icon={<Print className='print-details-button' />}
+                    labelColor="#fff"
+                    label="Print details"
+                    backgroundColor="#f54"
+                    icon={<Print className="print-details-button" />}
                     onClick={this.printDetails}
                   />
                 </div>
@@ -139,7 +196,11 @@ class BookingCompleted extends React.Component {
             </div>
           </div>
         </Col>
-        <ComingSoonModal ok={this.hideComingSoonModal} show={this.state.showComingSoonModal} hide={this.hideComingSoonModal} />
+        <ComingSoonModal
+          ok={this.hideComingSoonModal}
+          show={this.state.showComingSoonModal}
+          hide={this.hideComingSoonModal}
+        />
       </div>
     );
   }

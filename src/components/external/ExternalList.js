@@ -23,10 +23,10 @@ class ExternalList extends React.Component {
       screenWidth: 0,
       screenHeight: 0,
       showSlideup: false,
-      createdBooking: undefined,
+      createdBooking: undefined
     };
 
-    this.loadMoreDebounced =  _.debounce(props.loadMore, 100);
+    this.loadMoreDebounced = _.debounce(props.loadMore, 100);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.onScroll = this.onScroll.bind(this);
     this.checkout = this.checkout.bind(this);
@@ -46,7 +46,11 @@ class ExternalList extends React.Component {
 
   onScroll() {
     const isLoaded = Object.keys(this.props.bookings).length > 0;
-    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) && !this.props.isFetching && isLoaded) {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
+      !this.props.isFetching &&
+      isLoaded
+    ) {
       this.loadMoreDebounced();
     }
   }
@@ -54,14 +58,14 @@ class ExternalList extends React.Component {
   updateWindowDimensions() {
     this.setState({
       screenWidth: window.innerWidth,
-      screenHeight: window.innerHeight,
+      screenHeight: window.innerHeight
     });
   }
 
   onBookingCreated(booking) {
     this.setState({
       showSlideup: false,
-      createdBooking: booking,
+      createdBooking: booking
     });
 
     // force a new date to fetch fresh bookings
@@ -74,14 +78,14 @@ class ExternalList extends React.Component {
       selectedSlot: slot,
       selectedLocation: {
         locationName,
-        locationId,
-      },
+        locationId
+      }
     });
   }
 
   slideupCancel() {
     this.setState({
-      showSlideup: false,
+      showSlideup: false
     });
   }
 
@@ -98,36 +102,41 @@ class ExternalList extends React.Component {
     const slotClass = classNames(
       'external-slot',
       {
-        full: availabilities === 0,
+        full: availabilities === 0
       },
       {
-        available: availabilities > 0,
-      },
+        available: availabilities > 0
+      }
     );
 
     return (
-      <div className={slotClass} onClick={this.checkout.bind(this, slot, locationName, locationId)} key={`slot-${new Date(slot.availabilitySlot.startTime).getTime()}`}>
-        <div className='external-slot-time'>
-          { moment(slot.availabilitySlot.startTime).format('LT') }
+      <div
+        className={slotClass}
+        onClick={this.checkout.bind(this, slot, locationName, locationId)}
+        key={`slot-${new Date(slot.availabilitySlot.startTime).getTime()}`}
+      >
+        <div className="external-slot-time">
+          {moment(slot.availabilitySlot.startTime).format('LT')}
         </div>
-        <div className='external-slot-availabilities'>
-          { availabilities } <People className='external-slot-availaibilities-icon' />
+        <div className="external-slot-availabilities">
+          {availabilities}{' '}
+          <People className="external-slot-availaibilities-icon" />
         </div>
       </div>
-    )
+    );
   }
 
   renderLegend() {
     return (
-      <div className='legend'>
-          <div className='legend-empty unavailable' />
-          <div className='legend-text'>
+      <div className="legend">
+        <div className="legend-empty unavailable" />
+        <div className="legend-text">
           <h6>= Unavailable</h6>
-          </div>
-          <div className='legend-empty available' />
-          <div className='legend-text'>
+        </div>
+        <div className="legend-empty available" />
+        <div className="legend-text">
           <h6>= Available (click to book)</h6>
-          </div>
+        </div>
       </div>
     );
   }
@@ -138,22 +147,28 @@ class ExternalList extends React.Component {
     });
 
     return (
-      <div className='container location-rendered' key={`location-rendered-${location.locationID}-${date}`}>
-        <div className='location-metadata' key={`location-metadata-${location.locationID}-${date}`}>
+      <div
+        className="container location-rendered"
+        key={`location-rendered-${location.locationID}-${date}`}
+      >
+        <div
+          className="location-metadata"
+          key={`location-metadata-${location.locationID}-${date}`}
+        >
           <h5>{location.locationName}</h5>
         </div>
 
-        <hr className='external-separator' />
+        <hr className="external-separator" />
 
-        <div className='location-bookings'>
-          {
-            slots.map(b => this.renderSlot(b, location.locationName, location.locationID))
-          }
+        <div className="location-bookings">
+          {slots.map(b =>
+            this.renderSlot(b, location.locationName, location.locationID)
+          )}
         </div>
 
-        <hr className='external-separator' />
+        <hr className="external-separator" />
 
-        { this.renderLegend() }
+        {this.renderLegend()}
       </div>
     );
   }
@@ -168,46 +183,48 @@ class ExternalList extends React.Component {
       });
     }
 
-    const externalListClass = classNames(
-      'external-list', {
-        headless: !!this.props.headless,
-        'slideup-open': this.state.showSlideup || this.state.createdBooking,
-      },
-    );
+    const externalListClass = classNames('external-list', {
+      headless: !!this.props.headless,
+      'slideup-open': this.state.showSlideup || this.state.createdBooking
+    });
 
     const externalListDateContainerClass = classNames(
-      'external-list-date-container', {
-        'slideup-open': this.state.showSlideup,
-      },
+      'external-list-date-container',
+      {
+        'slideup-open': this.state.showSlideup
+      }
     );
 
     return (
       <div className={externalListClass}>
-        {
-          Object.keys(dates).map(d => {
-            return <div className={externalListDateContainerClass} key={`date-container-${d}`}>
-              <div className='container external-date'>
-                <h4>{ moment(d).format('dddd, MMMM Do, YYYY') }</h4>
+        {Object.keys(dates).map(d => {
+          return (
+            <div
+              className={externalListDateContainerClass}
+              key={`date-container-${d}`}
+            >
+              <div className="container external-date">
+                <h4>{moment(d).format('dddd, MMMM Do, YYYY')}</h4>
               </div>
 
-                {
-                  dates[d].map(l => {
-                    return this.renderByLocation(l, d)
-                  })
-                }
-              </div>
-          })
-        }
-        {
-          this.props.isFetching &&
-          <CircularProgress style={{marginLeft: '50%', position: 'relative'}} />
-        }
+              {dates[d].map(l => {
+                return this.renderByLocation(l, d);
+              })}
+            </div>
+          );
+        })}
+        {this.props.isFetching && (
+          <CircularProgress
+            style={{ marginLeft: '50%', position: 'relative' }}
+          />
+        )}
 
         <SlideUp
           headless={!!this.props.headless}
           screenHeight={this.state.screenHeight}
           active={this.state.showSlideup}
-          onCancel={this.slideupCancel.bind(this)} >
+          onCancel={this.slideupCancel.bind(this)}
+        >
           <BookingForm
             location={this.state.selectedLocation}
             slot={this.state.selectedSlot}
@@ -221,13 +238,15 @@ class ExternalList extends React.Component {
           headless={!!this.props.headless}
           screenHeight={this.state.screenHeight}
           active={!!this.state.createdBooking}
-          onCancel={this.slideupCancel.bind(this)} >
+          onCancel={this.slideupCancel.bind(this)}
+        >
           <BookingCompleted
             location={this.state.selectedLocation}
             booking={this.state.createdBooking}
             slot={this.state.selectedSlot}
             createBooking={this.props.createBooking}
             onBookingCreated={this.onBookingCreated}
+            paymentProcessed={this.props.paymentProcessed}
             onRequestClose={this.slideupCancel.bind(this)}
           />
         </SlideUp>
@@ -237,7 +256,7 @@ class ExternalList extends React.Component {
 }
 
 ExternalList.propTypes = {
-  bookings: PropTypes.object,
+  bookings: PropTypes.object
 };
 
 export default ExternalList;

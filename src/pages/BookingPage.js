@@ -10,9 +10,7 @@ import _ from 'lodash';
 
 import './styles/BookingPage.css';
 
-BigCalendar.setLocalizer(
-  BigCalendar.momentLocalizer(moment)
-);
+BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
 class BookingPage extends Component {
   constructor(props) {
@@ -20,7 +18,7 @@ class BookingPage extends Component {
 
     this.state = {
       filteredLocationList: []
-    }
+    };
 
     this.dateIntervalChange = this.dateIntervalChange.bind(this);
     this.fetch = _.debounce(props.fetchBookings, 300);
@@ -33,25 +31,27 @@ class BookingPage extends Component {
     start.setHours(0, 0, 0, 0); // midnight this morning
     let end = new Date();
     end.setHours(23, 59, 59, 999); // end of day
+    end.setDate(
+      end.getDate() + this.props.filterOptions.bookingPageDateInterval - 1
+    );
 
-    end.setDate(end.getDate() + this.props.filterOptions.dateInterval - 1); // fetch N days out???
-
-    console.log('fetching bookings', start, end);
     this.fetch(start, end);
   }
 
   _onDateChange(startDate) {
     startDate.setHours(0, 0, 0, 0);
     let endDate = new Date(startDate);
-    console.log('fetching bookings', startDate, endDate);
     endDate.setHours(23, 59, 59, 999);
-    endDate.setDate(endDate.getDate() + this.props.filterOptions.dateInterval - 1); // fetch N days out???
+    endDate.setDate(
+      endDate.getDate() + this.props.filterOptions.bookingPageDateInterval - 1
+    );
+
     this.fetch(startDate, endDate);
   }
 
   dateIntervalChange(dateInterval, startDate) {
     this.props.changeDateInterval(dateInterval);
-    if (dateInterval !== this.props.filterOptions.dateInterval) {
+    if (dateInterval !== this.props.filterOptions.bookingPageDateInterval) {
       startDate.setHours(0, 0, 0, 0);
       let endDate = new Date(startDate);
       endDate.setHours(23, 59, 59, 999);
@@ -61,14 +61,17 @@ class BookingPage extends Component {
   }
 
   render() {
-    const isHeadless = this.props.location.query && ('headless' in this.props.location.query) && (this.props.location.query.headless === 'true');
-    console.log('selected locations', this.props.locations.selectedLocations);
+    const isHeadless =
+      this.props.location.query &&
+      'headless' in this.props.location.query &&
+      this.props.location.query.headless === 'true';
 
     return (
       <div>
         <FilterMenu
           headless={isHeadless}
-          multiSelect={this.props.filterOptions.dateInterval === 1}
+          multiSelect={this.props.filterOptions.bookingPageDateInterval === 1}
+          isBookingPage={true}
           showDateIntervalPicker={true}
           locations={this.props.locations}
           onDateChange={this._onDateChange.bind(this)}
@@ -79,7 +82,9 @@ class BookingPage extends Component {
 
         <TrialCalendar
           headless={isHeadless}
-          filteredLocationList={this.props.locations.selectedLocations}
+          filteredLocationList={
+            this.props.locations.bookingPageSelectedLocations
+          }
           createSlot={this.props.createSlot}
           walkins={this.props.walkins}
           updateBooking={this.props.updateBooking}
@@ -94,6 +99,6 @@ class BookingPage extends Component {
       </div>
     );
   }
-};
+}
 
 export default BookingPage;

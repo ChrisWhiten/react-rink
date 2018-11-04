@@ -3,57 +3,55 @@ import React from 'react';
 import getLocale from '../../localization/locale';
 import './styles/TimelineFilter.css';
 
-
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-
 class TimelineFilter extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      selected: null,
+      selected: null
     };
 
     this.locale = getLocale();
-    this.handleSelectedLocationsChange = this.handleSelectedLocationsChange.bind(this);
+    this.handleSelectedLocationsChange = this.handleSelectedLocationsChange.bind(
+      this
+    );
     this.renderSelectValue = this.renderSelectValue.bind(this);
   }
 
   _filterClicked(filter) {
-    const selected = (filter === this.state.selected) ? null : filter;
+    const selected = filter === this.state.selected ? null : filter;
     this.setState({
-      selected: selected,
+      selected: selected
     });
   }
 
-  handleSelectedLocationsChange = (selectedLocations) => {
+  handleSelectedLocationsChange = selectedLocations => {
     this.props.changeSelectedLocations(selectedLocations);
-  }
+  };
 
-  renderSelectValue = (option) => {
-    if (!this.props.multi) {
+  renderSelectValue = option => {
+    if (!this.props.isBookingPage || !this.props.multi) {
       return option.locationName;
     }
 
-    if (!Array.isArray(this.props.locations.selectedLocations)) {
-      // haven't updated the value yet, should render empty
-      return null;
-    }
+    const selectedLocations = this.props.isBookingPage
+      ? this.props.locations.bookingPageSelectedLocations
+      : this.props.locations.selectedLocations;
 
-    if (this.props.locations.selectedLocations.indexOf(option) < 2) {
+    if (selectedLocations.indexOf(option) < 2) {
       return option.locationName;
     }
 
-    return <span>{this.props.locations.length - 2} more</span>
-  }
+    return <span>{this.props.locations.length - 2} more</span>;
+  };
 
   render() {
     let locationList = this.props.locations ? this.props.locations.items : [];
     const options = locationList.map(l => {
-      return {locationId: l.id, locationName: l.locationName};
+      return { locationId: l.id, locationName: l.locationName };
     });
     // const options = [{
     //   locationId: 'abcdefg',
@@ -81,15 +79,19 @@ class TimelineFilter extends React.Component {
     //   className: 'test',
     // }];
 
+    const selectedLocations = this.props.isBookingPage
+      ? this.props.locations.bookingPageSelectedLocations
+      : this.props.locations.selectedLocations;
+
     return (
-      <div className='new-location-picker'>
+      <div className="new-location-picker">
         <Select
           multi={this.props.multi}
-          className='location-picker-select'
-          valueKey='locationId'
-          labelKey='locationName'
-          value={this.props.locations.selectedLocations}
-          placeholder='Select a location'
+          className="location-picker-select"
+          valueKey="locationId"
+          labelKey="locationName"
+          value={selectedLocations}
+          placeholder="Select a location"
           onChange={this.handleSelectedLocationsChange}
           options={options}
           valueRenderer={this.renderSelectValue}

@@ -57,8 +57,12 @@ import {
   BLOCK_DELETED,
   DELETE_BLOCK_ERROR,
   CHANGE_DATE_INTERVAL,
+  CHANGE_BOOKING_PAGE_DATE_INTERVAL,
   CHANGE_SELECTED_LOCATIONS,
-  LOAD_PAGE,
+  CHANGE_BOOKING_PAGE_SELECTED_LOCATIONS,
+  UPDATING_PAYMENTS,
+  ADDED_PAYMENT_TO_CURRENT_BOOKING,
+  LOAD_PAGE
 } from './constants/actionTypes';
 import moment from 'moment';
 
@@ -69,20 +73,30 @@ import api from './data/api';
 
 // load a new page
 export function loadPage(pageName) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loadingPage(pageName));
   };
 }
 
 function loadingPage(pageName) {
-  return { type: LOAD_PAGE, pageName }
+  return { type: LOAD_PAGE, pageName };
 }
 
 // selected locations
 export function changeSelectedLocations(locations) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(changingSelectedLocations(locations));
   };
+}
+
+export function changeBookingPageSelectedLocations(locations) {
+  return dispatch => {
+    dispatch(changingBookingPageSelectedLocations(locations));
+  };
+}
+
+function changingBookingPageSelectedLocations(locations) {
+  return { type: CHANGE_BOOKING_PAGE_SELECTED_LOCATIONS, locations };
 }
 
 function changingSelectedLocations(locations) {
@@ -91,20 +105,31 @@ function changingSelectedLocations(locations) {
 
 // date interval
 export function changeDateInterval(interval) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(changingDateInterval(interval));
   };
 }
 
+export function changeBookingPageDateInterval(interval) {
+  return dispatch => {
+    dispatch(changingBookingPageDateInterval(interval));
+  };
+}
+
+function changingBookingPageDateInterval(dateInterval) {
+  return { type: CHANGE_BOOKING_PAGE_DATE_INTERVAL, dateInterval };
+}
+
 function changingDateInterval(dateInterval) {
-  return { type: CHANGE_DATE_INTERVAL, dateInterval }
+  return { type: CHANGE_DATE_INTERVAL, dateInterval };
 }
 
 // slots
 export function createSlot(slot, cb) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(requestCreateSlot());
-    return api.createSlot(slot)
+    return api
+      .createSlot(slot)
       .then(json => {
         dispatch(slotCreated(json));
 
@@ -131,28 +156,31 @@ function slotCreated(slot) {
   return { type: SLOT_CREATED, slot };
 }
 
-function createSlotError(error)  {
-  return { type: CREATING_SLOT_ERROR, error }
+function createSlotError(error) {
+  return { type: CREATING_SLOT_ERROR, error };
 }
 
 // walk-ins
 export function fetchWalkins() {
   // should set up a timer and everything...
-  return (dispatch) => {
+  return dispatch => {
     // get current time - 1hr, current time + 1hr, request slots from that interval?
     let start = moment().subtract(1, 'hour');
     start.set({
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
 
     start = start.valueOf();
-    let end = moment().add(1, 'hour').valueOf()
+    let end = moment()
+      .add(1, 'hour')
+      .valueOf();
 
     dispatch(requestWalkins(start));
 
-    return api.getBookings2(start, end, true)
+    return api
+      .getBookings2(start, end, true)
       .then(json => {
         dispatch(receiveWalkins(json, start));
       })
@@ -177,10 +205,11 @@ function getWalkinsError() {
 
 // locations
 export function fetchLocations() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(requestLocations());
 
-    return api.getLocations()
+    return api
+      .getLocations()
       .then(json => {
         dispatch(receiveLocations(json.data || []));
       })
@@ -216,7 +245,8 @@ export function fetchInvitations() {
   return function(dispatch) {
     dispatch(requestInvitations());
 
-    return api.getParticipationInvitations()
+    return api
+      .getParticipationInvitations()
       .then(json => {
         dispatch(receiveInvitations(json));
       })
@@ -224,7 +254,7 @@ export function fetchInvitations() {
         console.error('error getting invitations', err);
         dispatch(getInvitationsError());
       });
-  }
+  };
 }
 
 function requestInvitations() {
@@ -244,8 +274,8 @@ export function fetchUpcomingOrganized() {
   return function(dispatch) {
     dispatch(requestUpcomingOrganized());
 
-
-    return api.getUpcomingOrganized()
+    return api
+      .getUpcomingOrganized()
       .then(json => {
         dispatch(receiveUpcomingOrganized(json));
       })
@@ -253,14 +283,15 @@ export function fetchUpcomingOrganized() {
         console.error('error getting upcoming organized events', err);
         dispatch(getUpcomingOrganizedError());
       });
-  }
+  };
 }
 
 export function fetchUpcomingParticipations() {
   return function(dispatch) {
     dispatch(requestUpcomingParticipations());
 
-    return api.getUpcomingParticipations()
+    return api
+      .getUpcomingParticipations()
       .then(json => {
         dispatch(receiveUpcomingParticipations(json));
       })
@@ -268,7 +299,7 @@ export function fetchUpcomingParticipations() {
         console.error('error getting upcoming participating events', err);
         dispatch(getUpcomingParticipationsError());
       });
-  }
+  };
 }
 
 function requestUpcomingParticipations() {
@@ -300,7 +331,8 @@ export function createSchedule(schedule, cb) {
   return function(dispatch) {
     dispatch(requestScheduleCreate());
 
-    return api.createSchedule(schedule)
+    return api
+      .createSchedule(schedule)
       .then(json => {
         console.warn('created!', json);
         dispatch(scheduleCreated(json));
@@ -311,14 +343,15 @@ export function createSchedule(schedule, cb) {
         dispatch(createScheduleError(err));
         cb(err, null);
       });
-  }
+  };
 }
 
 export function updateSchedule(schedule, cb) {
   return function(dispatch) {
     dispatch(requestScheduleUpdate());
 
-    return api.updateSchedule(schedule)
+    return api
+      .updateSchedule(schedule)
       .then(json => {
         console.warn('updated!', json);
         dispatch(scheduleUpdated(json));
@@ -329,46 +362,46 @@ export function updateSchedule(schedule, cb) {
         dispatch(updateScheduleError(err));
         cb(err, null);
       });
-  }
+  };
 }
 
 function requestScheduleCreate() {
   return {
-    type: CREATING_SCHEDULE,
+    type: CREATING_SCHEDULE
   };
 }
 
 function scheduleCreated(schedule) {
   return {
     type: CREATING_SCHEDULE_SUCCESS,
-    schedule,
+    schedule
   };
 }
 
 function createScheduleError(error) {
   return {
     type: CREATING_SCHEDULE_ERROR,
-    error,
+    error
   };
 }
 
 function requestScheduleUpdate() {
   return {
-    type: UPDATING_SCHEDULE,
+    type: UPDATING_SCHEDULE
   };
 }
 
 function scheduleUpdated(schedule) {
   return {
     type: UPDATING_SCHEDULE_SUCCESS,
-    schedule,
+    schedule
   };
 }
 
 function updateScheduleError(error) {
   return {
     type: UPDATING_SCHEDULE_ERROR,
-    error,
+    error
   };
 }
 
@@ -376,7 +409,8 @@ export function deleteSchedule(id) {
   return function(dispatch) {
     dispatch(requestScheduleDelete(id));
 
-    return api.deleteSchedule(id)
+    return api
+      .deleteSchedule(id)
       .then(json => {
         console.warn('deleted!', json);
         dispatch(scheduleDeleted(json));
@@ -385,20 +419,20 @@ export function deleteSchedule(id) {
         console.error('error getting schedule', err);
         dispatch(deleteScheduleError(id, err));
       });
-  }
+  };
 }
 
 function requestScheduleDelete(id) {
   return {
     type: DELETING_SCHEDULE,
-    id,
+    id
   };
 }
 
 function scheduleDeleted(schedule) {
   return {
     type: SCHEDULE_DELETED,
-    schedule,
+    schedule
   };
 }
 
@@ -406,7 +440,7 @@ function deleteScheduleError(id, error) {
   return {
     type: DELETE_SCHEDULE_ERROR,
     id,
-    error,
+    error
   };
 }
 
@@ -414,7 +448,8 @@ export function fetchSchedule(id) {
   return function(dispatch) {
     dispatch(requestSchedule(id));
 
-    return api.getSchedule(id)
+    return api
+      .getSchedule(id)
       .then(json => {
         console.warn('fetched!', json);
         dispatch(receiveSchedule(json));
@@ -423,13 +458,13 @@ export function fetchSchedule(id) {
         console.error('error getting schedule', err);
         dispatch(getScheduleError(id, err));
       });
-  }
+  };
 }
 
 function requestSchedule(id) {
   return {
     type: FETCHING_SCHEDULE,
-    id,
+    id
   };
 }
 
@@ -437,7 +472,8 @@ export function fetchSchedules(start, end) {
   return function(dispatch) {
     dispatch(requestSchedules(start, end));
 
-    return api.getSchedules(start, end)
+    return api
+      .getSchedules(start, end)
       .then(json => {
         dispatch(receiveSchedules(json));
       })
@@ -445,21 +481,21 @@ export function fetchSchedules(start, end) {
         console.error('error getting schedules', err);
         dispatch(getSchedulesError(start, end, err));
       });
-  }
+  };
 }
 
 function requestSchedules(start, end) {
   return {
     type: FETCHING_SCHEDULES,
     start,
-    end,
+    end
   };
 }
 
 function receiveSchedule(schedule) {
   return {
     type: FETCH_SCHEDULE_SUCCESS,
-    schedule,
+    schedule
   };
 }
 
@@ -467,14 +503,14 @@ function getScheduleError(id, error) {
   return {
     type: FETCH_SCHEDULE_ERROR,
     id,
-    error,
+    error
   };
 }
 
 function receiveSchedules(schedules) {
   return {
     type: FETCHING_SCHEDULES_SUCCESS,
-    schedules,
+    schedules
   };
 }
 
@@ -483,16 +519,17 @@ function getSchedulesError(start, end, error) {
     type: GET_SCHEDULES_ERROR,
     start,
     end,
-    error,
+    error
   };
 }
 
 // bookings
 export function fetchBooking(id) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(tryFetchBooking(id));
 
-    return api.fetchBooking(id)
+    return api
+      .fetchBooking(id)
       .then(json => {
         console.log('got booking?', json);
         dispatch(bookingFetched(json));
@@ -516,11 +553,49 @@ function fetchBookingError(id, err) {
   return { type: FETCH_BOOKING_ERROR, id, err };
 }
 
+export function processPayment(updatedBooking, paymentAmount, cb) {
+  return function(dispatch) {
+    dispatch(tryUpdatePayments(updatedBooking.id, paymentAmount));
+
+    return api
+      .addPaymentToBooking(updatedBooking.id, paymentAmount)
+      .then(json => {
+        console.log('updated booking with payment!', json);
+        dispatch(addedPaymentToCurrentBooking(json)); // TODO: should we use a new action for this...?
+        if (cb) {
+          cb(null, json);
+        }
+      })
+      .catch(err => {
+        console.error('Error adding payment', err);
+        dispatch(updateBookingError(updatedBooking, err)); // TODO: sohuld we use a new action for this?
+
+        if (cb) {
+          cb(err, null);
+        }
+      });
+  };
+}
+
+function addedPaymentToCurrentBooking(updatedBooking, paymentAmount) {
+  return {
+    type: ADDED_PAYMENT_TO_CURRENT_BOOKING,
+    id: updatedBooking.id,
+    updatedBooking,
+    paymentAmount
+  };
+}
+
+function tryUpdatePayments(id, paymentAmount) {
+  return { type: UPDATING_PAYMENTS, id, paymentAmount };
+}
+
 export function addNoteToBooking(id, note, cb) {
   return function(dispatch) {
     dispatch(tryAddNoteToBooking(id, note));
 
-    return api.addNoteToBooking(id, note)
+    return api
+      .addNoteToBooking(id, note)
       .then(json => {
         console.log('got json', json);
         dispatch(bookingUpdated(json));
@@ -530,20 +605,21 @@ export function addNoteToBooking(id, note, cb) {
       })
       .catch(err => {
         console.error('Error adding note to booking', err);
-        dispatch(updateBooking({id}, err));
-      })
-  }
+        dispatch(updateBookingError({ id }, err));
+      });
+  };
 }
 
 function tryAddNoteToBooking(id, note) {
-  return { type: ADDING_NOTE_TO_BOOKING, id, note};
+  return { type: ADDING_NOTE_TO_BOOKING, id, note };
 }
 
 export function updateBooking(booking, cb) {
   return function(dispatch) {
     dispatch(tryUpdateBooking(booking));
 
-    return api.updateBooking(booking)
+    return api
+      .updateBooking(booking)
       .then(json => {
         console.log('got json', json);
         dispatch(bookingUpdated(json));
@@ -574,7 +650,8 @@ export function deleteBlock(block, slot, cb) {
   return function(dispatch) {
     dispatch(tryDeleteBlock());
 
-    return api.deleteBlock(block.id)
+    return api
+      .deleteBlock(block.id)
       .then(json => {
         dispatch(blockDeleted(block, slot));
 
@@ -587,7 +664,7 @@ export function deleteBlock(block, slot, cb) {
         dispatch(deleteBlockError(err));
         cb(err);
       });
-  }
+  };
 }
 
 function tryDeleteBlock(block) {
@@ -606,7 +683,8 @@ export function createBlock(block, slot, cb) {
   return function(dispatch) {
     dispatch(tryCreateBlock());
 
-    return api.createBlock(block)
+    return api
+      .createBlock(block)
       .then(json => {
         dispatch(blockCreated(block, slot));
 
@@ -619,7 +697,7 @@ export function createBlock(block, slot, cb) {
         dispatch(createBlockError(err));
         cb(err, null);
       });
-  }
+  };
 }
 
 function tryCreateBlock(block) {
@@ -638,7 +716,8 @@ export function createBooking(booking, slot, cb) {
   return function(dispatch) {
     dispatch(tryCreateBooking());
 
-    return api.createBooking(booking)
+    return api
+      .createBooking(booking)
       .then(json => {
         dispatch(bookingCreated(json, slot));
 
@@ -651,7 +730,7 @@ export function createBooking(booking, slot, cb) {
         dispatch(createBookingError(err));
         cb(err, null);
       });
-  }
+  };
 }
 
 function tryCreateBooking(booking) {
@@ -670,7 +749,8 @@ export function fetchBookings(start, end) {
   return function(dispatch) {
     dispatch(requestBookings(start, end));
 
-    return api.getBookings2(new Date(start).getTime(), new Date(end).getTime(), false)
+    return api
+      .getBookings2(new Date(start).getTime(), new Date(end).getTime(), false)
       .then(json => {
         dispatch(receiveBookings(json));
       })
@@ -682,7 +762,7 @@ export function fetchBookings(start, end) {
           dispatch(getBookingsError());
         }
       });
-  }
+  };
 }
 
 function requestBookings(start, end) {
@@ -702,7 +782,8 @@ export function searchEvents(start, end) {
   return function(dispatch) {
     dispatch(requestEvents(start, end));
 
-    return api.getAvailableEvents(start, end)
+    return api
+      .getAvailableEvents(start, end)
       .then(json => {
         dispatch(receiveEvents(json));
       })
@@ -710,7 +791,7 @@ export function searchEvents(start, end) {
         console.error('error getting events', err);
         dispatch(getEventsError());
       });
-  }
+  };
 }
 
 function requestEvents(start, end) {

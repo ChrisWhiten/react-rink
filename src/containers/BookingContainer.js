@@ -8,11 +8,10 @@ import {
   fetchWalkins,
   createBlock,
   deleteBlock,
-  changeDateInterval,
-  changeSelectedLocations,
-  loadPage,
+  changeBookingPageDateInterval,
+  changeBookingPageSelectedLocations,
+  loadPage
 } from '../actions';
-
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -37,30 +36,31 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     deleteBlock: (block, slot, cb) => {
       dispatch(deleteBlock(block, slot, cb));
     },
-    changeDateInterval: (interval) => {
-      dispatch(changeDateInterval(interval));
+    changeDateInterval: interval => {
+      dispatch(changeBookingPageDateInterval(interval));
     },
-    changeSelectedLocations: (locations) => {
-      dispatch(changeSelectedLocations(locations));
+    changeSelectedLocations: locations => {
+      console.log('changing...', locations);
+
+      dispatch(changeBookingPageSelectedLocations(locations));
     },
-    loadPage: (pageName) => {
+    loadPage: pageName => {
       dispatch(loadPage(pageName));
-    },
+    }
   };
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     bookings: state.bookings,
     walkins: state.walkins,
     locations: state.locations,
-    filterOptions: state.filterOptions,
+    filterOptions: state.filterOptions
   };
 };
 
-const BookingContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BookingPage);
+const BookingContainer = connect(mapStateToProps, mapDispatchToProps)(
+  BookingPage
+);
 
 export default BookingContainer;
