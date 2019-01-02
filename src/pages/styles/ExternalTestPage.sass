@@ -1,0 +1,527 @@
+@import '../../styles/variables';
+
+.external-test-page
+  margin-left: auto
+  margin-right: auto
+  max-width: 100%
+  width: 1200px
+  padding-left: 2rem
+  padding-right: 2rem
+
+  @media screen and (max-width: 1200px)
+    max-width: 100%
+    width: 1200px
+    padding-left: 2rem
+    padding-right: 2rem
+
+  @media screen and (max-width: 900px)
+    max-width: 100%
+    width: 100%
+    padding-left: 2rem
+    padding-right: 2rem
+  @media screen and (max-width: 600px)
+    max-width: 100%
+    width: 100%
+    padding-left: 1rem
+    padding-right: 1rem
+
+  .content-body
+    display: flex
+    flex-wrap: wrap
+    margin-left: -0.5rem
+    margin-right: -0.5rem
+
+    .info-section
+      width: 66.6666%
+      padding-left: 0.5rem
+      padding-right: 0.5rem
+      /*background: red*/
+      /*height: 2000px*/
+
+      @media screen and (max-width: 600px)
+        width: 100%
+
+      .info-breadcrumbs
+        text-decoration: none
+        display: inline-block
+        font-size: 0.875rem
+        margin-bottom: 0.5rem
+        color: $lightenedText
+        background-color: transparent
+
+        .breadcrumb-text
+          color: $h2Colour
+
+      .address-section
+        display: flex
+        position: relative
+        justify-content: start
+        flex-direction: row
+        -webkit-box-pack: justify
+
+        .booking-address
+          margin: 0
+          font-weight: 500
+          letter-spacing: 0.25px
+          line-height: 2rem
+          color: $h2Colour
+          text-align: left
+          font-size: 1.5rem
+
+      .info-separator
+        margin: 1rem 0 2.75rem
+        background: $separatorColourLight
+        height: 1px
+        min-height: 1px
+
+      .info-subsection
+        display: flex
+        flex-wrap: wrap
+        margin-left: -0.5rem
+        margin-right: -0.5rem
+
+        .right-subsection
+          width: 41.6667%
+          margin-left: 8.333%
+          position: relative
+
+          .hours-list
+            display: flex
+            flex-wrap: wrap
+            padding: 0
+            margin: 0
+            list-style-type: none
+
+            .hour-item
+              max-width: 17.5rem
+              display: flex
+              margin: 0
+              margin-bottom: 1.25rem
+              color: $h2Colour
+              justify-content: space-between
+              width: 100%
+
+              .hour-title
+                display: inline-flex
+                font-weight: 400
+                text-align: left
+                color: $h2Colour
+              
+              .hour-value
+                display: inline-flex
+                font-weight: 400
+                text-align: right
+                color: $h2Colour
+
+        .left-subsection
+          width: 41.6667%
+          padding-left: 0.5rem
+          padding-right: 0.5rem
+          position: relative
+
+          .rates-list
+            display: flex
+            flex-wrap: wrap
+            padding: 0
+            margin: 0
+            list-style-type: none
+
+            .rate
+              display: flex
+              max-width: 17.5rem
+              justify-content: space-between
+              margin: 0
+              margin-bottom: 1.25rem
+              color: $h2Colour
+              width: 100%
+              padding: 0
+
+              .rate-title
+                display: inline-flex
+                font-weight: 400
+                text-align: left
+                color: $h2Colour
+
+              .rate-cost
+                display: inline-flex
+                font-weight: 400
+                text-align: right
+                color: $h2Colour
+
+        .subsection-header
+          margin-top: 0
+          margin-bottom: 1.5rem
+          font-size: 1.25rem
+          font-weight: 500
+          line-height: 1.5rem
+          letter-spacing: 0.15px
+          color: $h2Colour
+          text-align: left
+
+        .about-description
+          position: relative
+          padding: 0
+          margin: 0
+          margin-bottom: 1rem
+          max-width: 50rem
+          font-size: 1rem
+          font-weight: 400
+          line-height: 1.5rem
+          color: $h2Colour
+          letter-spacing: 0.1px
+
+
+    .booking-section
+      width: 33.3333%
+      padding-left: 0.5rem
+      padding-right: 0.5rem
+      height: 200px
+
+      @media screen and (max-width: 600px)
+        width: 100%
+
+      .always-in-view-booking
+        position: relative
+        height: 100%
+        margin-top: -1rem
+
+        .booking-form-container
+          padding-top: 1rem
+          margin-bottom: 1.5rem
+
+          .booking-form-test
+            border: 1px solid $separatorColourLight
+            border-radius: 2px
+
+            .booking-section-separator-container
+              margin-bottom: 1.125rem
+              background: $separatorColourLight
+              height: 1px
+              min-height: 1px
+
+            .booking-section-price-summary-container
+              margin-bottom: 1.5rem
+              padding: 0 1.5rem
+              position: relative
+
+              .price-summary
+                width: 100%
+                padding-left: 0
+                padding-right: 0
+                margin-left: auto
+                margin-right: auto
+                /* TODO: some media queries should go here... */
+
+                .breakdown
+                  padding: 0.75rem 0
+                  border-top: 0px solid $sectionBackgroundHover
+                  position: relative
+                  display: flex
+                  justify-content: space-between
+                  -webkit-box-pack: justify
+                  flex-direction: row
+
+                  .breakdown-text
+                    letter-spacing: 0.1px
+                    font-size: 1rem
+                    color: $lightenedText
+                    text-align: left
+
+                  .breakdown-total
+                    font-size: 1rem
+                    color: $lightenedText
+                    text-align: right
+
+                .large-total
+                  color: $h2Colour
+                  font-size: 1.5rem
+                  padding: 0.75rem 0 0
+                  font-weight: 500
+                  text-align: right
+                  border-top: 1px solid $sectionBackgroundHover
+
+            .book-now-section
+              margin-top: 1.5rem
+              margin-bottom: 1.5rem
+              position: relative
+              padding: 0 1.5rem
+
+              .book-now-button-container
+                margin-bottom: 1rem
+
+                .book-now-button
+                  width: 100%
+                  display: inline-block
+                  height: auto
+                  border-radius: 2px
+                  outline: none
+                  border: none
+                  transition: background 0.25s ease,border 0.25s ease,color 0.25s ease
+                  text-align: center
+                  font-size: 1.125rem
+                  line-height: 1.5rem
+                  font-weight: 600
+                  padding: 1rem 2rem
+                  color: #fff
+                  background: $buttonColour
+
+                  &:hover
+                    background: $buttonColourHover
+                    cursor: pointer
+
+                  .book-now-text
+                    font-size: 1.5rem
+                    font-weight: 600
+                    line-height: 1.5rem
+                    color: #fff
+
+            
+            .date-time-results
+              padding: 0
+              border: none
+              position: relative
+              width: 100%
+              height: auto
+              background: #fff
+              transition: background 0.25s ease
+
+              .date-time-results-button
+                padding: 0
+                height: 5rem
+                transition: background 0.25s ease
+                width: 100%
+                border: none
+                background: none
+
+                &.active
+                  background: $sectionBackgroundHover
+                
+                &:hover
+                  cursor: pointer
+                  background: $sectionBackgroundHover
+
+                .dt-results-btn-span
+                  display: flex
+                  align-items: center
+                  justify-content: center
+
+                  .dt-results-calendar-icon
+                    font-size: 1.5rem
+                    height: 24px
+                    margin-left: 1.5rem
+
+                    .dt-results-calendar-icon-svg
+                      fill: rgb(138, 143, 153) !important
+                      width: 24
+                      height: 24
+                      overflow: hidden
+
+                  .dt-results-text
+                    margin: 1rem
+                    height: 100%
+                    display: flex
+                    flex-direction: column
+                    text-align: left
+                    flex-grow: 1
+                    overflow: hidden
+                    font-weight: 400
+
+                    .dt-results-p
+                      margin: 0rem
+                      max-height: 100px
+                      transition: all .2s ease-in-out
+                      font-size: 1rem
+                      text-overflow: ellipsis
+                      white-space: nowrap
+                      overflow: hidden
+                      line-height: 1.15
+                      font-weight: 500
+
+
+
+  .image-container
+    height: 450px
+    display: flex
+    margin-right: -0.5rem
+    margin-left: -0.5rem
+    margin-top: 2rem
+    margin-bottom: 2rem
+
+    .large-img-container
+
+      position: relative
+      padding-left: -0.5rem
+      padding-right: -0.5rem
+
+      .large-img
+        height: 450px
+
+
+    .small-imgs
+      width: 33.3333%
+      padding-left: 0.5rem
+      padding-right: 0.5rem
+      display: block
+
+      .small-img-column
+        overflow: hidden
+        position: relative
+        display: flex
+        height: 100%
+        align-items: center
+        flex-direction: column
+        justify-content: space-between
+
+        .top-img
+          max-height: 217px
+          position: absolute
+          top: 0
+          bottom: calc(50% + 0.5rem)
+          left: 0
+          height: auto
+          width: 100%
+
+        .bottom-img
+          max-height: 217px
+          position: absolute
+          bottom: 0
+          top: calc(50% + 0.5rem)
+          left: 0
+          height: auto
+          width: 100%
+
+
+.dp-container
+  left: inherit
+  /* TODO: uncomment below once this is attached to an element
+  right: 100%
+  top: -2px
+  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.1), 0 0px 8px 0 rgba(0,0,0,0.1)
+
+  position: absolute
+  font-size: .95rem
+  background: #fff
+  z-index: 100
+  margin-top: 1px
+  min-width: 745px
+  min-height: 450px
+
+  &:after, &:before
+    left: 100%
+    top: 10%
+    border: solid transparent
+    content: " "
+    height: 0
+    width: 0
+    position: absolute
+    pointer-events: none
+
+  &:before
+    border-color: rgba(194, 200, 207, 0)
+    border-left-color: $separatorColourDark
+    border-width: 8px
+    margin-top: -8px
+
+
+  &:after
+    border-color: rgba(255, 255, 255, 0)
+    border-left-color: #fff
+    border-width: 10px
+    margin-top: -10px
+
+.picker-filters
+  padding: 1.5rem 1.75rem 1.5rem 2rem
+
+  .b-btn
+    border-top-left-radius: 0
+    border-bottom-left-radius: 0
+    width: 7.5rem
+    height: 2rem
+    text-transform: none
+    font-weight: 500
+    padding: 0
+    letter-spacing: 0
+    font-size: .875rem
+    background: #fff
+    border: 1px solid $buttonColour
+    color: $buttonColour
+
+    &.selected
+      color: #fff
+      background: $buttonColour
+      border: 1px solid $buttonColour
+
+.date-pickers
+  display: flex
+  justify-content: space-between
+
+  .time-picker-divider
+    position: relative
+    background: #fff
+    border-left: 1px solid $separatorColourDark
+
+    &:after, &:before
+      right: 100%
+      top: 50%
+      border: solid transparent
+      content: " "
+      height: 0
+      width: 0
+      position: absolute
+      pointer-events: none
+
+    &:after
+      border-color: rgba(255, 255, 255, 0)
+      border-right-color: #fff
+      border-width: 10px
+      margin-top: -10px
+
+    &:before
+      border-color: rgba(194, 200, 207, 0)
+      border-right-color: $separatorColourDark
+      border-width: 11px
+      margin-top: -11px
+
+.save-dt
+  .dt-separator
+    margin: 0
+    background: $separatorColourLight
+    height: 1px
+    min-height: 1px
+
+  .confirm-section
+    padding: 1rem 1.5rem
+    position: relative
+    display: flex
+    -webkit-box-pack: end
+    justify-content: flex-end
+    flex-direction: row
+
+    .confirm-dt
+      width: auto
+      display: inline-block
+      height: auto
+      border-radius: 2px
+      font-size: 0.875rem
+      line-height: 1rem
+      padding: 0.75rem 1rem
+      color: #fff
+      text-align: center
+      background: $buttonColour
+      border: none
+
+      &:hover
+        cursor: pointer
+        background: $buttonColourHover
+
+/* date picker style overrides */
+.DayPicker__withBorder
+  box-shadow: none !important
+
+.CalendarDay__default
+  border: none !important
+
+.CalendarDay__blocked_calendar, .CalendarDay__blocked_calendar:active, .CalendarDay__blocked_calendar:hover
+  color: $separatorColourDark !important
+  background: #fff !important
+  cursor: default

@@ -15,6 +15,7 @@ import {
   fetchWalkins,
 } from './actions';
 import './styles/style.css';
+import 'react-dates/lib/css/_datepicker.css';
 
 injectTapEventPlugin({
   shouldRejectClick: () => true

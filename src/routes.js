@@ -10,6 +10,7 @@ import Dashboard from './containers/DashboardContainer';
 import Search from './containers/SearchContainer';
 import EventPage from './pages/EventPage';
 import External from './containers/ExternalContainer';
+import ExternalTest from './containers/ExternalTestContainer';
 import EditAvailabilitySchedule from './containers/EditAvailabilityScheduleContainer';
 import AvailabilitySchedule from './containers/AvailabilityScheduleContainer';
 
@@ -24,6 +25,7 @@ export default (
       <Route path='booking' component={Booking} />
       <Route path='booking/:bookingId' component={BookingItem} />
       <Route path='external' component={External} />
+      <Route path='externaltest' component={ExternalTest} />
       <Route path='availabilitySchedules' component={AvailabilitySchedule} />
       <Route path='availabilitySchedules/new' component={EditAvailabilitySchedule} />
       <Route path='availabilitySchedule/:scheduleId' component={EditAvailabilitySchedule} />

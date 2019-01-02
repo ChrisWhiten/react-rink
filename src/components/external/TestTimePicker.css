@@ -1,0 +1,87 @@
+/*#4cb781*/
+/*#56c18b*/
+.test-time-picker {
+  padding: 1rem 2rem;
+  outline: none;
+  display: block; }
+
+.test-time-picker-date {
+  text-align: left;
+  color: #17181a;
+  margin-top: 7px;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 2px;
+  padding: 0;
+  margin: 0;
+  line-height: 1.36; }
+
+.hour-picker {
+  display: flex;
+  padding-top: 1rem;
+  font-size: .95rem; }
+  .hour-picker .test-time-picker-arrow {
+    margin: 0 1rem;
+    padding-top: .8rem; }
+    .hour-picker .test-time-picker-arrow .test-time-picker-arrow-svg {
+      transform: rotate(-90deg);
+      vertical-align: middle;
+      fill: #c2c8cf;
+      height: 12px;
+      width: 12px; }
+  .hour-picker .hour-wrapper {
+    width: 7.5rem;
+    border: 1px solid #c2c8cf;
+    height: 3.5rem;
+    border-radius: 2px;
+    outline: none; }
+    .hour-picker .hour-wrapper .hour-label {
+      color: #8a8F99;
+      font-weight: 200;
+      font-size: .85rem;
+      padding: .55rem .75rem 0;
+      display: inline;
+      position: absolute;
+      z-index: 100; }
+      .hour-picker .hour-wrapper .hour-label.empty {
+        padding: 1.2rem .75rem 0;
+        font-weight: 500;
+        font-size: 1rem; }
+    .hour-picker .hour-wrapper .select-container {
+      margin: 0;
+      border: none;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      background: #fff;
+      padding-right: 12px; }
+      .hour-picker .hour-wrapper .select-container .hour-select {
+        width: 100%;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 100;
+        height: 3.5rem;
+        line-height: 3.5rem; }
+      .hour-picker .hour-wrapper .select-container .select-display {
+        padding: 0;
+        margin: 1.75rem .75rem 0;
+        font-size: 1rem;
+        font-weight: 500;
+        background: transparent;
+        color: #17181a;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden; }
+      .hour-picker .hour-wrapper .select-container .select-down-arrow {
+        fill: #333;
+        position: absolute;
+        top: 0;
+        right: 2px;
+        bottom: 0;
+        display: flex;
+        align-items: center; }
